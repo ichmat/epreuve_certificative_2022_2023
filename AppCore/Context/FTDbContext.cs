@@ -27,16 +27,20 @@ namespace AppCore.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=TestDatabase.db", options =>
+            var serverVersion = new MySqlServerVersion(new Version(5, 7, 36));
+            var connectionString = "server=localhost;user=root;password=;database=freshtech";
+            optionsBuilder.UseMySql(connectionString,serverVersion, options =>
             {
                 options.MigrationsAssembly("WebApplicationAPI");
             });
             base.OnConfiguring(optionsBuilder);
         }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Map table names
             base.OnModelCreating(modelBuilder);
+
         }
     }
 }
