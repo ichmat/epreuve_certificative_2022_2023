@@ -23,6 +23,10 @@ namespace AppCore.Context
         public DbSet<ConstructionInfo> ConstructionInfos { get; set; }
 
         public DbSet<Construction> Constructions { get; set; }
+        public DbSet<Ressource> Ressources { get; set; }
+        public DbSet<Objet> Objets { get; set; }
+        public DbSet<RessourcePossede> RessourcePossedes { get; set; }
+        public DbSet<ObjetsPossede> ObjetsPossedes { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

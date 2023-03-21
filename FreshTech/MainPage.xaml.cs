@@ -1,4 +1,6 @@
-﻿namespace FreshTech;
+﻿using FreshTech.Pages;
+
+namespace FreshTech;
 
 public partial class MainPage : ContentPage
 {
@@ -7,6 +9,7 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
+
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)
