@@ -13,15 +13,15 @@ namespace AppCore.Models
         public Guid UtilisateurId { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(255)]
         public string Mail { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(255)]
         public string Pseudo { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(255)]
         public string MotDePasse { get; set; }
 
         public float? PoidKg { get; set; }

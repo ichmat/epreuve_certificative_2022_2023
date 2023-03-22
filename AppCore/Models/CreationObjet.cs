@@ -10,28 +10,22 @@ using System.Threading.Tasks;
 
 namespace AppCore.Models
 {
-    [PrimaryKey(nameof(ConsInfoId), nameof(Type), nameof(VillageId), nameof(ConstructionId))]
-    public abstract class Construction
+    [PrimaryKey(nameof(ObjetId), nameof(ConsInfoId), nameof(Type))]
+    public class CreationObjet
     {
+        public int ObjetId { get; set; }
+
         public int ConsInfoId { get; set; }
 
         public TypeConstruction Type { get; set; }
 
-        public int VillageId { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ConstructionId { get; set; }
-
-        [Required]
-        public int Vie { get; set; }
-
-        [Required]
-        public byte Niveau { get; set; }
-
-        [ForeignKey("VillageId")]
-        public Village Village { get; set; }
+        [ForeignKey("ObjetId")]
+        public Objet Objet { get; set; }
 
         [ForeignKey("ConsInfoId,Type")]
         public ConstructionInfo ConstructionInfo { get; set; }
+
+        [Required]
+        public int Nombre { get; set; }
     }
 }

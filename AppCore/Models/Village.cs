@@ -15,7 +15,9 @@ namespace AppCore.Models
         public int VillageId { get; set; }
 
         [Required]
-        [ForeignKey("Utilisateur")]
         public Guid UtilisateurId { get; set; }
+
+        [ForeignKey("UtilisateurId")]
+        public Utilisateur Utilisateur { get; set; }
     }
 }

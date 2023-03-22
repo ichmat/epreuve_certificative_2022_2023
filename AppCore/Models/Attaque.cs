@@ -21,7 +21,9 @@ namespace AppCore.Models
         public int Puissance { get; set; }
 
         [Required]
-        [ForeignKey("Village")]
         public int VillageId { get; set; }
+
+        [ForeignKey("VillageId")]
+        public Village Village { get; set;}
     }
 }

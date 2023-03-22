@@ -18,8 +18,6 @@ namespace AppCore.Models
         public string Nom { get; set; }
 
         [Required]
-        public byte rarete { get; set; }
-
         public TypeRarete Rarete { get; set; }
     }
 }

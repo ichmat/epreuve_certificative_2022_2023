@@ -22,12 +22,31 @@ namespace AppCore.Context
 
         public DbSet<ConstructionInfo> ConstructionInfos { get; set; }
 
-        public DbSet<Construction> Constructions { get; set; }
+        //public DbSet<Construction> Constructions { get; set; }
+
         public DbSet<Ressource> Ressources { get; set; }
+
         public DbSet<Objet> Objets { get; set; }
+
         public DbSet<RessourcePossede> RessourcePossedes { get; set; }
+
         public DbSet<ObjetsPossede> ObjetsPossedes { get; set; }
 
+        public DbSet<AmeliorationObjet> AmeliorationObjets { get; set; }
+
+        public DbSet<AmeliorationRessource> AmeliorationRessources { get; set; }
+
+        public DbSet<CreationObjet> CreationObjets { get; set; }
+
+        public DbSet<CreationRessource> CreationRessources { get; set; }
+
+        public DbSet<ReparationRessource> ReparationRessources { get; set; }
+
+        public DbSet<ConstructionDef> ConstructionDefs { get; set; }
+
+        public DbSet<ConstructionProd> ConstructionProds { get; set; }
+
+        public DbSet<ConstructionAutre> ConstructionAutres { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

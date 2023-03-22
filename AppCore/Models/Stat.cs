@@ -11,8 +11,10 @@ namespace AppCore.Models
     public class Stat
     {
         [Key]
-        [ForeignKey("Utilisateur")]
         public Guid UtilisateurId { get; set; }
+
+        [ForeignKey("UtilisateurId")]
+        public Utilisateur Utilisateur { get; set; }
 
         public float? VitesseMoyenneKmH { get; set; }
 
