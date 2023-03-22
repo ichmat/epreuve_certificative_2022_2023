@@ -1,4 +1,6 @@
 namespace FreshTech.Pages;
+using Microsoft.Maui.Controls;
+//namespace FreshTech.Pages;
 
 public partial class LoginPage : ContentPage
 {
@@ -7,14 +9,15 @@ public partial class LoginPage : ContentPage
 	{
         InitializeComponent();
 
-
-        var usernameEntry = new Entry
-        {
-            Placeholder = "Nom d'utilisateur"
-        };
     }
-    private void OnCounterClicked(object sender, EventArgs e)
-    {
 
+    private void OnLoginClicked(object sender, System.EventArgs e)
+    {
+        // TODO: Add login logic here
+    }
+
+    private async void OnRegisterClicked(object sender, System.EventArgs e)
+    {
+       await Navigation.PushAsync(new RegisterPage());
     }
 }

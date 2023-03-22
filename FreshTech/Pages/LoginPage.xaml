@@ -4,10 +4,11 @@
              x:Class="FreshTech.Pages.LoginPage"
              Title="LoginPage">
     <StackLayout Margin="20">
-        <Label Text="Connexion" FontSize="Large" HorizontalOptions="Center" />
-        <Label Text="Entrez vos informations de connexion." FontSize="Medium" HorizontalOptions="Center" />
-        <Entry Placeholder="Nom d'utilisateur" />
-        <Entry Placeholder="Mot de passe" IsPassword="true" />
+        <Label Text="Login" FontSize="Large" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Margin="0,20,0,0" />
+        <Entry x:Name="UsernameEntry" Placeholder="Username" Margin="20,20,20,0" />
+        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" Margin="20,10,20,0" />
+        <Button Text="Login" Clicked="OnLoginClicked" Margin="20,20,20,0" />
+        <Button Text="Register" Clicked="OnRegisterClicked" Margin="20,20,20,0" />
         <!--<Button Text="Se connecter" Clicked="OnLoginButtonClicked" HorizontalOptions="FillAndExpand" />-->
     </StackLayout>
 </ContentPage>
