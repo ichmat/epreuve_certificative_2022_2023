@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -79,6 +80,29 @@ namespace ProjectTester
             Assert.AreEqual(sync_key, client_sync_key);
             Assert.AreEqual(reallyImportantData, reallyImportantDataDecrypted);
             Assert.AreEqual(response, responseDecrypted);
+        }
+
+        [TestMethod]
+        public void TestSignature()
+        {
+            SecurityManager serverSecurity = new SecurityManager();
+            SecurityManager clientSecurity = new SecurityManager();
+
+            string public_client_key_sign = clientSecurity.GenerateSignatureKeyAndReturnPubKey();
+            string public_server_key_sign = serverSecurity.GenerateSignatureKeyAndReturnPubKey();
+
+            serverSecurity.SetPublicKeySignature(public_client_key_sign);
+            clientSecurity.SetPublicKeySignature(public_server_key_sign);
+
+            string myData = "123456789";
+            string signedMyData = serverSecurity.SignData(myData);
+
+            Assert.IsTrue(clientSecurity.CheckSign(myData, signedMyData));
+
+            string myData2 = "987654321";
+            string signedMyData2 = clientSecurity.SignData(myData2);
+
+            Assert.IsTrue(serverSecurity.CheckSign(myData2, signedMyData2));
         }
     }
 }

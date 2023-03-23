@@ -13,6 +13,9 @@ namespace AppCore.Services
         private string? _private_unsafe_key = null;
         private string? _public_unsafe_key = null;
 
+        private string? _private_key_sign = null;
+        private string? _public_key_sign = null;
+
         private static readonly byte[] IV = Encoding.ASCII.GetBytes("abcdef0123456789");
 
         private byte[]? _sync_key = null;
@@ -25,11 +28,9 @@ namespace AppCore.Services
         public string GenerateUnsafeAsyncKeysAndReturnPublicKey()
         {
             var rsa = new RSACryptoServiceProvider(2048);
-            rsa.ToXmlString(true);
             
             _private_unsafe_key = rsa.ToXmlString(true);
-            _public_unsafe_key = rsa.ToXmlString(false);
-            return _public_unsafe_key;
+            return rsa.ToXmlString(false);
         }
 
         public void SetUnsafeAsyncKey(string public_unsafe_key)
@@ -125,6 +126,41 @@ namespace AppCore.Services
                         }
                     }
                 }
+            }
+        }
+
+
+        public string GenerateSignatureKeyAndReturnPubKey()
+        {
+            var rsa = new RSACryptoServiceProvider();
+            _private_key_sign = rsa.ToXmlString(true);
+            return rsa.ToXmlString(false);
+        }
+
+        public void SetPublicKeySignature(string publicKey)
+        {
+            _public_key_sign = publicKey;
+        }
+
+        public string SignData(string data)
+        {
+            if (_private_key_sign == null) throw new ArgumentException("no key sign setted");
+            byte[] buffers = Encoding.UTF8.GetBytes(data);
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                rsa.FromXmlString(_private_key_sign);
+                return Convert.ToBase64String(rsa.SignData(buffers, "SHA256"));
+            }
+        }
+
+        public bool CheckSign(string data, string signedData)
+        {
+            if (_public_key_sign == null) throw new ArgumentException("no key sign setted");
+            byte[] buffers = Encoding.UTF8.GetBytes(data);
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                rsa.FromXmlString(_public_key_sign);
+                return rsa.VerifyData(buffers, "SHA256", Convert.FromBase64String(signedData));
             }
         }
     }
