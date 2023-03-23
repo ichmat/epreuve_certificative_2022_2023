@@ -8,5 +8,9 @@ namespace AppCore.Services
 {
     public class FTMessage
     {
+        private readonly string _user_guid;
+        private readonly string _message;
+
+
     }
 }
