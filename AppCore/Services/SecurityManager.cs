@@ -16,13 +16,28 @@ namespace AppCore.Services
         private string? _private_key_sign = null;
         private string? _public_key_sign = null;
 
+        private DateTime _expiration_date;
+
+        private const int MINUTES_EXPIRATIONS = 60;
+
         private static readonly byte[] IV = Encoding.ASCII.GetBytes("abcdef0123456789");
 
         private byte[]? _sync_key = null;
 
         public SecurityManager()
         {
-            
+            _expiration_date = DateTime.Now.AddMinutes(MINUTES_EXPIRATIONS);
+        }
+
+        public bool Expired => _expiration_date < DateTime.Now;
+
+        public void Clear()
+        {
+            _private_unsafe_key = null;
+            _public_unsafe_key = null;
+            _private_key_sign = null;
+            _public_key_sign = null;
+            _expiration_date = DateTime.Now.AddMinutes(MINUTES_EXPIRATIONS);
         }
 
         public string GenerateUnsafeAsyncKeysAndReturnPublicKey()
