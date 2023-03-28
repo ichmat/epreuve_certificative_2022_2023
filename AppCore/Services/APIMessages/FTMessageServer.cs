@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace AppCore.Services
+namespace AppCore.Services.APIMessages
 {
     public class FTMessageServer : FTMessage
     {

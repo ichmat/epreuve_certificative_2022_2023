@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace AppCore.Services
+namespace AppCore.Services.APIMessages
 {
 
     public class FTMessageClient : FTMessage
@@ -17,15 +17,15 @@ namespace AppCore.Services
 
         public FTMessageClient(string userGuid, string message, string signature) : base(message, signature)
         {
-            this.UserGuid = userGuid;
+            UserGuid = userGuid;
         }
 
         public FTMessageClient(string userGuid, string message) : base(message)
         {
-            this.UserGuid = userGuid;
+            UserGuid = userGuid;
         }
 
-        public FTMessageClient() : base ()
+        public FTMessageClient() : base()
         {
             UserGuid = string.Empty;
         }

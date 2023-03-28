@@ -24,6 +24,10 @@ namespace AppCore.Models
         [StringLength(255)]
         public string MotDePasse { get; set; }
 
+        [Required]
+        [StringLength(255)]
+        public string Sel { get; set; }
+
         public float? PoidKg { get; set; }
 
         public ushort? TailleCm { get; set; }

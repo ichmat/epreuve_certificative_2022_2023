@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AppCore.Services.APIMessages;
 
 namespace AppCore.Services
 {
@@ -55,7 +56,27 @@ namespace AppCore.Services
                     syncKey);
         }
 
+        public FTMessageServer SetPublicSignKeyAndReturnServerPkSignKey(string id, string? client_sign_key)
+        {
 
+            if (string.IsNullOrWhiteSpace(id)) { throw new ArgumentNullException("UserGuid is not valid"); }
+            if (string.IsNullOrWhiteSpace(client_sign_key)) { throw new ArgumentNullException("Public key is not valid"); }
+
+            _securityClients[id].SetPublicKeySignature(client_sign_key);
+            return FTMessageServer.GenerateNotSecure(_securityClients[id].GenerateSignatureKeyAndReturnPubKey());
+        }
+
+        public string? UserExistAndCheckState(string id)
+        {
+            if (!_securityClients.ContainsKey(id)) return APIError.USER_ID_NOT_EXIST;
+            if (_securityClients[id].Expired) return APIError.USER_EXPIRED;
+            if (_securityClients[id].QuotaExceeded) return APIError.QUOTA_EXCEEDED;
+
+            _securityClients[id].ResetQuotaIfExpired();
+            _securityClients[id].IncreaseQuota();
+            _securityClients[id].ResetTimeOut();
+            return null;
+        }
 
         public bool UserExist(string id)
         {

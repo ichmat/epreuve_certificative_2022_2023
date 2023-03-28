@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace AppCore.Services
+namespace AppCore.Services.APIMessages
 {
     public abstract class FTMessage
     {
@@ -38,11 +38,11 @@ namespace AppCore.Services
             Message = string.Empty;
             Signature = null;
         }
-        
+
 
         public abstract string ToJson();
 
-        public T? SecureDecrypt<T>(SecurityManager manager) where T : class 
+        public T? SecureDecrypt<T>(SecurityManager manager) where T : class
         {
             if (Signature == null) throw new Exception(EMPTY_SIGNATURE);
 

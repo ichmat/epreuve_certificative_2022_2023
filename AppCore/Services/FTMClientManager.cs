@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using AppCore.Services.APIMessages;
 
 namespace AppCore.Services
 {

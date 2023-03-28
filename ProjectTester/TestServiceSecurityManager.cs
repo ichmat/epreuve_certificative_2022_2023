@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ProjectTester
 {
     [TestClass]
-    public class ServiceSecurityManager
+    public class TestServiceSecurityManager
     {
 
         [TestMethod]

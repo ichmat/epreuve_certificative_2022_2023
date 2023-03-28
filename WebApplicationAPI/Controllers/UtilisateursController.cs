@@ -19,14 +19,6 @@ namespace WebApplicationAPI.Controllers
             _context = context;
         }
 
-        // GET: Utilisateurs
-        public async Task<IActionResult> Index()
-        {
-              return _context.Utilisateurs != null ? 
-                          View(await _context.Utilisateurs.ToListAsync()) :
-                          Problem("Entity set 'FTDbContext.Utilisateurs'  is null.");
-        }
-
         // GET: Utilisateurs/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
