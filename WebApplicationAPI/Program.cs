@@ -1,10 +1,13 @@
 
 using AppCore.Context;
+using AppCore.Services;
 
 namespace WebApplicationAPI
 {
     public class Program
     {
+        public static FTMServerManager serverManager = new FTMServerManager();
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -34,10 +37,10 @@ namespace WebApplicationAPI
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
         }
+
     }
 }

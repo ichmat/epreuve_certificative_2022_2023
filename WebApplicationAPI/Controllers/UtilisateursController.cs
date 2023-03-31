@@ -7,158 +7,50 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppCore.Context;
 using AppCore.Models;
+using AppCore.Services.APIMessages;
+using AppCore.Services;
+using AppCore.Services.GeneralMessage.Args;
 
 namespace WebApplicationAPI.Controllers
 {
-    public class UtilisateursController : Controller
+    public class UtilisateursController : FreshTechController
     {
-        private readonly FTDbContext _context;
-
-        public UtilisateursController(FTDbContext context)
+        public UtilisateursController(FTDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        // GET: Utilisateurs
-        public async Task<IActionResult> Index()
+        [HttpPost(APIRoute.CREATE_USER)]
+        public async Task<IActionResult> Create(FTMessageClient message)
         {
-              return _context.Utilisateurs != null ? 
-                          View(await _context.Utilisateurs.ToListAsync()) :
-                          Problem("Entity set 'FTDbContext.Utilisateurs'  is null.");
-        }
-
-        // GET: Utilisateurs/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null || _context.Utilisateurs == null)
+            return await ProcessResponse<EPCreateUser>(message, (args) =>
             {
-                return NotFound();
-            }
-
-            var utilisateur = await _context.Utilisateurs
-                .FirstOrDefaultAsync(m => m.UtilisateurId == id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-
-            return View(utilisateur);
-        }
-
-        // GET: Utilisateurs/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Utilisateurs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UtilisateurId,Mail,Pseudo,MotDePasse,PoidKg,TailleCm")] Utilisateur utilisateur)
-        {
-            if (ModelState.IsValid)
-            {
-                utilisateur.UtilisateurId = Guid.NewGuid();
-                _context.Add(utilisateur);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(utilisateur);
-        }
-
-        // GET: Utilisateurs/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.Utilisateurs == null)
-            {
-                return NotFound();
-            }
-
-            var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-            return View(utilisateur);
-        }
-
-        // POST: Utilisateurs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("UtilisateurId,Mail,Pseudo,MotDePasse,PoidKg,TailleCm")] Utilisateur utilisateur)
-        {
-            if (id != utilisateur.UtilisateurId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                if(string.IsNullOrWhiteSpace(args.Pseudo) || 
+                string.IsNullOrWhiteSpace(args.Mail) ||
+                string.IsNullOrWhiteSpace(args.MotDePasse) ||
+                string.IsNullOrWhiteSpace(args.Sel))
                 {
-                    _context.Update(utilisateur);
-                    await _context.SaveChangesAsync();
+                    return BadRequest(APIError.BAD_ARGS);
                 }
-                catch (DbUpdateConcurrencyException)
+
+                if(dbContext.Utilisateurs.Any(x => x.Pseudo == args.Pseudo || x.Mail == args.Mail))
                 {
-                    if (!UtilisateurExists(utilisateur.UtilisateurId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return BadRequest(APIError.BAD_ARGS);
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(utilisateur);
+
+                Utilisateur u = new Utilisateur();
+                u.UtilisateurId = Guid.NewGuid();
+                u.Pseudo = args.Pseudo;
+                u.Mail = args.Mail;
+                u.MotDePasse = args.MotDePasse;
+                u.Sel = args.Sel;
+                u.PoidKg = args.PoidKg;
+                u.TailleCm = args.TailleCm;
+
+                dbContext.SaveChanges();
+
+                return Json(Message(message, u.UtilisateurId));
+            });
         }
-
-        // GET: Utilisateurs/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null || _context.Utilisateurs == null)
-            {
-                return NotFound();
-            }
-
-            var utilisateur = await _context.Utilisateurs
-                .FirstOrDefaultAsync(m => m.UtilisateurId == id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-
-            return View(utilisateur);
-        }
-
-        // POST: Utilisateurs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            if (_context.Utilisateurs == null)
-            {
-                return Problem("Entity set 'FTDbContext.Utilisateurs'  is null.");
-            }
-            var utilisateur = await _context.Utilisateurs.FindAsync(id);
-            if (utilisateur != null)
-            {
-                _context.Utilisateurs.Remove(utilisateur);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UtilisateurExists(Guid id)
-        {
-          return (_context.Utilisateurs?.Any(e => e.UtilisateurId == id)).GetValueOrDefault();
-        }
+        
     }
 }

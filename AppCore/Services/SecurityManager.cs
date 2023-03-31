@@ -25,6 +25,14 @@ namespace AppCore.Services
             
         }
 
+        public void Clear()
+        {
+            _private_unsafe_key = null;
+            _public_unsafe_key = null;
+            _private_key_sign = null;
+            _public_key_sign = null;
+        }
+
         public string GenerateUnsafeAsyncKeysAndReturnPublicKey()
         {
             var rsa = new RSACryptoServiceProvider(2048);
