@@ -1,4 +1,5 @@
 ﻿using AppCore.Models;
+using AppCore.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace AppCore.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var serverVersion = new MySqlServerVersion(new Version(5, 7, 36));
-            var connectionString = "server=localhost;user=root;password=;database=freshtech";
+            var connectionString = "server=localhost;port=3306;user=root;password=root;database=freshtech";
             optionsBuilder.UseMySql(connectionString,serverVersion, options =>
             {
                 options.MigrationsAssembly("WebApplicationAPI");
@@ -63,7 +64,6 @@ namespace AppCore.Context
         {
             // Map table names
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }

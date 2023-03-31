@@ -26,6 +26,15 @@ namespace AppCore.Services
             _client.BaseAddress = new Uri(API_URL);
         }
 
+        public async Task<bool> ConnexionStart()
+        {
+            if(await EstablishConnection())
+            {
+                return await GetSignKey();
+            }
+            return false;
+        }
+
         public async Task<bool> EstablishConnection()
         {
             FTMessageClient msg = FTMessageClient.GenerateNotSecure(
@@ -81,7 +90,7 @@ namespace AppCore.Services
             return false;
         }
 
-        public async Task<bool> AttemptConnection(string? pseudo, string? mail, string password)
+        public async Task<bool> Login(string? pseudo, string? mail, string password)
         {
             if (pseudo == null && mail == null)
                 throw new ArgumentNullException("need pseudo or mail (can be both)");
@@ -98,7 +107,7 @@ namespace AppCore.Services
                     FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
                     if (res != null)
                     {
-                        res.SecureDecrypt<string>(_securityManager);
+                        _token = res.SecureDecrypt<string>(_securityManager);
                         return true;
                     }
                 }

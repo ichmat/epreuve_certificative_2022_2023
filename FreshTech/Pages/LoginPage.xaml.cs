@@ -18,7 +18,11 @@ public partial class LoginPage : ContentPage
     {
         await Task.Delay(5000);
         FTMClientManager clientManager = new FTMClientManager();
-        bool r = await clientManager.EstablishConnection();
+        bool r = await clientManager.ConnexionStart();
+        if(r)
+        {
+            await clientManager.Login("billy", null, "billy");
+        }
     }
 
     private void OnLoginClicked(object sender, System.EventArgs e)

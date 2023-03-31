@@ -11,7 +11,7 @@ using System.Text.Json.Serialization;
 
 namespace WebApplicationAPI.Controllers
 {
-    //[ApiController]
+    [ApiController]
     [Produces("application/json")]
     public class ConnexionController : FreshTechController
     {

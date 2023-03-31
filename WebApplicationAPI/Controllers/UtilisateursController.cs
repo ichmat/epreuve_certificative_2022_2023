@@ -32,6 +32,11 @@ namespace WebApplicationAPI.Controllers
                     return BadRequest(APIError.BAD_ARGS);
                 }
 
+                if(dbContext.Utilisateurs.Any(x => x.Pseudo == args.Pseudo || x.Mail == args.Mail))
+                {
+                    return BadRequest(APIError.BAD_ARGS);
+                }
+
                 Utilisateur u = new Utilisateur();
                 u.UtilisateurId = Guid.NewGuid();
                 u.Pseudo = args.Pseudo;
