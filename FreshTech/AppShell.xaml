@@ -4,11 +4,24 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:FreshTech"
+    xmlns:page="clr-namespace:FreshTech.Pages"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+
+
+    <TabBar>
+        <ShellContent Title="Home"
+                     ContentTemplate="{DataTemplate local:MainPage}"
+                      Route="Dahboard"
+                      />
+        <ShellContent Title="Login"
+                      Route="Dahboard"
+                     ContentTemplate="{DataTemplate page:LoginPage}" />
+        
+        <ShellContent Title="Register"
+                      Route="Dahboard"
+                     ContentTemplate="{DataTemplate page:RegisterPage}" />
+
+    </TabBar>
 
 </Shell>

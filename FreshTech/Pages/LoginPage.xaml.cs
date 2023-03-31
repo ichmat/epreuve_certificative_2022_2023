@@ -25,10 +25,10 @@ public partial class LoginPage : ContentPage
         }
     }
 
-    private void OnLoginClicked(object sender, System.EventArgs e)
-    {
-        // TODO: Add login logic here
-    }
+    //private void OnLoginClicked(object sender, System.EventArgs e)
+    //{
+    //    // TODO: Add login logic here
+    //}
 
     private async void OnRegisterClicked(object sender, System.EventArgs e)
     {
