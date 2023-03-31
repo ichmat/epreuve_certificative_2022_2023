@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using AppCore.Services.APIMessages;
+using AppCore.Services.GeneralMessage;
 
 namespace AppCore.Services
 {
@@ -48,9 +49,67 @@ namespace AppCore.Services
             {
                 Console.WriteLine( ex.ToString() );
             }
-           
 
             return false;
         }
+
+        public async Task<bool> GetSignKey()
+        {
+            FTMessageClient msg = FTMessageClient.GenerateNotSecure(
+                _id,
+                _securityManager.GenerateSignatureKeyAndReturnPubKey()
+                );
+
+            try
+            {
+                HttpResponseMessage response = await _client.PostAsJsonAsync(APIRoute.SIGN_KEY, msg);
+                if (response.IsSuccessStatusCode)
+                {
+                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                    if (res != null)
+                    {
+                        _securityManager.SetPublicKeySignature(res.Message);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return false;
+        }
+
+        public async Task<bool> AttemptConnection(string? pseudo, string? mail, string password)
+        {
+            if (pseudo == null && mail == null)
+                throw new ArgumentNullException("need pseudo or mail (can be both)");
+
+            FTMessageClient msg = FTMessageClient.GenerateSecure(_id,
+                _securityManager,
+                new Credentials(pseudo, password, mail));
+
+            try
+            {
+                HttpResponseMessage response = await _client.PostAsJsonAsync(APIRoute.ATTEMPT_CONNECTION, msg);
+                if (response.IsSuccessStatusCode)
+                {
+                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                    if (res != null)
+                    {
+                        res.SecureDecrypt<string>(_securityManager);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return false;
+        }
+    
     }
 }

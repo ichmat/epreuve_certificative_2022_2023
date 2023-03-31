@@ -16,56 +16,13 @@ namespace AppCore.Services
         private string? _private_key_sign = null;
         private string? _public_key_sign = null;
 
-        private DateTime _expiration_date;
-        private int _quota;
-        private DateTime _quota_reset;
-
-        private const int QUOTA_MAX = 50;
-        private const int MINUTES_EXPIRATIONS = 60;
-        private const int MINUTES_QUOTA_RESET = 5;
-
         private static readonly byte[] IV = Encoding.ASCII.GetBytes("abcdef0123456789");
 
         private byte[]? _sync_key = null;
 
         public SecurityManager()
         {
-            _expiration_date = DateTime.Now.AddMinutes(MINUTES_EXPIRATIONS);
-            _quota_reset = DateTime.Now.AddMinutes(MINUTES_QUOTA_RESET);
-            _quota = 0;
-        }
-
-        public bool Expired => _expiration_date < DateTime.Now;
-
-        public bool QuotaExceeded
-        {
-            get
-            {
-                if(_quota_reset > DateTime.Now)
-                {
-                    return (_quota >= QUOTA_MAX);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public void IncreaseQuota() => _quota++;
-
-        public void ResetQuotaIfExpired()
-        {
-            if (_quota_reset <= DateTime.Now)
-            {
-                _quota_reset = DateTime.Now.AddMinutes(MINUTES_QUOTA_RESET);
-                _quota = 0;
-            }
-        }
-
-        public void ResetTimeOut()
-        {
-            _expiration_date = DateTime.Now.AddMinutes(MINUTES_EXPIRATIONS);
+            
         }
 
         public void Clear()
@@ -74,7 +31,6 @@ namespace AppCore.Services
             _public_unsafe_key = null;
             _private_key_sign = null;
             _public_key_sign = null;
-            _expiration_date = DateTime.Now.AddMinutes(MINUTES_EXPIRATIONS);
         }
 
         public string GenerateUnsafeAsyncKeysAndReturnPublicKey()

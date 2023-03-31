@@ -13,5 +13,7 @@ namespace AppCore.Services
         public const string USER_EXPIRED = "User expired";
         public const string QUOTA_EXCEEDED = "Quota exceeded";
         public const string BAD_FORMAT_DATA = "Bad format data";
+        public const string BAD_CREDENTIALS = "Bad credentials";
+        public const string BAD_ARGS = "Bad args";
     }
 }

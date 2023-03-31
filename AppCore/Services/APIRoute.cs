@@ -15,7 +15,7 @@ namespace AppCore.Services
         public const string ATTEMPT_CONNECTION = "/connect/attempt";
         #endregion
         #region UTILISATEUR_CONTROLLER
-
+        public const string CREATE_USER = "/user/create";
         #endregion
     }
 }
