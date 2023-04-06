@@ -1,7 +1,4 @@
-﻿using AppCore.Services;
-using FreshTech.Pages;
-
-namespace FreshTech;
+﻿namespace FreshTech;
 
 public partial class App : Application
 {
@@ -9,7 +6,6 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-        //MainPage = new MainPage();
-       MainPage = new AppShell();
+        MainPage = new AppShell();
 	}
 }

@@ -7,20 +7,22 @@
     xmlns:page="clr-namespace:FreshTech.Pages"
     Shell.FlyoutBehavior="Disabled">
 
-
-
     <TabBar>
         <ShellContent Title="Home"
-                     ContentTemplate="{DataTemplate local:MainPage}"
+                      ContentTemplate="{DataTemplate local:MainPage}"
                       Route="Dahboard"
                       />
         <ShellContent Title="Login"
                       Route="Dahboard"
-                     ContentTemplate="{DataTemplate page:LoginPage}" />
+                      ContentTemplate="{DataTemplate page:LoginPage}" />
         
         <ShellContent Title="Register"
                       Route="Dahboard"
-                     ContentTemplate="{DataTemplate page:RegisterPage}" />
+                      ContentTemplate="{DataTemplate page:RegisterPage}" />
+
+        <ShellContent Title="Test"
+                      Route="Dahboard"
+                      ContentTemplate="{DataTemplate page:TestPage}" />
 
     </TabBar>
 
