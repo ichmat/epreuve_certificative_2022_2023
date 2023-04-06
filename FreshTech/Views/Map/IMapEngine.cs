@@ -8,11 +8,6 @@ namespace FreshTech.Views
 {
     public interface IMapEngine
     {
-        public Task<LocalisationError> CheckLocationAvailable();
-
-        public Task<Location> GetLocation();
-
-        public Task WaitStableLocation();
 
         public void DrawLine(Location from, Location to);
 

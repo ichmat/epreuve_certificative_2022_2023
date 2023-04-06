@@ -6,6 +6,6 @@
              xmlns:map="clr-namespace:FreshTech.Views.Map"
              Title="TestPage">
     <Grid>
-        <Button WidthRequest="130" HeightRequest="50" Text="Test" />
+        <map:FTOpenStreetMap />
     </Grid>
 </ContentPage>
