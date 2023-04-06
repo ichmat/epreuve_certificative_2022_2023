@@ -6,22 +6,16 @@ using System.Threading.Tasks;
 
 namespace FreshTech.Views
 {
-    public interface IMapEngine
+    public interface IMapEngine : IDisposable
     {
+        public void AddLine(Location location);
 
-        public void DrawLine(Location from, Location to);
+        public void CutLine();
 
-        public void MooveTo(Location to);
+        public void UpdateUserLocation(Location location);
 
-        public IView GetMapView();
+        public void MooveScreenTo(Location to, double? zoomMetersAccuracy = null);
 
-        public enum LocalisationError
-        {
-            None = 0,
-            NotSupported = 1,
-            NotEnabled = 2,
-            NeedPermission = 3,
-            Unknown = 4
-        }
+        public View GetMapView();
     }
 }

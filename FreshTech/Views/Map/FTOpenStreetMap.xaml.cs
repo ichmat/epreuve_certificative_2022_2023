@@ -5,37 +5,90 @@ using Mapsui.Nts;
 using Mapsui.Providers;
 using Mapsui.Styles;
 using Mapsui.UI.Maui;
+using Microsoft.Maui.Controls.Shapes;
+using NetTopologySuite.Algorithm;
 using NetTopologySuite.Geometries;
+using NetTopologySuite.GeometriesGraph;
 using static FreshTech.Views.IMapEngine;
 
 namespace FreshTech.Views.Map;
 
-public partial class FTOpenStreetMap : ContentView
+public partial class FTOpenStreetMap : ContentView, IMapEngine
 {
     private readonly MapView map;
-    private const string LineLayerName = "Line Layer";
+    private bool first_init_location_user = true;
+    private MemoryLayer _lines;
+
+    private Coordinate? _last_coordinate = null;
+
     public FTOpenStreetMap()
 	{
 		InitializeComponent();
         map = new MapView();
         map.Map?.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
         Content = map;
-        
-        ProcessCoordonate();
+        _lines = CreateLineLayer();
+        map.Map.Layers.Add(_lines);
+        map.MyLocationEnabled = false;
+        map.MyLocationFollow = false;
+        map.IsMyLocationButtonVisible = false;
     }
 
-    private async void ProcessCoordonate()
+    public void Dispose() => map.Dispose();
+
+    public void AddLine(Microsoft.Maui.Devices.Sensors.Location location)
     {
-        Microsoft.Maui.Devices.Sensors.Location location = await Geolocation.Default.GetLocationAsync();
+        Mapsui.UI.Maui.Position position = new Mapsui.UI.Maui.Position(location.Latitude, location.Longitude);
+        if(_last_coordinate == null)
+        {
+            _last_coordinate = position.ToCoordinate();
+        }
+        else
+        {
+            ((List<IFeature>)_lines.Features).Add(CreateLineFeature(_last_coordinate, position.ToCoordinate()));
+            _last_coordinate = position.ToCoordinate();
+        }
+    }
+
+    public void UpdateUserLocation(Microsoft.Maui.Devices.Sensors.Location location)
+    {
+        if (first_init_location_user)
+        {
+            first_init_location_user = false;
+            map.MyLocationEnabled = true;
+            map.MyLocationFollow = true;
+            map.IsMyLocationButtonVisible = true;
+        }
         var position = new Mapsui.UI.Maui.Position(location.Latitude, location.Longitude);
 
-        map.IsMyLocationButtonVisible = true;
         map.MyLocationLayer.UpdateMyLocation(position);
-        map.MyLocationLayer.IsMoving = true;
-        map.MyLocationEnabled = true;
-        map.MyLocationFollow = true;
+    }
 
+    public void MooveScreenTo(Microsoft.Maui.Devices.Sensors.Location to, double? zoomMetersAccuracy = null)
+    {
+        Mapsui.UI.Maui.Position position = new Mapsui.UI.Maui.Position(to.Latitude, to.Longitude);
+        MPoint p = position.ToMapsui();
+        if(zoomMetersAccuracy == null)
+        {
+            map.Navigator.NavigateTo(p,50);
+        }
+        else
+        {
+            // TODO
+        }
+    }
 
+    public void CutLine()
+    {
+        _last_coordinate = null;
+        _lines = CreateLineLayer();
+        map.Map.Layers.Add(_lines);
+    }
+
+    public View GetMapView() => this;
+
+    private void AddPin(Mapsui.UI.Maui.Position position)
+    {
         var pin = new Pin
         {
             Position = position,
@@ -44,99 +97,63 @@ public partial class FTOpenStreetMap : ContentView
         };
 
         map.Pins.Add(pin);
-
-
-        var pin2 = new Pin
-        {
-            Position = new(0,0),
-            Label = "custom pin",
-            Address = "custom detail info",
-        };
-
-        map.Pins.Add(pin2);
-
-        List<Pin> pins = new List<Pin>();
-        pins.Add(pin2);
-        pins.Add(pin);
-
-       var testline =  CreateLine("tata", pins);
-        var position2 = new Mapsui.UI.Maui.Position(location.Latitude, location.Longitude);
-        map.Map.Layers.Add(CreateLineLayer(position.ToCoordinate(), new(0, 0)));
-
     }
 
-    private async Task<Microsoft.Maui.Devices.Sensors.Location> GetLocation()
-    {
-        GeolocationRequest gr = new GeolocationRequest();
-        gr.DesiredAccuracy = GeolocationAccuracy.Best;
-        return await Geolocation.Default.GetLocationAsync(gr)!;
-    }
-
-    public async Task<LocalisationError> CheckLocationAvailable()
-    {
-        try
-        {
-            Microsoft.Maui.Devices.Sensors.Location location = await Geolocation.Default.GetLocationAsync();
-
-            if (location != null)
-                return LocalisationError.None;
-            else
-                return LocalisationError.Unknown;
-        }
-        catch (FeatureNotSupportedException fnsEx)
-        {
-            // Handle not supported on device exception
-            return LocalisationError.NotSupported;
-        }
-        catch (FeatureNotEnabledException fneEx)
-        {
-            // Handle not enabled on device exception
-            return LocalisationError.NotEnabled;
-        }
-        catch (PermissionException pEx)
-        {
-            // Handle permission exception
-            return LocalisationError.NeedPermission;
-        }
-        catch (Exception ex)
-        {
-            // Unable to get location
-            return LocalisationError.Unknown;
-        }
-    }
     private static GeometryFeature CreateLineFeature(Coordinate start, Coordinate end)
     {
         return new GeometryFeature
         {
-            Geometry = CreateLine2(start, end),
-            ["Name"] = "Line 1",
-            Styles = new List<IStyle> { new VectorStyle { Line = new Pen(new Mapsui.Styles.Color(0, 0, 0), 6) } }
+            Geometry = CreateLine(start, end),
+            Styles = new List<IStyle> { new VectorStyle { Line = new Pen(new Mapsui.Styles.Color(0, 0, 0), 3) } }
         };
     }
-    private static LineString CreateLine2(Coordinate start, Coordinate end)
-    {
-        var offsetX = 44;
-        var offsetY = 4;
-        var stepSize = -2000000;
 
+    private static GeometryFeature CreateLineFeature(Coordinate[] coords)
+    {
+        return new GeometryFeature
+        {
+            Geometry = CreateLine(coords),
+            Styles = new List<IStyle> { new VectorStyle { Line = new Pen(new Mapsui.Styles.Color(0, 0, 0), 3) } }
+        };
+    }
+
+    private static LineString CreateLine(Coordinate start, Coordinate end)
+    {
         return new LineString(new[]
         {
-           start,
+            start,
             end,
-
         });
     }
-    private static ILayer CreateLineLayer(Coordinate start, Coordinate end)
+
+    private static LineString CreateLine(Coordinate[] coords)
+    {
+        return new LineString(coords);
+    }
+
+    private static MemoryLayer CreateLineLayer()
     {
         return new MemoryLayer
         {
-            Name = LineLayerName,
-            Features = new[] { CreateLineFeature(start, end) },
+            Name = null,
+            Features = new List<IFeature>(),
             Style = null,
             IsMapInfoLayer = true
         };
     }
-    private MemoryLayer CreateLine(String name, List<Pin> geoWaypoints)
+
+    private static MemoryLayer CreateLineLayer(params Coordinate[] coords)
+    {
+        return new MemoryLayer
+        {
+            Name = null,
+            Features = new[] { CreateLineFeature(coords) },
+            Style = null,
+            IsMapInfoLayer = true
+        };
+    }
+
+    private MemoryLayer CreateLineWithPins(String name, List<Pin> geoWaypoints)
     {
         var featureList = new List<IFeature>();
         var suggestions = new Coordinate[geoWaypoints.Count];
@@ -155,5 +172,5 @@ public partial class FTOpenStreetMap : ContentView
         };
     }
 
-
+    
 }
