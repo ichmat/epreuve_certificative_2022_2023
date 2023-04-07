@@ -119,6 +119,67 @@ namespace AppCore.Services
 
             return false;
         }
-    
+        
+        public async Task<bool> SendRequest(EndPointArgs request)
+        {
+            if (_token == null)
+                throw new ArgumentNullException("user not connected");
+
+            request.Token = _token;
+
+            FTMessageClient msg = FTMessageClient.GenerateSecure(_id,
+               _securityManager,
+               request);
+
+            try
+            {
+                HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
+                if (response.IsSuccessStatusCode)
+                {
+                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                    if (res != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return false;
+        }
+
+        public async Task<T?> SendAndGetResponse<T>(EndPointArgs request) where T: class
+        {
+            if (_token == null)
+                throw new ArgumentNullException("user not connected");
+
+            request.Token = _token;
+
+            FTMessageClient msg = FTMessageClient.GenerateSecure(_id,
+               _securityManager,
+               request);
+
+            try
+            {
+                HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
+                if (response.IsSuccessStatusCode)
+                {
+                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                    if (res != null)
+                    {
+                        return res.SecureDecrypt<T>(_securityManager);
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return null;
+        }
     }
 }

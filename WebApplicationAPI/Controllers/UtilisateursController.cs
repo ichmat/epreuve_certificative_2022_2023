@@ -51,6 +51,60 @@ namespace WebApplicationAPI.Controllers
                 return Json(Message(message, u.UtilisateurId));
             });
         }
-        
+
+        [HttpPost(APIRoute.UPDATE_USER)]
+        public async Task<IActionResult> Update(FTMessageClient message)
+        {
+            return await ProcessAndCheckToken<EPUpdateUser>(message, (args) =>
+            {
+                Utilisateur? u = GetUserByUserGuid(message.UserGuid);
+
+                if(u == null) { return BadRequest(APIError.USER_ID_NOT_EXIST); }
+
+                bool edit = false;
+
+                if (args.MotDePasse != null && args.Sel != null) 
+                {
+                    u.MotDePasse = args.MotDePasse; 
+                    u.Sel = args.Sel;
+                    edit = true;
+                }
+
+                if (args.Mail != null)
+                {
+                    u.Mail = args.Mail;
+                    edit = true;
+                }
+
+                if (args.TailleCm != null)
+                {
+                    u.TailleCm = args.TailleCm;
+                    edit = true;
+                }
+
+                if(args.PoidKg != null)
+                {
+                    u.PoidKg = args.PoidKg;
+                    edit = true;
+                }
+
+                if(args.Pseudo != null)
+                {
+                    u.Pseudo = args.Pseudo;
+                    edit = true;
+                }
+
+                if (edit)
+                {
+                    dbContext.Update(u);
+                    dbContext.SaveChanges();
+                    return Ok();
+                }
+                else {
+                    return BadRequest(APIError.NOTHING_TO_UPDATE);
+                }
+
+            });
+        }
     }
 }

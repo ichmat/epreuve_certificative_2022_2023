@@ -15,5 +15,8 @@ namespace AppCore.Services
         public const string BAD_FORMAT_DATA = "Bad format data";
         public const string BAD_CREDENTIALS = "Bad credentials";
         public const string BAD_ARGS = "Bad args";
+        public const string BAD_USER_TOKEN = "Bad user token";
+        public const string NOTHING_TO_UPDATE = "Nothing to update";
+
     }
 }

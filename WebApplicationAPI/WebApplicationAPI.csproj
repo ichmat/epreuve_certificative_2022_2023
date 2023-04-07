@@ -22,4 +22,8 @@
     <ProjectReference Include="..\AppCore\AppCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

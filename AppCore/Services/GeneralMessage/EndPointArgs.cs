@@ -16,5 +16,12 @@ namespace AppCore.Services.GeneralMessage
         {
             Token = token;
         }
+
+        protected EndPointArgs()
+        {
+            Token = string.Empty;
+        }
+
+        public abstract string Route();
     }
 }
