@@ -18,11 +18,15 @@ public partial class FTMap : ContentView, IDisposable
     private const double METERS_ACCURACY_NEED_CALIBRATION = 50;
     private const double METERS_DISTANCE_PICK = 10;
 
+    public double DistanceKm { get; private set; } = 0D;
+
+    public double SpeedKm { get; private set; } = 0D;
+
     public FTMap()
 	{
 		InitializeComponent();
         _engine = new FTOpenStreetMap();
-        Content = _engine.GetMapView();
+        BorderMap.Content = _engine.GetMapView();
         _accuracy = new GeolocationRequest();
         _timer = new System.Timers.Timer();
         _timer.AutoReset = true;
@@ -114,8 +118,45 @@ public partial class FTMap : ContentView, IDisposable
             if(metersDistance >= METERS_DISTANCE_PICK)
             {
                 _actual_points.Add(new MapPoint(location));
+                UpdateNewDistance();
+                UpdateSpeed();
                 _engine.AddLine(location);
             }
+        }
+    }
+
+    private void UpdateSpeed()
+    {
+        if (_actual_points.Count > 1)
+        {
+            MapPoint m1 = _actual_points[_actual_points.Count - 2];
+            MapPoint m2 = _actual_points[_actual_points.Count - 1];
+
+            double dKm = CalculateDistanceKm(m1, m2);
+            double hours = (m2.Date - m1.Date).TotalHours;
+            SpeedKm = dKm / hours;
+        }
+    }
+
+    private double CalculateDistanceKm(MapPoint m1, MapPoint m2)
+    {
+        return Location.CalculateDistance(
+                m1.Latitude,
+                m1.Longitude,
+                m2.Latitude,
+                m2.Longitude,
+                DistanceUnits.Kilometers
+                );
+    }
+
+    private void UpdateNewDistance()
+    {
+        if(_actual_points.Count > 1)
+        {
+            DistanceKm += CalculateDistanceKm(
+                _actual_points[_actual_points.Count - 2],
+                _actual_points[_actual_points.Count - 1]
+                );
         }
     }
 
@@ -171,6 +212,11 @@ public partial class FTMap : ContentView, IDisposable
         _engine.Dispose();
         _points.Clear();
         _actual_points.Clear();
+    }
+
+    private void ContentView_Unloaded(object sender, EventArgs e)
+    {
+        Dispose();
     }
 }
 

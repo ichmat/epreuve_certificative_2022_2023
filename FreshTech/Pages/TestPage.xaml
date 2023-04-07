@@ -4,7 +4,7 @@
              x:Class="FreshTech.Pages.TestPage"
              xmlns:views="clr-namespace:FreshTech.Views"
              xmlns:map="clr-namespace:FreshTech.Views.Map"
-             Title="TestPage">
+             Title="">
     <Grid>
         <map:FTMap x:Name="map" />
     </Grid>

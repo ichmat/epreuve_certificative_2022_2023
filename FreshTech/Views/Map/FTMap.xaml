@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FreshTech.Views.Map.FTMap">
+             x:Class="FreshTech.Views.Map.FTMap"
+             Unloaded="ContentView_Unloaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -11,7 +12,9 @@
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        
-        
+
+        <Border Grid.RowSpan="3" Grid.ColumnSpan="3" x:Name="BorderMap">
+            
+        </Border>
     </Grid>
 </ContentView>
