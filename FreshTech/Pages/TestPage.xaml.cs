@@ -6,14 +6,15 @@ public partial class TestPage : ContentPage
 	{
 		InitializeComponent();
 		Test();
-
     }
 
 	private async void Test()
 	{
-		await Task.Delay(4000);
+        map.StartLoading();
 		map.QualityMode();
 		await map.WaitStableLocalisation();
 		await map.TrackUserNow();
+        map.StopLoading();
+        map.ObjectiveKm = 5;
     }
 }

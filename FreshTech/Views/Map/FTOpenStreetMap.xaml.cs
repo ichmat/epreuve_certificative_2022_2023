@@ -70,7 +70,7 @@ public partial class FTOpenStreetMap : ContentView, IMapEngine
         MPoint p = position.ToMapsui();
         if(zoomMetersAccuracy == null)
         {
-            map.Navigator.NavigateTo(p,50);
+            map.Navigator.NavigateTo(p,10);
         }
         else
         {
