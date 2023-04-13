@@ -1,4 +1,5 @@
 using Microsoft.Maui.Devices.Sensors;
+using System;
 using System.Timers;
 
 namespace FreshTech.Views.Map;
@@ -187,7 +188,15 @@ public partial class FTMap : ContentView, IDisposable
         t.Start();
         do
         {
-            Location? location = await Geolocation.Default.GetLocationAsync(_accuracy);
+            Task<Location?> t_location = Geolocation.Default.GetLocationAsync(_accuracy);
+
+            try
+            {
+                await t_location.WaitAsync(TimeSpan.FromMilliseconds(2000));
+            }
+            catch(TimeoutException) { }
+
+            Location? location = t_location.IsCompleted ? t_location.Result : null;
 
             if (location != null && location.Accuracy != null && 
                 location.Accuracy <= METERS_ACCURACY_NEED_CALIBRATION)
@@ -340,6 +349,16 @@ public partial class FTMap : ContentView, IDisposable
 
     private async Task<Location> GetLocation()
     {
+        Task<Location?> t_localisation = Geolocation.Default.GetLocationAsync(_accuracy);
+        Location
+        try
+        {
+            await t_localisation.WaitAsync(TimeSpan.FromMilliseconds(1000));
+        }
+        catch (TimeoutException)
+        {
+
+        }
         return await Geolocation.Default.GetLocationAsync(_accuracy)!;
     }
 

@@ -181,5 +181,36 @@ namespace AppCore.Services
 
             return null;
         }
+
+        public async Task<T?> SendAndGetResponseStruct<T>(EndPointArgs request) where T : struct
+        {
+            if (_token == null)
+                throw new ArgumentNullException("user not connected");
+
+            request.Token = _token;
+
+            FTMessageClient msg = FTMessageClient.GenerateSecure(_id,
+               _securityManager,
+               request);
+
+            try
+            {
+                HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
+                if (response.IsSuccessStatusCode)
+                {
+                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                    if (res != null)
+                    {
+                        return res.SecureDecryptStruct<T>(_securityManager);
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return null;
+        }
     }
 }

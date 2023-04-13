@@ -53,5 +53,17 @@ namespace AppCore.Services.APIMessages
 
             return JsonSerializer.Deserialize<T>(manager.Decrypt(Message));
         }
+
+        public T? SecureDecryptStruct<T>(SecurityManager manager) where T : struct
+        {
+            if (Signature == null) throw new Exception(EMPTY_SIGNATURE);
+
+            if (!manager.CheckSign(Message, Signature))
+            {
+                throw new Exception(BAD_SIGNATURE);
+            }
+
+            return JsonSerializer.Deserialize<T>(manager.Decrypt(Message));
+        }
     }
 }
