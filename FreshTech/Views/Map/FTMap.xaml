@@ -84,8 +84,6 @@
                         <RoundRectangle CornerRadius="20" />
                     </Border.StrokeShape>
                 </Border>
-                
-                
             </Grid>
             
             <Border.StrokeShape>

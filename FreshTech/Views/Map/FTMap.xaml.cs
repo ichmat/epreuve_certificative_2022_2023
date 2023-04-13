@@ -120,6 +120,11 @@ public partial class FTMap : ContentView, IDisposable
         _actual_points.Clear();
     }
 
+    public void SetEnableStart(bool isEnabled)
+    {
+        this.ButtonStart.IsEnabled = isEnabled;
+    }
+
     #region LOADING
 
     public void StartLoading()
@@ -178,14 +183,19 @@ public partial class FTMap : ContentView, IDisposable
     #region CHECK_LOCALISATION
 
 
-    internal async Task<bool> WaitStableLocalisation(double timeOutReset = 10000, int nbTryMax = 1)
+    internal async Task<bool> WaitStableLocalisation(double timeOutReset = 20000)
     {
-        _accuracy.Timeout = TimeSpan.FromMilliseconds(timeOutReset);
+        GeolocationRequest r = new GeolocationRequest();
+        r.Timeout = TimeSpan.FromMilliseconds(timeOutReset);
+        GeolocationAccuracy[] accuracies = new GeolocationAccuracy[]
+        {
+            GeolocationAccuracy.Low, GeolocationAccuracy.Medium, GeolocationAccuracy.High, GeolocationAccuracy.Best
+        };
         int tryNum = 0;
         do
         {
-            tryNum++;
-            Task<Location?> t_location = Geolocation.Default.GetLocationAsync(_accuracy);
+            r.DesiredAccuracy = accuracies[tryNum];
+            Task<Location?> t_location = Geolocation.Default.GetLocationAsync(r);
 
             await t_location.WaitAsync(new CancellationToken());
 
@@ -198,8 +208,9 @@ public partial class FTMap : ContentView, IDisposable
                 else
                     TrackUserNow(location);
             }
-        } 
-        while (tryNum < nbTryMax);
+            tryNum++;
+        }
+        while (tryNum < accuracies.Length);
 
         return false;
     }

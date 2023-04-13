@@ -14,15 +14,24 @@ public partial class TestPage : ContentPage
 		map.QualityMode();
 		try
 		{
-            await map.WaitStableLocalisation();
-            await map.TrackUserNow();
-            map.StopLoading();
+            if(await map.WaitStableLocalisation(5000))
+			{
+                map.SetEnableStart(true);
+                map.TrackUserNow(await Geolocation.Default.GetLastKnownLocationAsync());
+            }
+            else
+			{
+				map.SetEnableStart(false);
+                await DisplayAlert("Localisation", "la localisation du téléphone est difficile à récupérer. Veuillez évitez les espaces fermé.", "Ok");
+            }
             map.ObjectiveKm = 5;
         }
 		catch(Exception ex)
 		{
 			await DisplayAlert("errr", ex.ToString(), "cancel");
 		}
+		finally { map.StopLoading(); }
+
 		
     }
 }
