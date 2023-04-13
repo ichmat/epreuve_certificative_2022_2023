@@ -15,7 +15,7 @@
         <ShellContent Title="Login"
                       Route="Dahboard"
                       ContentTemplate="{DataTemplate page:LoginPage}" />
-        
+
         <ShellContent Title="Register"
                       Route="Dahboard"
                       ContentTemplate="{DataTemplate page:RegisterPage}" />
@@ -24,6 +24,9 @@
                       Route="Dahboard"
                       ContentTemplate="{DataTemplate page:TestPage}" />
 
-    </TabBar>
 
+        <ShellContent Title="Profil"
+                      Route="Dashboard"
+                      ContentTemplate="{DataTemplate page:ProfilePage}" />
+    </TabBar>
 </Shell>

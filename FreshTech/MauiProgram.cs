@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
@@ -29,7 +30,7 @@ public static class MauiProgram
                 fonts.AddFont("TwCenMTStd-UltraBold.otf", "TwCenUltraBold");
                 fonts.AddFont("TwCenMTStd-UltraBoldCond.otf", "TwCenUltraBoldCond");
                 fonts.AddFont("TwCenMTStd-UltraBoldIt.otf", "TwCenUltraBoldIt");
-            }).UseMauiMaps()
+            }).UseMauiMaps().UseMauiCommunityToolkit()
             .UseSkiaSharp(true);
 
 #if DEBUG
