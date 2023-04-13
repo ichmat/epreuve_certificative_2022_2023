@@ -87,6 +87,7 @@ public partial class FTMap : ContentView, IDisposable
         _engine = new FTOpenStreetMap();
         BorderMap.Content = _engine.GetMapView();
         _accuracy = new GeolocationRequest();
+        _accuracy.RequestFullAccuracy = true;
         _timerTrack = new System.Timers.Timer();
         _timerTrack.AutoReset = true;
         _timerTrack.Elapsed += _timerTrack_Elapsed;
@@ -95,7 +96,7 @@ public partial class FTMap : ContentView, IDisposable
         _timerTick.AutoReset = true;
         _timerTick.Interval = _millisec_tick;
         _timerTick.Elapsed += _timerTick_Elapsed;
-        QualityMode();
+        NormalMode();
     }
 
     public void Reset()
@@ -176,53 +177,43 @@ public partial class FTMap : ContentView, IDisposable
 
     #region CHECK_LOCALISATION
 
-    private bool _timeout = false;
 
-    internal async Task<bool> WaitStableLocalisation(double timeOut = 10000)
+    internal async Task<bool> WaitStableLocalisation(double timeOutReset = 10000, int nbTryMax = 1)
     {
-        bool stable = false;
-        _timeout = false;
-        System.Timers.Timer t = new System.Timers.Timer(timeOut);
-        t.AutoReset = false;
-        t.Elapsed += TimeOut_Elapsed;
-        t.Start();
+        _accuracy.Timeout = TimeSpan.FromMilliseconds(timeOutReset);
+        int tryNum = 0;
         do
         {
+            tryNum++;
             Task<Location?> t_location = Geolocation.Default.GetLocationAsync(_accuracy);
 
-            try
-            {
-                await t_location.WaitAsync(TimeSpan.FromMilliseconds(2000));
-            }
-            catch(TimeoutException) { }
+            await t_location.WaitAsync(new CancellationToken());
 
             Location? location = t_location.IsCompleted ? t_location.Result : null;
 
-            if (location != null && location.Accuracy != null && 
-                location.Accuracy <= METERS_ACCURACY_NEED_CALIBRATION)
+            if (location != null && location.Accuracy != null)
             {
-                stable = true;
+                if (location.Accuracy <= METERS_ACCURACY_NEED_CALIBRATION)
+                    return true;
+                else
+                    TrackUserNow(location);
             }
-
-            if(!stable && !_timeout) await Task.Delay(50);
         } 
-        while (!stable && !_timeout);
-        t.Stop();
-        t.Dispose();
+        while (tryNum < nbTryMax);
 
-        return stable;
+        return false;
     }
 
     internal async Task TrackUserNow()
     {
         Location location = await GetLocation();
-        _engine.UpdateUserLocation(location);
-        _engine.MooveScreenTo(location);
+        TrackUserNow(location);
     }
 
-    private void TimeOut_Elapsed(object sender, ElapsedEventArgs e)
+    internal void TrackUserNow(Location location)
     {
-        _timeout = true;
+        _engine.UpdateUserLocation(location);
+        _engine.MooveScreenTo(location);
     }
 
     internal async Task<LocalisationError> CheckLocationAvailable()
@@ -350,16 +341,19 @@ public partial class FTMap : ContentView, IDisposable
     private async Task<Location> GetLocation()
     {
         Task<Location?> t_localisation = Geolocation.Default.GetLocationAsync(_accuracy);
-        Location
+        Location? location;
         try
         {
-            await t_localisation.WaitAsync(TimeSpan.FromMilliseconds(1000));
+            await t_localisation.WaitAsync(TimeSpan.FromMilliseconds(500));
+            location = t_localisation.Result;
         }
         catch (TimeoutException)
         {
-
+            t_localisation = Geolocation.GetLastKnownLocationAsync();
+            await t_localisation.WaitAsync(TimeSpan.FromMilliseconds(500));
+            location = t_localisation.Result;
         }
-        return await Geolocation.Default.GetLocationAsync(_accuracy)!;
+        return location!;
     }
 
     #region TICK
@@ -397,11 +391,11 @@ public partial class FTMap : ContentView, IDisposable
     {
         if(ObjectiveKm != null)
         {
-            if (!BorderObjective.IsVisible)
+            if (BorderObjective.Opacity != 1)
             {
-                BorderObjective.IsVisible = true;
-                BorderObjective.Arrange(new Rect(0, 0, App.Current.MainPage.Width, App.Current.MainPage.Height));
-                Arrange(new Rect(0,0,App.Current.MainPage.Width, App.Current.MainPage.Height));
+                BorderObjective.Opacity = 1;
+                //BorderObjective.Arrange(new Rect(0, 0, this.Parent.GetVisualElementWindow().Width, this.Parent.GetVisualElementWindow().Height));
+                //Arrange(new Rect(0,0, this.Parent.GetVisualElementWindow().Width, this.Parent.GetVisualElementWindow().Height));
             }
             L_ObjectiveKm.Text = Math.Round(DistanceKm,2).ToString() + '/' + Math.Round(ObjectiveKm.Value, 2).ToString() +  "Km";
             double percent = DistanceKm / ObjectiveKm.Value;
@@ -411,7 +405,7 @@ public partial class FTMap : ContentView, IDisposable
         }
         else if (ObjectiveKm == null && BorderObjective.IsVisible)
         {
-            BorderObjective.IsVisible = false;
+            BorderObjective.Opacity = 0;
         }
     }
 

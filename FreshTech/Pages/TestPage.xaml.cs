@@ -12,9 +12,17 @@ public partial class TestPage : ContentPage
 	{
         map.StartLoading();
 		map.QualityMode();
-		await map.WaitStableLocalisation();
-		await map.TrackUserNow();
-        map.StopLoading();
-        map.ObjectiveKm = 5;
+		try
+		{
+            await map.WaitStableLocalisation();
+            await map.TrackUserNow();
+            map.StopLoading();
+            map.ObjectiveKm = 5;
+        }
+		catch(Exception ex)
+		{
+			await DisplayAlert("errr", ex.ToString(), "cancel");
+		}
+		
     }
 }

@@ -35,7 +35,7 @@
         </Border>
 
         <!-- OBJECTIVE -->
-        <Border Padding="5" Grid.Row="2" IsVisible="False" Margin="10,0,10,10" StrokeThickness="0" Grid.ColumnSpan="5" x:Name="BorderObjective" Background="{StaticResource White}">
+        <Border Padding="5" Grid.Row="2" Margin="10,0,10,10" StrokeThickness="0" Grid.ColumnSpan="5" x:Name="BorderObjective" Background="{StaticResource White}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -47,7 +47,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Margin="5,0,0,0" Grid.Row="0" Grid.Column="0">Objectif</Label>
-                <Label x:Name="L_ObjectiveKm" Margin="0,0,5,0" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="End">XX/XX Km</Label>
+                <Label x:Name="L_ObjectiveKm" Margin="0,0,5,0" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="End">0/0 Km</Label>
 
                 <!-- SHADOW INSET TOP -->
                 <Border Grid.ColumnSpan="2" Grid.Row="1">

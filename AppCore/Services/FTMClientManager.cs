@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,15 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://localhost:7252";
+        private const string API_URL = "https://4695-195-200-178-237.ngrok-free.app";
 
         public FTMClientManager() {
             _id = Guid.NewGuid().ToString();
             _securityManager = new SecurityManager();
             _client = new HttpClient();
+#if DEBUG
+            _client.DefaultRequestHeaders.Add("ngrok-skip-browser-warning", "69420");
+#endif
             _client.BaseAddress = new Uri(API_URL);
         }
 
@@ -162,21 +166,14 @@ namespace AppCore.Services
                _securityManager,
                request);
 
-            try
+            HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
-                if (response.IsSuccessStatusCode)
+                FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                if (res != null)
                 {
-                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
-                    if (res != null)
-                    {
-                        return res.SecureDecrypt<T>(_securityManager);
-                    }
+                    return res.SecureDecrypt<T>(_securityManager);
                 }
-            }
-            catch
-            {
-                throw;
             }
 
             return null;
