@@ -17,7 +17,7 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://localhost:7252";
+        private const string API_URL = "http://localhost:5000";
 
         public FTMClientManager() {
             _id = Guid.NewGuid().ToString();

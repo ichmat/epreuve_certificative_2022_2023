@@ -350,7 +350,7 @@ public partial class FTMap : ContentView, IDisposable
     private async Task<Location> GetLocation()
     {
         Task<Location?> t_localisation = Geolocation.Default.GetLocationAsync(_accuracy);
-        Location
+        
         try
         {
             await t_localisation.WaitAsync(TimeSpan.FromMilliseconds(1000));
