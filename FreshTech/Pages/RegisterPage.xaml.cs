@@ -1,4 +1,6 @@
 namespace FreshTech.Pages;
+
+using AppCore.Services.GeneralMessage.Args;
 using System;
 public partial class RegisterPage : ContentPage
 {
@@ -19,6 +21,6 @@ public partial class RegisterPage : ContentPage
 
         // Faites quelque chose avec les valeurs récupérées ici, par exemple les afficher dans une boîte de dialogue.
         DisplayAlert("Valeurs des zones de texte", $"Pseudo : {pseudoText}\nMail : {mailText}\nMot de passe : {motDePasseText}", "OK");
-
+        var resp = await App.client.SendAndGetResponseStruct<Guid>(new EPCreateUser(mailText,pseudoText,motDePasseText,"sel",65,170));
     }
 }
