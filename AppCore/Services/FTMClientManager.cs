@@ -19,7 +19,7 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://0bf0-2001-861-e080-5540-fda4-d892-92b4-8098.ngrok-free.app";
+        private const string API_URL = "https://5625-80-119-18-121.ngrok-free.app";
 
         public FTMClientManager() {
             _id = Guid.NewGuid().ToString();

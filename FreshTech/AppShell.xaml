@@ -28,5 +28,10 @@
         <ShellContent Title="Profil"
                       Route="Dashboard"
                       ContentTemplate="{DataTemplate page:ProfilePage}" />
+
+
+        <ShellContent Title="Game"
+                      Route="Dashboard"
+                      ContentTemplate="{DataTemplate page:GamePage}" />
     </TabBar>
 </Shell>
