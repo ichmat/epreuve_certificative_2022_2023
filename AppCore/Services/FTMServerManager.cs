@@ -109,12 +109,9 @@ namespace AppCore.Services
         public string? UserExistAndCheckState(string id)
         {
             if (!_securityClients.ContainsKey(id)) return APIError.USER_ID_NOT_EXIST;
-            if (_tokenClients[id].Expired) return APIError.USER_EXPIRED;
-            if (_tokenClients[id].QuotaExceeded) return APIError.QUOTA_EXCEEDED;
+           
 
-            _tokenClients[id].ResetQuotaIfExpired();
-            _tokenClients[id].IncreaseQuota();
-            _tokenClients[id].ResetTimeOut();
+            
             return null;
         }
 
@@ -148,7 +145,14 @@ namespace AppCore.Services
         /// <returns>True : ok <br></br>False : le token ne correspond pas</returns>
         public bool CheckToken(string id, EndPointArgs arg)
         {
-            return _tokenClients.ContainsKey(id) && _tokenClients[id].Token == arg.Token;
+            return _tokenClients.ContainsKey(id) && _tokenClients[id].Expired && _tokenClients[id].QuotaExceeded && _tokenClients[id].Token == arg.Token;
+        }
+
+        public void ProcessToken(string id)
+        {
+            _tokenClients[id].ResetQuotaIfExpired();
+            _tokenClients[id].IncreaseQuota();
+            _tokenClients[id].ResetTimeOut();
         }
 
         /// <summary>

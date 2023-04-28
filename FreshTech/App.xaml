@@ -6,6 +6,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- IL FAUT ABSOLUMENT LAISSER LE DICTIONNAIRE Colors.xaml EN PREMIERE PLACE -->
+                <!-- CAR IL EST UTILISER DANS LE FICHIER ColorsTools.cs -->
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>

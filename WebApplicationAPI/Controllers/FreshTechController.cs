@@ -34,6 +34,7 @@ namespace WebApplicationAPI.Controllers
             {
                 if(Program.serverManager.CheckToken(message.UserGuid, args))
                 {
+                    Program.serverManager.ProcessToken(message.UserGuid);
                     return process.Invoke(args);
                 }
                 else

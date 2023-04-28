@@ -1,3 +1,4 @@
+using FreshTech.Tools;
 using Microsoft.Maui.Devices.Sensors;
 using System;
 using System.Timers;
@@ -21,6 +22,8 @@ public partial class FTMap : ContentView, IDisposable
     private short _millisec_tick = 1000;
     private short _millisec_track = 4000;
 
+    private bool _is_init = false;
+
     private double _distanceKm = 0D;
     public double DistanceKm
     {
@@ -30,7 +33,6 @@ public partial class FTMap : ContentView, IDisposable
             if(value != _distanceKm)
             {
                 _distanceKm = value;
-                UpdateKmObjective();
             }
         }
     }
@@ -46,7 +48,10 @@ public partial class FTMap : ContentView, IDisposable
             if (value != _objectiveKm)
             {
                 _objectiveKm = value;
-                UpdateKmObjective();
+                Dispatcher.Dispatch(() =>
+                {
+                    UpdateKmObjective();
+                });
             }
         }
     }
@@ -54,6 +59,8 @@ public partial class FTMap : ContentView, IDisposable
     public double TotalSecActivity { get; private set; } = 0D;
 
     public double TotalSecPause { get; private set; } = 0D;
+
+    public double TotalSec { get => TotalSecPause + TotalSecActivity; }
 
     private TrackState _state = TrackState.NotSet;
 
@@ -65,17 +72,39 @@ public partial class FTMap : ContentView, IDisposable
             if(value != _state)
             {
                 _state = value;
-                switch(_state)
+                if(_is_init)
                 {
-                    case TrackState.NotSet:
-                        ButtonStart.IsVisible = true;
-                        break;
-                    case TrackState.Stopped:
-                        break;
-                    case TrackState.Paused:
-                        break;
-                    case TrackState.Running:
-                        break;
+                    switch (_state)
+                    {
+                        case TrackState.NotSet:
+                            ButtonStart.IsVisible = true;
+                            ButtonState.IsVisible = false;
+                            ButtonStop.IsVisible = false;
+                            BorderTimePause.IsVisible = false;
+                            break;
+                        case TrackState.Stopped:
+                            ButtonStart.IsVisible = false;
+                            ButtonState.IsVisible = false;
+                            ButtonStop.IsVisible = false;
+                            BorderTimePause.IsVisible = false;
+                            break;
+                        case TrackState.Paused:
+                            ButtonStart.IsVisible = false;
+                            ButtonState.IsVisible = true;
+                            ButtonStop.IsVisible = false;
+                            ButtonState.Text = "RESUME";
+                            ButtonState.BackgroundColor = ColorsTools.Success;
+                            BorderTimePause.IsVisible = true;
+                            break;
+                        case TrackState.Running:
+                            ButtonStart.IsVisible = false;
+                            ButtonState.IsVisible = true;
+                            ButtonStop.IsVisible = true;
+                            ButtonState.Text = "PAUSE";
+                            ButtonState.BackgroundColor = ColorsTools.Warning;
+                            BorderTimePause.IsVisible = false;
+                            break;
+                    }
                 }
             }
         }
@@ -97,6 +126,7 @@ public partial class FTMap : ContentView, IDisposable
         _timerTick.Interval = _millisec_tick;
         _timerTick.Elapsed += _timerTick_Elapsed;
         NormalMode();
+       
     }
 
     public void Reset()
@@ -122,7 +152,14 @@ public partial class FTMap : ContentView, IDisposable
 
     public void SetEnableStart(bool isEnabled)
     {
-        this.ButtonStart.IsEnabled = isEnabled;
+        Dispatcher.Dispatch(() =>
+        {
+            this.ButtonStart.IsEnabled = isEnabled;
+            this.ButtonStart.IsVisible = isEnabled;
+
+            BorderSpeed.IsVisible = isEnabled;
+            BorderTimeActivity.IsVisible = isEnabled;
+        });
     }
 
     #region LOADING
@@ -181,7 +218,6 @@ public partial class FTMap : ContentView, IDisposable
     #endregion
 
     #region CHECK_LOCALISATION
-
 
     internal async Task<bool> WaitStableLocalisation(double timeOutReset = 20000)
     {
@@ -270,6 +306,29 @@ public partial class FTMap : ContentView, IDisposable
         _timerTrack.Start();
         _timerTick.Start();
     }
+
+    internal void ResumeTrack()
+    {
+        State = TrackState.Running;
+        _timerTrack.Start();
+    }
+
+    internal void PauseTrack()
+    {
+        State = TrackState.Paused;
+        _timerTrack.Stop();
+        _engine.CutLine();
+        _points.Add(_actual_points.ToArray());
+        _actual_points.Clear();
+    }
+
+    internal void StopTrack()
+    {
+        State = TrackState.Stopped;
+        _timerTrack.Stop();
+        _timerTick.Stop();
+    }
+
     private void _timerTrack_Elapsed(object sender, ElapsedEventArgs e)
     {
         Application.Current.Dispatcher.Dispatch(TrackNow);
@@ -308,6 +367,7 @@ public partial class FTMap : ContentView, IDisposable
             double dKm = CalculateDistanceKm(m1, m2);
             double hours = (m2.Date - m1.Date).TotalHours;
             SpeedKm = dKm / hours;
+            UpdateSpeedLabel();
         }
     }
 
@@ -331,22 +391,6 @@ public partial class FTMap : ContentView, IDisposable
                 _actual_points[_actual_points.Count - 1]
                 );
         }
-    }
-
-    internal void PauseTrack()
-    {
-        State = TrackState.Paused;
-        _timerTrack.Stop();
-        _engine.CutLine();
-        _points.Add(_actual_points.ToArray());
-        _actual_points.Clear();
-    }
-
-    internal void StopTrack()
-    {
-        State = TrackState.Stopped;
-        _timerTrack.Stop();
-        _timerTick.Stop();
     }
 
     private async Task<Location> GetLocation()
@@ -373,7 +417,7 @@ public partial class FTMap : ContentView, IDisposable
 
     private void _timerTick_Elapsed(object sender, ElapsedEventArgs e)
     {
-        Application.Current.Dispatcher.Dispatch(Tick);
+        Dispatcher.Dispatch(Tick);
     }
 
     private void Tick()
@@ -388,6 +432,7 @@ public partial class FTMap : ContentView, IDisposable
                 break;
             case TrackState.Running:
                 TotalSecActivity += _millisec_tick / 1000D;
+                UpdateActivityLabel();
                 break;
         }
     }
@@ -400,24 +445,40 @@ public partial class FTMap : ContentView, IDisposable
 
     private void UpdateKmObjective()
     {
-        if(ObjectiveKm != null)
-        {
-            if (BorderObjective.Opacity != 1)
+        Dispatcher.Dispatch(() => {
+            if (ObjectiveKm != null)
             {
-                BorderObjective.Opacity = 1;
-                //BorderObjective.Arrange(new Rect(0, 0, this.Parent.GetVisualElementWindow().Width, this.Parent.GetVisualElementWindow().Height));
-                //Arrange(new Rect(0,0, this.Parent.GetVisualElementWindow().Width, this.Parent.GetVisualElementWindow().Height));
+                if (BorderObjective.IsVisible != true)
+                {
+                    BorderObjective.IsVisible = true;
+                }
+                L_ObjectiveKm.Text = Math.Round(DistanceKm, 2).ToString() + '/' + Math.Round(ObjectiveKm.Value, 2).ToString() + "Km";
+                double percent = DistanceKm / ObjectiveKm.Value;
+                if (percent > 1) { percent = 1; }
+                if (percent < 0) { percent = 0; }
+                BorderBar.WidthRequest = BorderBarParent.Width * percent;
             }
-            L_ObjectiveKm.Text = Math.Round(DistanceKm,2).ToString() + '/' + Math.Round(ObjectiveKm.Value, 2).ToString() +  "Km";
-            double percent = DistanceKm / ObjectiveKm.Value;
-            if (percent > 1) { percent = 1; }
-            if (percent < 0) { percent = 0; }
-            BorderBar.WidthRequest = BorderBarParent.Width * percent;
-        }
-        else if (ObjectiveKm == null && BorderObjective.IsVisible)
+            else if (ObjectiveKm == null && BorderObjective.IsVisible)
+            {
+                BorderObjective.IsVisible = false;
+            }
+        });
+    }
+
+    private void UpdateSpeedLabel()
+    {
+        Dispatcher.Dispatch(() =>
         {
-            BorderObjective.Opacity = 0;
-        }
+            L_Speed.Text = SpeedKm.ToString() + " KM/H";
+        });
+    }
+
+    private void UpdateActivityLabel()
+    {
+        Dispatcher.Dispatch(() =>
+        {
+            L_Time_Activity.Text = TimeSpan.FromSeconds(TotalSecActivity).ToString(@"hh\:mm\:ss");
+        });
     }
 
     #endregion
@@ -439,15 +500,40 @@ public partial class FTMap : ContentView, IDisposable
 
     private void ButtonState_Clicked(object sender, EventArgs e)
     {
-        // TODO
+        if(State == TrackState.Running)
+        {
+            PauseTrack();
+        }
+        else if(State == TrackState.Paused)
+        {
+            ResumeTrack();
+        }
     }
-
-    #endregion
 
     private void ButtonStop_Clicked(object sender, EventArgs e)
     {
-
+        if(State == TrackState.Running)
+        {
+            StopTrack();
+        }
     }
+
+    private void ContentView_SizeChanged(object sender, EventArgs e)
+    {
+        if (!_is_init)
+        {
+            _is_init = true;
+            ButtonStart.IsVisible = false;
+            ButtonState.IsVisible = false;
+            ButtonStop.IsVisible = false;
+            BorderObjective.IsVisible = false;
+            BorderTimePause.IsVisible = false;
+            BorderTimeActivity.IsVisible = false;
+            BorderSpeed.IsVisible = false;
+        }
+    }
+
+    #endregion
 }
 
 public enum TrackState

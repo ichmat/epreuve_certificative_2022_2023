@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppCore.Services.APIMessages;
 using AppCore.Services.GeneralMessage;
+using AppCore.Services.GeneralMessage.Args;
 
 namespace AppCore.Services
 {
@@ -18,7 +19,7 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://4695-195-200-178-237.ngrok-free.app";
+        private const string API_URL = "https://0bf0-2001-861-e080-5540-fda4-d892-92b4-8098.ngrok-free.app";
 
         public FTMClientManager() {
             _id = Guid.NewGuid().ToString();
@@ -124,6 +125,32 @@ namespace AppCore.Services
             return false;
         }
         
+        public async Task<bool> Register(EPCreateUser request)
+        {
+            FTMessageClient msg = FTMessageClient.GenerateSecure(_id,
+               _securityManager,
+               request);
+
+            try
+            {
+                HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
+                if (response.IsSuccessStatusCode)
+                {
+                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                    if (res != null)
+                    {
+                        return await Login(request.Pseudo, null, request.MotDePasse);
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return false;
+        }
+
         public async Task<bool> SendRequest(EndPointArgs request)
         {
             if (_token == null)

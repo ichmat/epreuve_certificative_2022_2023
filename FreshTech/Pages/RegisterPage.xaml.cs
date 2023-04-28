@@ -20,7 +20,10 @@ public partial class RegisterPage : ContentPage
         string motDePasseText = MotDePasse.Text;
 
         // Faites quelque chose avec les valeurs récupérées ici, par exemple les afficher dans une boîte de dialogue.
-        DisplayAlert("Valeurs des zones de texte", $"Pseudo : {pseudoText}\nMail : {mailText}\nMot de passe : {motDePasseText}", "OK");
-        var resp = await App.client.SendAndGetResponseStruct<Guid>(new EPCreateUser(mailText,pseudoText,motDePasseText,"sel",65,170));
+        if(await App.client.ConnexionStart())
+        {
+            //await DisplayAlert("Valeurs des zones de texte", $"Pseudo : {pseudoText}\nMail : {mailText}\nMot de passe : {motDePasseText}", "OK");
+            bool resp = await App.client.Register(new EPCreateUser(mailText, pseudoText, motDePasseText, "sel", 65, 170));
+        }
     }
 }

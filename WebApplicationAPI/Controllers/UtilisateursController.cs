@@ -13,6 +13,8 @@ using AppCore.Services.GeneralMessage.Args;
 
 namespace WebApplicationAPI.Controllers
 {
+    [ApiController]
+    [Produces("application/json")]
     public class UtilisateursController : FreshTechController
     {
         public UtilisateursController(FTDbContext context) : base(context)
