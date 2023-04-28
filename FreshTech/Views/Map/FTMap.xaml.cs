@@ -349,7 +349,7 @@ public partial class FTMap : ContentView, IDisposable
 
     private async void TrackNow()
     {
-        Location location = ApplyFilter(await GetLocation());
+        Location location = await GetLocation();
         _engine.UpdateUserLocation(location);
         if(_actual_points.Count == 0)
         {
