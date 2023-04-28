@@ -5,10 +5,10 @@ using AppCore.Services.GeneralMessage.Args;
 using Microsoft.Maui.Controls;
 //namespace FreshTech.Pages;
 
-public partial class LoginPage : ContentPage
+public partial class GamePage : ContentPage
 {
     int count = 0;
-    public LoginPage()
+    public GamePage()
 	{
         InitializeComponent();
         TestConnect();
@@ -33,9 +33,9 @@ public partial class LoginPage : ContentPage
 
     private async void OnLoginClicked(object sender, System.EventArgs e)
     {
-        string mailText = Mail.Text;
-        string motDePasseText = MotDePasse.Text;
-        var resp = await App.client.Login(mailText, default, motDePasseText);
+        //string mailText = Mail.Text;
+       // string motDePasseText = MotDePasse.Text;
+       // var resp = await App.client.Login(mailText, default, motDePasseText);
         // await Navigation.PushAsync(new RegisterPage());
     }
 }

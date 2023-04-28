@@ -10,7 +10,7 @@
         <Entry x:Name="MotDePasse" Placeholder="Mot de passe" PlaceholderColor="Grey" IsPassword="True" Margin="20,20,20,0" VerticalOptions="Fill" HeightRequest="50"/>
         <Label Text="Deja un compte ?" TextColor="Grey" FontAttributes="Bold" HorizontalOptions="Center" Margin="20,20,20,0" HeightRequest="50" />
 
-        <Button Text="Se connecter" Clicked="OnRegisterClicked" HorizontalOptions="Center" Margin="20,20,20,0" BackgroundColor="Green" />
+        <Button Text="Se connecter" Clicked="OnLoginClicked" HorizontalOptions="Center" Margin="20,20,20,0" BackgroundColor="Green" />
 
         <Label Text="Se connecter avec" TextColor="Grey" FontAttributes="Bold" HorizontalOptions="Center" Margin="020,20,20,0" />
 

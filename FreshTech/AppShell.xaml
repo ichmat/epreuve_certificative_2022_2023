@@ -8,10 +8,7 @@
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
-        <ShellContent Title="Home"
-                      ContentTemplate="{DataTemplate local:MainPage}"
-                      Route="Dahboard"
-                      />
+
         <ShellContent Title="Login"
                       Route="Dahboard"
                       ContentTemplate="{DataTemplate page:LoginPage}" />
@@ -28,5 +25,10 @@
         <ShellContent Title="Profil"
                       Route="Dashboard"
                       ContentTemplate="{DataTemplate page:ProfilePage}" />
+
+
+        <ShellContent Title="Game"
+                      Route="Dashboard"
+                      ContentTemplate="{DataTemplate page:GamePage}" />
     </TabBar>
 </Shell>
