@@ -139,7 +139,7 @@ namespace AppCore.Services
                     FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
                     if (res != null)
                     {
-                        return await Login(request.Pseudo, null, request.MotDePasse);
+                        return true;
                     }
                 }
             }

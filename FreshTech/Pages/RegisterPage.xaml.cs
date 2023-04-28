@@ -1,5 +1,6 @@
 namespace FreshTech.Pages;
 
+using AppCore.Services;
 using AppCore.Services.GeneralMessage.Args;
 using System;
 public partial class RegisterPage : ContentPage
@@ -19,11 +20,21 @@ public partial class RegisterPage : ContentPage
         string mailText = Mail.Text;
         string motDePasseText = MotDePasse.Text;
 
+
+        string motDePasseHash = Password.HashPasword(motDePasseText, out string str_salt);
         // Faites quelque chose avec les valeurs récupérées ici, par exemple les afficher dans une boîte de dialogue.
         if(await App.client.ConnexionStart())
         {
             //await DisplayAlert("Valeurs des zones de texte", $"Pseudo : {pseudoText}\nMail : {mailText}\nMot de passe : {motDePasseText}", "OK");
-            bool resp = await App.client.Register(new EPCreateUser(mailText, pseudoText, motDePasseText, "sel", 65, 170));
+            bool resp = await App.client.Register(new EPCreateUser(mailText, pseudoText, motDePasseHash, str_salt, null, null));
+            if(resp)
+            {
+                await DisplayAlert("vous êtes enregistré", "houra", "Cool Connecte moi !");
+                if(await App.client.Login(pseudoText, null, motDePasseText))
+                {
+                    await DisplayAlert("vous êtes connecté", "houra", "YES !");
+                }
+            }
         }
     }
 }

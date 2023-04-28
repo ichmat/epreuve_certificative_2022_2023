@@ -47,7 +47,7 @@ namespace WebApplicationAPI.Controllers
                 u.Sel = args.Sel;
                 u.PoidKg = args.PoidKg;
                 u.TailleCm = args.TailleCm;
-
+                dbContext.Utilisateurs.Add(u);
                 dbContext.SaveChanges();
 
                 return Json(Message(message, u.UtilisateurId));
