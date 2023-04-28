@@ -2,6 +2,8 @@ using FreshTech.Tools;
 using Microsoft.Maui.Devices.Sensors;
 using System;
 using System.Timers;
+using MathNet.Filtering.Kalman;
+using System.Diagnostics.Metrics;
 
 namespace FreshTech.Views.Map;
 
@@ -17,7 +19,7 @@ public partial class FTMap : ContentView, IDisposable
     private readonly System.Timers.Timer _timerTrack;
 
     private const double METERS_ACCURACY_NEED_CALIBRATION = 50;
-    private const double METERS_DISTANCE_PICK = 10;
+    private const double METERS_DISTANCE_PICK = 5;
 
     private short _millisec_tick = 1000;
     private short _millisec_track = 4000;
@@ -33,6 +35,13 @@ public partial class FTMap : ContentView, IDisposable
             if(value != _distanceKm)
             {
                 _distanceKm = value;
+                if(_objectiveKm != null)
+                {
+                    Dispatcher.Dispatch(() =>
+                    {
+                        UpdateKmObjective();
+                    });
+                }
             }
         }
     }
@@ -59,6 +68,8 @@ public partial class FTMap : ContentView, IDisposable
     public double TotalSecActivity { get; private set; } = 0D;
 
     public double TotalSecPause { get; private set; } = 0D;
+
+    public double TotalSecActualPause { get; private set; } = 0D;
 
     public double TotalSec { get => TotalSecPause + TotalSecActivity; }
 
@@ -95,6 +106,8 @@ public partial class FTMap : ContentView, IDisposable
                             ButtonState.Text = "RESUME";
                             ButtonState.BackgroundColor = ColorsTools.Success;
                             BorderTimePause.IsVisible = true;
+                            TotalSecActualPause = 0D;
+                            UpdatePauseLabel();
                             break;
                         case TrackState.Running:
                             ButtonStart.IsVisible = false;
@@ -336,7 +349,7 @@ public partial class FTMap : ContentView, IDisposable
 
     private async void TrackNow()
     {
-        Location location = await GetLocation();
+        Location location = ApplyFilter(await GetLocation());
         _engine.UpdateUserLocation(location);
         if(_actual_points.Count == 0)
         {
@@ -355,6 +368,30 @@ public partial class FTMap : ContentView, IDisposable
                 _engine.AddLine(location);
             }
         }
+    }
+
+    private UKF[] filters = Array.Empty<UKF>();
+    private double init_lat = 0;
+    private double init_lon = 0;
+
+    private Location ApplyFilter(Location location)
+    {
+        if(filters.Length == 0)
+        {
+            filters = new[] { new UKF(), new UKF() };
+            init_lat = location.Latitude;
+            init_lon = location.Longitude;
+        }
+        else
+        {
+            filters[0].Update(new[] { location.Latitude - init_lat });
+            filters[1].Update(new[] { location.Longitude - init_lon });
+            location.Latitude = filters[0].getState()[0] + init_lat;
+            location.Longitude = filters[1].getState()[0] + init_lon;
+        }
+        
+        return location;
+
     }
 
     private void UpdateSpeed()
@@ -429,6 +466,8 @@ public partial class FTMap : ContentView, IDisposable
                 break;
             case TrackState.Paused:
                 TotalSecPause += _millisec_tick / 1000D;
+                TotalSecActualPause += _millisec_tick / 1000D;
+                UpdatePauseLabel();
                 break;
             case TrackState.Running:
                 TotalSecActivity += _millisec_tick / 1000D;
@@ -469,7 +508,7 @@ public partial class FTMap : ContentView, IDisposable
     {
         Dispatcher.Dispatch(() =>
         {
-            L_Speed.Text = SpeedKm.ToString() + " KM/H";
+            L_Speed.Text = Math.Round(SpeedKm,2).ToString() + " KM/H";
         });
     }
 
@@ -478,6 +517,15 @@ public partial class FTMap : ContentView, IDisposable
         Dispatcher.Dispatch(() =>
         {
             L_Time_Activity.Text = TimeSpan.FromSeconds(TotalSecActivity).ToString(@"hh\:mm\:ss");
+        });
+    }
+
+    private void UpdatePauseLabel()
+    {
+        Dispatcher.Dispatch(() =>
+        {
+            L_Time_Pause_Actual.Text = TimeSpan.FromSeconds(TotalSecActualPause).ToString(@"hh\:mm\:ss");
+            L_Time_Pause_Total.Text = TimeSpan.FromSeconds(TotalSecPause).ToString(@"hh\:mm\:ss");
         });
     }
 
