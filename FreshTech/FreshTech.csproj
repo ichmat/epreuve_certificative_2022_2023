@@ -111,6 +111,9 @@
 	  <MauiXaml Update="Views\Map\FTOpenStreetMap.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\TitleSpan.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
