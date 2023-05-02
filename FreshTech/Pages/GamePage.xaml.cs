@@ -11,31 +11,6 @@ public partial class GamePage : ContentPage
     public GamePage()
 	{
         InitializeComponent();
-        TestConnect();
     }
 
-    [Obsolete("test only")]
-    private async void TestConnect()
-    {
-        await Task.Delay(5000);
-        FTMClientManager clientManager = new FTMClientManager();
-        bool r = await clientManager.ConnexionStart();
-        if(r)
-        {
-            await clientManager.Login("billy", null, "billy");
-        }
-    }
-
-    //private void OnLoginClicked(object sender, System.EventArgs e)
-    //{
-    //    // TODO: Add login logic here
-    //}
-
-    private async void OnLoginClicked(object sender, System.EventArgs e)
-    {
-        //string mailText = Mail.Text;
-       // string motDePasseText = MotDePasse.Text;
-       // var resp = await App.client.Login(mailText, default, motDePasseText);
-        // await Navigation.PushAsync(new RegisterPage());
-    }
 }

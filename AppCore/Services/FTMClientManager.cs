@@ -19,7 +19,7 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://5625-80-119-18-121.ngrok-free.app";
+        private const string API_URL = "https://2cd3-2001-861-e080-5540-81b0-a6f2-29d7-3207.ngrok-free.app";
 
         public FTMClientManager() {
             _id = Guid.NewGuid().ToString();
@@ -83,6 +83,33 @@ namespace AppCore.Services
                     if (res != null)
                     {
                         _securityManager.SetPublicKeySignature(res.Message);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return false;
+        }
+
+        public async Task<bool> IsConnected()
+        {
+            FTMessageClient msg = FTMessageClient.GenerateNotSecure(
+                _id,
+                string.Empty
+                );
+
+            try
+            {
+                HttpResponseMessage response = await _client.PostAsJsonAsync(APIRoute.SIGN_KEY, msg);
+                if (response.IsSuccessStatusCode)
+                {
+                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
+                    if (res != null)
+                    {
                         return true;
                     }
                 }

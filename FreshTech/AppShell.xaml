@@ -6,29 +6,29 @@
     xmlns:local="clr-namespace:FreshTech"
     xmlns:page="clr-namespace:FreshTech.Pages"
     Shell.FlyoutBehavior="Disabled">
-
-    <TabBar>
-
-        <ShellContent Title="Login"
-                      Route="Dahboard"
+    <ShellContent 
+                    Title="Login"
+                      Route="LoginPage"
                       ContentTemplate="{DataTemplate page:LoginPage}" />
 
-        <ShellContent Title="Register"
-                      Route="Dahboard"
+    <ShellContent
+                        Title="Register"
+                      Route="RegisterPage"
                       ContentTemplate="{DataTemplate page:RegisterPage}" />
+    <TabBar>
 
         <ShellContent Title="Test"
-                      Route="Dahboard"
+                      Route="TestPage"
                       ContentTemplate="{DataTemplate page:TestPage}" />
 
 
         <ShellContent Title="Profil"
-                      Route="Dashboard"
+                      Route="ProfilePage"
                       ContentTemplate="{DataTemplate page:ProfilePage}" />
 
 
         <ShellContent Title="Game"
-                      Route="Dashboard"
+                      Route="GamePage"
                       ContentTemplate="{DataTemplate page:GamePage}" />
     </TabBar>
 </Shell>
