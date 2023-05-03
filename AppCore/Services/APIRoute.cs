@@ -17,6 +17,7 @@ namespace AppCore.Services
         #region UTILISATEUR_CONTROLLER
         public const string CREATE_USER = "/user/create";
         public const string UPDATE_USER = "/user/update";
+        public const string GET_USER_BY_TOKEN = "/user/getUserByToken";
         #endregion
     }
 }

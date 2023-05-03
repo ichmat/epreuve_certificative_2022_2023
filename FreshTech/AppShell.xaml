@@ -15,6 +15,12 @@
                         Title="Register"
                       Route="RegisterPage"
                       ContentTemplate="{DataTemplate page:RegisterPage}" />
+
+    <ShellContent
+                        Title="Calibration"
+                      Route="CalibrationPage"
+                      ContentTemplate="{DataTemplate page:CalibrationPage}" />
+
     <TabBar>
 
         <ShellContent Title="Test"

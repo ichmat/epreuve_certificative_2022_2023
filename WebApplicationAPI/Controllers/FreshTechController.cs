@@ -12,6 +12,11 @@ namespace WebApplicationAPI.Controllers
     {
         protected readonly FTDbContext dbContext;
 
+        private readonly string[] notToLog = new string[] {
+            "ProcessAndCheckToken",
+            "ProcessResponse",
+        };
+
         protected FreshTechController(FTDbContext dbContext)
         {
             this.dbContext = dbContext;
@@ -28,17 +33,19 @@ namespace WebApplicationAPI.Controllers
         /// <param name="message">le message du client</param>
         /// <param name="process">la fonction a executé si la vérification passe</param>
         /// <returns>La réponse de l'API</returns>
-        protected async Task<IActionResult> ProcessAndCheckToken<T>(FTMessageClient message, Func<T, IActionResult> process) where T : EndPointArgs
+        protected async Task<IActionResult> ProcessAndCheckToken<T>(FTMessageClient message, Func<T, IActionResult> process, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "") where T : EndPointArgs
         {
             return await ProcessResponse<T>(message, (args) =>
             {
                 if(Program.serverManager.CheckToken(message.UserGuid, args))
                 {
+                    LogAction(memberName, TypeLog.Info);
                     Program.serverManager.ProcessToken(message.UserGuid);
                     return process.Invoke(args);
                 }
                 else
                 {
+                    LogAction(memberName, TypeLog.Error);
                     return BadRequest(APIError.BAD_USER_TOKEN);
                 }
             });
@@ -54,9 +61,10 @@ namespace WebApplicationAPI.Controllers
         /// <param name="message">le message du client</param>
         /// <param name="process">la fonction a executé si la vérification passe</param>
         /// <returns>La réponse de l'API</returns>
-        protected async Task<IActionResult> ProcessResponse<T>(FTMessageClient message, Func<T, IActionResult> process) where T : class
+        protected async Task<IActionResult> ProcessResponse<T>(FTMessageClient message, Func<T, IActionResult> process, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "") where T : class
         {
             await FTMServerManager.WaitLock();
+            LogAction(memberName);
 
             IActionResult res;
 
@@ -81,7 +89,6 @@ namespace WebApplicationAPI.Controllers
             catch (Exception ex)
             {
                 res = BadRequest(APIError.CANCELED_REQUEST);
-                LogError(ex.ToString());
             }
             finally
             {
@@ -99,9 +106,11 @@ namespace WebApplicationAPI.Controllers
         /// <param name="message">le message du client</param>
         /// <param name="process">la fonction a executé si la vérification passe</param>
         /// <returns>La réponse de l'API</returns>
-        protected async Task<IActionResult> ProcessResponse(FTMessageClient message, Func<IActionResult> process)
+        protected async Task<IActionResult> ProcessResponse(FTMessageClient message, Func<IActionResult> process, [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")
         {
             await FTMServerManager.WaitLock();
+
+            LogAction(memberName);
 
             IActionResult res;
 
@@ -120,7 +129,6 @@ namespace WebApplicationAPI.Controllers
             catch (Exception ex)
             {
                 res = BadRequest(APIError.CANCELED_REQUEST);
-                LogError(ex.ToString());
             }
             finally
             {
@@ -156,13 +164,13 @@ namespace WebApplicationAPI.Controllers
                 data);
         }
 
-        /// <summary>
-        /// Génère un log d'erreur
-        /// </summary>
-        /// <param name="err">l'erreur</param>
-        protected void LogError(string err)
+        private void LogAction(string memberName, TypeLog type = TypeLog.Info)
         {
-            Console.Error.WriteLine(err);
+            if(notToLog.Contains(memberName))
+            {
+                return;
+            }
+            Program.Log(memberName, type);
         }
 
         /// <summary>
@@ -172,7 +180,7 @@ namespace WebApplicationAPI.Controllers
         /// <returns>L'utilisateur trouvé</returns>
         protected Utilisateur? GetUserByUserGuid(string userGuid)
         {
-            Guid? userid = Program.serverManager.GetUserGuidByToken(userGuid);
+            Guid? userid = Program.serverManager.GetUserGuidByUserId(userGuid);
             if (userid != null)
             {
                 return dbContext.Utilisateurs.FirstOrDefault(x => x.UtilisateurId == userid);

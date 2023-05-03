@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              HorizontalOptions="Fill"
              x:Class="FreshTech.Views.TitleSpan">
-    <VerticalStackLayout HorizontalOptions="Fill" Margin="25">
+    <VerticalStackLayout HorizontalOptions="Fill">
         <Label 
             FontSize="30"
             x:Name="L_Title"

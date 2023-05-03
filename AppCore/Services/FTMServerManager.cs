@@ -120,7 +120,7 @@ namespace AppCore.Services
         /// </summary>
         /// <param name="userId">l'id de connexion temporaire</param>
         /// <returns>le Guid de l'utilisateur</returns>
-        public Guid? GetUserGuidByToken(string userId)
+        public Guid? GetUserGuidByUserId(string userId)
         {
             if(_tokenClients.ContainsKey(userId))
                 return _tokenClients[userId].UtilisateurId;
@@ -145,7 +145,7 @@ namespace AppCore.Services
         /// <returns>True : ok <br></br>False : le token ne correspond pas</returns>
         public bool CheckToken(string id, EndPointArgs arg)
         {
-            return _tokenClients.ContainsKey(id) && _tokenClients[id].Expired && _tokenClients[id].QuotaExceeded && _tokenClients[id].Token == arg.Token;
+            return _tokenClients.ContainsKey(id) && !_tokenClients[id].Expired && !_tokenClients[id].QuotaExceeded && _tokenClients[id].Token == arg.Token;
         }
 
         public void ProcessToken(string id)

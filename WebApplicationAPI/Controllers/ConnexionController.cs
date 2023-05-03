@@ -84,7 +84,7 @@ namespace WebApplicationAPI.Controllers
         [HttpPost(APIRoute.ATTEMPT_CONNECTION)]
         public async Task<IActionResult> AttemptConnection(FTMessageClient message)
         {
-            return await ProcessResponseWithoutCheckToken<Credentials>(message, (cred) =>
+            return await ProcessResponse<Credentials>(message, (cred) =>
             {
                 Utilisateur? user = dbContext.Utilisateurs.FirstOrDefault(x => x.Mail == cred.Email || x.Pseudo == cred.User);
                 if (user != null && Password.VerifyPassword(cred.Password, user.MotDePasse, user.Sel))
@@ -94,43 +94,6 @@ namespace WebApplicationAPI.Controllers
                 else
                     return BadRequest(APIError.BAD_CREDENTIALS);
             });
-        }
-
-        private async Task<IActionResult> ProcessResponseWithoutCheckToken<T>(FTMessageClient message, Func<T, IActionResult> process) where T : class
-        {
-            await FTMServerManager.WaitLock();
-
-            IActionResult res;
-
-            try
-            {
-                bool exist = Program.serverManager.UserExist(message.UserGuid);
-                if (exist)
-                {
-                    T? obj = message.SecureDecrypt<T>(Program.serverManager[message.UserGuid]);
-                    if (obj != null)
-                    {
-                        res = process.Invoke(obj);
-                    }
-                    else
-                        res = BadRequest(APIError.BAD_FORMAT_DATA);
-                }
-                else
-                {
-                    res = BadRequest(APIError.USER_ID_NOT_EXIST);
-                }
-            }
-            catch (Exception ex)
-            {
-                res = BadRequest(APIError.CANCELED_REQUEST);
-                LogError(ex.ToString());
-            }
-            finally
-            {
-                FTMServerManager.Release();
-            }
-
-            return res;
         }
     }
 }

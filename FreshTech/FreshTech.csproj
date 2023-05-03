@@ -59,6 +59,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\ionic_ios_speedometer.svg" />
+	  <None Remove="Resources\Images\ionic_ios_star.svg" />
 	  <None Remove="Resources\Images\ionic_ios_time.svg" />
 	</ItemGroup>
 
@@ -87,6 +88,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\CalibrationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\GamePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -100,6 +104,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\TestPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Calibration\CalMain.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Calibration\CalTracking.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Map\FTGoogleMap.xaml">

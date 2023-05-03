@@ -48,7 +48,7 @@ public partial class LoginPage : ContentPage
 
             if(await App.client.Login(null, mailText, motDePasseText))
             {
-                await Shell.Current.GoToAsync("//GamePage");
+                await Shell.Current.GoToAsync("//CalibrationPage");
             }
             else
             {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             x:Class="FreshTech.Views.Calibration.CalMain">
+    <VerticalStackLayout Margin="25">
+        <views:TitleSpan Title="Définir objectif" Margin="0,0,0,25" />
+        <Grid HorizontalOptions="Fill">
+            <Button Clicked="Calibrate_Clicked" HorizontalOptions="Fill" Text="CALIBRAGE" Margin="0,0,0,25" HeightRequest="50">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="{StaticResource Tertiary}" Offset="0" />
+                        <GradientStop Color="{StaticResource TertiaryEndGradient}" Offset="1" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Border Padding="6,0" TranslationX="5" TranslationY="-5" HeightRequest="15" BackgroundColor="{StaticResource Warning}" VerticalOptions="Start" HorizontalOptions="End">
+                <HorizontalStackLayout>
+                    <Image Source="ionic_ios_star.svg" />
+                    <Label TextColor="White" FontAutoScalingEnabled="True" VerticalTextAlignment="Center" Margin="3,0,0,0">
+                        Recommander
+                    </Label>
+                </HorizontalStackLayout>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                    Offset="0,5"
+                    Opacity="0.2"
+                        Radius="15"/>
+                </Border.Shadow>
+            </Border>
+        </Grid>
+        <Label Margin="0,0,0,25" HorizontalTextAlignment="Start">
+            Nécessite d'effectuer une course pour évaluer votre niveau de performance
+        </Label>
+        <Label Margin="0,0,0,25" FontSize="Header" FontAttributes="Bold" HorizontalTextAlignment="Center">
+            OU
+        </Label>
+        <Button Clicked="Formular_Clicked" HorizontalOptions="Fill" Text="FORMULAIRE" Margin="0,0,0,25" HeightRequest="50">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="{StaticResource Tertiary}" Offset="0" />
+                    <GradientStop Color="{StaticResource TertiaryEndGradient}" Offset="1" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Margin="0,0,0,25" HorizontalTextAlignment="Start">
+            Inscrivez les informations demander
+        </Label>
+    </VerticalStackLayout>
+</ContentView>

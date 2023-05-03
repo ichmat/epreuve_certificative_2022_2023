@@ -108,5 +108,24 @@ namespace WebApplicationAPI.Controllers
 
             });
         }
+
+        [HttpPost(APIRoute.GET_USER_BY_TOKEN)]
+        public async Task<IActionResult> GetUserByToken(FTMessageClient message)
+        {
+            return await ProcessAndCheckToken<EPGetUserByToken>(message, (args) =>
+            {
+                Guid? UtilisateurId = Program.serverManager.GetUserGuidByUserId(message.UserGuid);
+                if(UtilisateurId != null)
+                {
+                    Utilisateur? user = dbContext.Utilisateurs.FirstOrDefault( x => x.UtilisateurId == UtilisateurId);
+                    if(user != null)
+                    {
+                        return Json(Message(message, user));
+                    }
+                }
+
+                return BadRequest(APIError.CANCELED_REQUEST);
+            });
+        }
     }
 }

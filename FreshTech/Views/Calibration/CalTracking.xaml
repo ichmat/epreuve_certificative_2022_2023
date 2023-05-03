@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             xmlns:map="clr-namespace:FreshTech.Views.Map"
+             SizeChanged="ContentView_SizeChanged"
+             x:Class="FreshTech.Views.Calibration.CalTracking">
+    <Grid>
+        <VerticalStackLayout Margin="25" x:Name="StackPresentation1">
+            <views:TitleSpan Title="Activité de calibrage" Margin="0,0,0,25"/>
+
+            <Label>
+                <Label.Text>
+                    Préparez vous ! 
+                    Vous devez faire une séance de course à pied. Votre objectif est de parcourir 5 Km le plus efficacement possible.
+                
+                    À la fin de se parcours, il faudra préciser votre état de fatigue.
+                </Label.Text>
+            </Label>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" x:Name="StackPresentation2">
+            <Button WidthRequest="170" HeightRequest="58" Clicked="Start_Clicked" Text="START" BackgroundColor="{StaticResource Success}" TextColor="White" Margin="0,0,0,25"/>
+            <Button WidthRequest="170" HeightRequest="58" Clicked="Back_Clicked" Text="REVENIR" BackgroundColor="{StaticResource Danger}" TextColor="White" />
+        </VerticalStackLayout>
+
+        <map:FTMap x:Name="mapInstance" />
+    </Grid>
+    
+</ContentView>

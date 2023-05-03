@@ -82,7 +82,7 @@ public partial class RegisterPage : ContentPage
             {
                 if(await App.client.Login(pseudoText, null, motDePasseText))
                 {
-                    await Shell.Current.GoToAsync("//GamePage");
+                    await Shell.Current.GoToAsync("//CalibrationPage");
                 }
                 else
                 {

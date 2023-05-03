@@ -18,7 +18,7 @@ namespace AppCore.Services.GeneralMessage.Args
         [JsonInclude]
         public ushort? TailleCm;
 
-        public EPUpdateUser(string? mail, string? pseudo, string? motDePasse, string? sel, float? poidKg, ushort? tailleCm) 
+        public EPUpdateUser(string? mail, string? pseudo, string? motDePasse, string? sel, float? poidKg, ushort? tailleCm)
         {
             Mail = mail;
             Pseudo = pseudo;

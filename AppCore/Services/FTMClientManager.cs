@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using AppCore.Models;
 using AppCore.Services.APIMessages;
 using AppCore.Services.GeneralMessage;
 using AppCore.Services.GeneralMessage.Args;
@@ -19,7 +20,9 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://2cd3-2001-861-e080-5540-81b0-a6f2-29d7-3207.ngrok-free.app";
+        private const string API_URL = "https://b54f-77-192-248-13.ngrok-free.app";
+
+        public Utilisateur? CurrentUser { get; private set; }
 
         public FTMClientManager() {
             _id = Guid.NewGuid().ToString();
@@ -140,6 +143,9 @@ namespace AppCore.Services
                     if (res != null)
                     {
                         _token = res.SecureDecrypt<string>(_securityManager);
+
+                        CurrentUser = await SendAndGetResponse<Utilisateur>(new EPGetUserByToken());
+
                         return true;
                     }
                 }

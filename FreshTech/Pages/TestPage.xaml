@@ -6,8 +6,6 @@
              xmlns:map="clr-namespace:FreshTech.Views.Map"
              Title="">
     <Grid>
-        <views:TitleSpan Title="Test"/>
-
-        <map:FTMap IsVisible="False" x:Name="map" />
+        <map:FTMap x:Name="map" />
     </Grid>
 </ContentPage>

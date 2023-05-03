@@ -42,5 +42,31 @@ namespace WebApplicationAPI
             app.Run();
         }
 
+
+        public static void Log(string message, TypeLog type = TypeLog.Info)
+        {
+            switch (type)
+            {
+                case TypeLog.Info:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case TypeLog.Warning:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    break;
+                case TypeLog.Error:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+            }
+
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+    }
+
+    public enum TypeLog
+    {
+        Info,
+        Warning,
+        Error,
     }
 }

@@ -7,6 +7,7 @@
     <Color x:Key="Primary">#33b5e5</Color>
     <Color x:Key="Secondary">#ABE8FF</Color>
     <Color x:Key="Tertiary">#0099cc</Color>
+    <Color x:Key="TertiaryEndGradient">#61D4FF</Color>
     <Color x:Key="Danger">#ff4444</Color>
     <Color x:Key="DangerDark">#cc0000</Color>
     <Color x:Key="Warning">#ffbb33</Color>
@@ -26,6 +27,7 @@
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
+    <SolidColorBrush x:Key="TertiaryEndGradientBrush" Color="{StaticResource TertiaryEndGradient}"/>
     <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource Danger}"/>
     <SolidColorBrush x:Key="DangerDarkBrush" Color="{StaticResource DangerDark}"/>
     <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource Warning}"/>
