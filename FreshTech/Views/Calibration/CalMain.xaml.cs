@@ -19,6 +19,6 @@ public partial class CalMain : ContentView
 
     private void Formular_Clicked(object sender, EventArgs e)
     {
-        _parent.GoToFormular();
+        _parent.GoToFormular(true);
     }
 }

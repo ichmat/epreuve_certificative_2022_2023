@@ -32,6 +32,7 @@ public partial class FTOpenStreetMap : ContentView, IMapEngine
         map.MyLocationEnabled = false;
         map.MyLocationFollow = false;
         map.IsMyLocationButtonVisible = false;
+        map.ButtonMargin = new Thickness(0, 100, 25, 0);
     }
 
     public void Dispose() => map.Dispose();

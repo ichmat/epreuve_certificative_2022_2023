@@ -16,10 +16,20 @@ namespace AppCore.Models
         [ForeignKey("UtilisateurId")]
         public Utilisateur Utilisateur { get; set; }
 
-        public float? VitesseMoyenneKmH { get; set; }
+        public double? ObjectifTempsSecMax { get; set; }
 
-        public int? TotalCalorieDepenseKCal { get; set; }
+        public double? ObjectifPauseSecMax { get; set; }
 
-        public float? VmaKmH { get; set; }
+        public double? ObjectifDistanceKm { get; set; }
+
+        public double? ObjectifVitesseMoyenneKmH { get; set; }
+
+        public double? VitesseMoyenneKmH { get; set; }
+
+        public double? TotalDistanceKm { get; set; }
+
+        public uint? TotalCalorieDepenseKCal { get; set; }
+
+        public double? VmaKmH { get; set; }
     }
 }

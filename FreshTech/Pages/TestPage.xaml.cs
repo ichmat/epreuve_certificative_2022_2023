@@ -28,10 +28,8 @@ public partial class TestPage : ContentPage
         }
 		catch(Exception ex)
 		{
-			await DisplayAlert("errr", ex.ToString(), "cancel");
+			await DisplayAlert("err", ex.ToString(), "cancel");
 		}
 		finally { map.StopLoading(); }
-
-		
     }
 }

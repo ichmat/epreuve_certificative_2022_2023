@@ -19,5 +19,9 @@ namespace AppCore.Services
         public const string UPDATE_USER = "/user/update";
         public const string GET_USER_BY_TOKEN = "/user/getUserByToken";
         #endregion
+        #region STAT_CONTROLLER
+        public const string SAVE_STAT = "/user/saveStat";
+        public const string GET_STAT_BY_USER_ID = "/user/getStatByUserId";
+        #endregion
     }
 }

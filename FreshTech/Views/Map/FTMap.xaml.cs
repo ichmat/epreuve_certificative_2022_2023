@@ -175,6 +175,32 @@ public partial class FTMap : ContentView, IDisposable
         });
     }
 
+    #region RESULT
+
+    public double GetSpeedKmHMean()
+    {
+        double totalSpeedKmHRegister = 0;
+        int nbVal = 0;
+
+        foreach(MapPoint[] line in _points)
+        {
+            if(line.Length > 1)
+            {
+                for(int i = 0; i < line.Length - 1; ++i)
+                {
+                    double dKm = CalculateDistanceKm(line[i], line[i + 1]);
+                    double hours = (line[i + 1].Date - line[i].Date).TotalHours;
+                    totalSpeedKmHRegister += dKm / hours;
+                    nbVal++;
+                }
+            }
+        }
+
+        return totalSpeedKmHRegister / nbVal;
+    }
+
+    #endregion
+
     #region LOADING
 
     public void StartLoading()
@@ -340,6 +366,10 @@ public partial class FTMap : ContentView, IDisposable
         State = TrackState.Stopped;
         _timerTrack.Stop();
         _timerTick.Stop();
+
+        _engine.CutLine();
+        _points.Add(_actual_points.ToArray());
+        _actual_points.Clear();
     }
 
     private void _timerTrack_Elapsed(object sender, ElapsedEventArgs e)
@@ -563,6 +593,7 @@ public partial class FTMap : ContentView, IDisposable
         if(State == TrackState.Running)
         {
             StopTrack();
+            StopTracking?.Invoke();
         }
     }
 
@@ -582,6 +613,9 @@ public partial class FTMap : ContentView, IDisposable
     }
 
     #endregion
+
+    public delegate void OnStopTracking();
+    public event OnStopTracking StopTracking;
 }
 
 public enum TrackState
