@@ -59,7 +59,25 @@ namespace AppCore.Context
             });
             base.OnConfiguring(optionsBuilder);
         }
-        
+
+        public static void TriggerConfigureFinish()
+        {
+#if DEBUG
+            FTDbContext context = new FTDbContext();
+            if (context.Utilisateurs.Count() == 0)
+            {
+                Utilisateur u = new Utilisateur();
+                u.UtilisateurId = Guid.NewGuid();
+                u.Mail = "test";
+                u.MotDePasse = Password.HashPasword("test", out string salt);
+                u.Sel = salt;
+                u.Pseudo = "test";
+                context.Utilisateurs.Add(u);
+                context.SaveChanges();
+            }
+#endif
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Map table names

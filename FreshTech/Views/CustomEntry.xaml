@@ -42,7 +42,7 @@
                 
                 <HorizontalStackLayout Margin="15,2" VerticalOptions="Center">
                     <Image x:Name="imgIcon" Source="pin.svg" Margin="0,0,10,0" />
-                    <local:BorderlessEntry x:Name="entry" MinimumWidthRequest="50" HorizontalOptions="Fill" HorizontalTextAlignment="Start" Margin="0,3,0,0" FontSize="Subtitle" Text="0.00" VerticalTextAlignment="Center" TextColor="{StaticResource Gray500}" Background="Transparent"  />
+                    <local:BorderlessEntry TextChanged="entry_TextChanged" x:Name="entry" MinimumWidthRequest="50" HorizontalOptions="Fill" HorizontalTextAlignment="Start" Margin="0,3,0,0" FontSize="Subtitle" Text="0.00" VerticalTextAlignment="Center" TextColor="{StaticResource Gray500}" Background="Transparent"  />
                 </HorizontalStackLayout>
             </Grid>
         </Border>

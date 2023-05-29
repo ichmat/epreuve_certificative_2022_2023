@@ -110,6 +110,9 @@
 	  <MauiXaml Update="Pages\TestPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Calibration\CalFinish.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Calibration\CalFormular.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

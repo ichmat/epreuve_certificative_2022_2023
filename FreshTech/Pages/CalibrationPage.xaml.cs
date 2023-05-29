@@ -29,14 +29,13 @@ public partial class CalibrationPage : ContentPage
                 App.client.CurrentUser.TailleCm != null)
             {
                 // tout est ok, l'application se lance normalement
-                await Shell.Current.GoToAsync("//GamePage");
+                Exit();
             }
             else
             {
                 // il manque encore quelque info, il faut basculer sur la page du formulaire
                 GoToFormular(false);
             }
-           
         }
         else
         {
@@ -64,6 +63,21 @@ public partial class CalibrationPage : ContentPage
     internal void GoToFormular(bool withActivityEntry)
     {
         BorderContent.Content = new CalFormular(this, withActivityEntry);
+    }
+
+    internal void GoToFinishCalibration()
+    {
+        BorderContent.Content = new CalFinish(this);
+    }
+
+    internal void Exit()
+    {
+        _ = Shell.Current.GoToAsync("//GamePage", true);
+    }
+
+    internal void ExitAndGoToObjective()
+    {
+        _ = Shell.Current.GoToAsync("//ProfilPage", true);
     }
 
     internal void StartLoading()

@@ -5,7 +5,26 @@
              Loaded="ContentView_Loaded"
              x:Class="FreshTech.Views.Calibration.CalFormular">
     <Grid>
-        <VerticalStackLayout Margin="25">
+        <VerticalStackLayout Margin="25" x:Name="StackPresentation1">
+            <views:TitleSpan Title="Activité de calibrage" Margin="0,0,0,25"/>
+
+            <Label>
+                Formulaire
+            </Label>
+            <Label>
+                Vous allez répondre à une suite de question pour évaluer votre niveau.
+            </Label>
+            <Label>
+                Les réponses à ses question ne sont pas définitive, vous pourrez revoir certaines question plus tard.
+            </Label>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" x:Name="StackPresentation2">
+            <Button WidthRequest="170" HeightRequest="58" Clicked="Start_Clicked" Text="START" BackgroundColor="{StaticResource Success}" TextColor="White" Margin="0,0,0,25"/>
+            <Button WidthRequest="170" HeightRequest="58" Clicked="Back_Clicked" Text="REVENIR" BackgroundColor="{StaticResource Danger}" TextColor="White" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Margin="25" x:Name="SL_Formular">
             <views:TitleSpan Title="Information de base" Margin="0,0,0,25" />
 
             <views:CustomEntry Title="Poids (Kg)" ImgSource="weight_hanging.png" Text="0.0" NumberOnly="True" x:Name="EntryWeight" Margin="0,0,0,25" />
@@ -15,7 +34,7 @@
                 <views:TitleSpan Title="Activité moyenne" Margin="0,0,0,25" />
 
                 <views:CustomEntry Title="Distance (Km)" NumberOnly="True" Text="0.00" ImgSource="pin.svg" x:Name="EntryDistance" Margin="0,0,0,25" />
-                <views:CustomEntry Title="Temps" Text="00:00:00" ImgSource="ionic_ios_time.svg" x:Name="EntryTime" Margin="0,0,0,25" />
+                <views:CustomEntry TimerOnly="True" Title="Temps" Text="00:00:00" ImgSource="ionic_ios_time.svg" x:Name="EntryTime" Margin="0,0,0,25" />
                 <Label x:Name="L_Time"></Label>
             </VerticalStackLayout>
         </VerticalStackLayout>

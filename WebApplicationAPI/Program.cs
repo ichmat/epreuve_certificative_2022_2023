@@ -18,7 +18,6 @@ namespace WebApplicationAPI
 
             // Add services to the container.
             builder.Services.AddDbContext<FTDbContext>();
-
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +37,8 @@ namespace WebApplicationAPI
             app.UseAuthorization();
 
             app.MapControllers();
+
+            FTDbContext.TriggerConfigureFinish();
 
             app.Run();
         }

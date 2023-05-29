@@ -5,6 +5,7 @@ namespace FreshTech.Views;
 
 public partial class CustomEntry : ContentView
 {
+    private bool _cancel_txt_changed_event = false;
 	private bool is_init = false;
     private static readonly char[] numeric = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
@@ -126,6 +127,39 @@ public partial class CustomEntry : ContentView
         }
     }
 
+    public bool TimerOnly
+    {
+        get => (bool)GetValue(TimerOnlyProperty);
+        set => SetValue(TimerOnlyProperty, value);
+    }
+
+    public static readonly BindableProperty TimerOnlyProperty =
+        BindableProperty.Create("TimerOnly", typeof(bool), typeof(CustomEntry), false, propertyChanged: OnTimerOnlyChanged);
+
+    private static void OnTimerOnlyChanged(BindableObject view, object oldValue, object newValue)
+    {
+        ((CustomEntry)view).TimerOnlyChanged();
+    }
+
+    private void TimerOnlyChanged()
+    {
+        if (is_init)
+        {
+            if (TimerOnly)
+            {
+                if (NumberOnly) NumberOnly = false;
+
+                entry.Keyboard = Keyboard.Numeric;
+                entry.Text = "00:00:00";
+            }
+            else
+            {
+                if(!NumberOnly)
+                    entry.Keyboard = Keyboard.Default;
+            }
+        }
+    }
+
     public CustomEntry()
 	{
 		InitializeComponent();
@@ -139,6 +173,7 @@ public partial class CustomEntry : ContentView
             TitleChanged();
             ImgSourceChanged();
             NumberOnlyChanged();
+            TimerOnlyChanged();
         }
     }
 
@@ -173,5 +208,69 @@ public partial class CustomEntry : ContentView
         }
         result = double.NaN;
         return false;
+    }
+
+    private void entry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_cancel_txt_changed_event)
+        {
+            _cancel_txt_changed_event = false;
+            return;
+        }
+
+        if (TimerOnly)
+        {
+            if (!CheckTimer(e.NewTextValue))
+            {
+                entry.Text = e.OldTextValue;
+                //_cancel_txt_changed_event = true;
+            }
+            /*if(e.OldTextValue != e.NewTextValue)
+                _cancel_txt_changed_event = true;*/
+        }
+        else if (NumberOnly)
+        {
+            // Rien
+        }
+    }
+
+    private bool CheckTimer(string newtxt)
+    {
+        string[] datas = newtxt.Split(':');
+        if (datas.Length == 3) { 
+
+            return (datas.FirstOrDefault(x => x.Length == 0) == null);
+            /*Func<int, string> getString = (int val) =>
+            {
+                string res = val.ToString();
+                if(res.Length == 1)
+                {
+                    res = '0' + res;
+                }
+                return res;
+            };
+
+            int sec = Convert.ToInt32(datas[0]);
+            int min = Convert.ToInt32(datas[1]);
+            int hour = Convert.ToInt32(datas[2]);
+            while(sec >= 60)
+            {
+                sec -= 60;
+                min++;
+            }
+            while (min >= 60)
+            {
+                min -= 60;
+                hour++;
+            }
+
+            toBind = getString(hour) + ':' + getString(min) + ':' + getString(sec);*/
+        }
+        else
+        {
+            return false;
+            //toBind = oldtxt;
+
+        }
     }
 }

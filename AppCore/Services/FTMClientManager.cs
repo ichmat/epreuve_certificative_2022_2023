@@ -20,7 +20,7 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://7afb-195-200-178-237.ngrok-free.app";
+        private const string API_URL = "https://570f-2001-861-e080-5540-dce0-4bee-fa18-313.ngrok-free.app";
 
         public Utilisateur? CurrentUser { get; private set; }
 
@@ -200,11 +200,7 @@ namespace AppCore.Services
                 HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
                 if (response.IsSuccessStatusCode)
                 {
-                    FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
-                    if (res != null)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             catch (Exception ex)

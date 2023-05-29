@@ -1,5 +1,9 @@
+using AppCore.Models;
+using AppCore.Services.GeneralMessage.Args;
 using FreshTech.Pages;
 using FreshTech.Tools;
+using System.Globalization;
+using System.Xml.Linq;
 
 namespace FreshTech.Views.Calibration;
 
@@ -19,6 +23,7 @@ public partial class CalFormular : ContentView
 		_withActivityEntry = withActivityEntry;
 		_standars_title_color = EntryWeight.TitleColor;
         _standars_text_color = EntryWeight.TextColor;
+        
     }
 
 	private async Task<bool> CheckEntry()
@@ -206,12 +211,98 @@ public partial class CalFormular : ContentView
     {
 		if (await CheckEntry())
 		{
+            _parent.StartLoading();
 
+            if (_withActivityEntry)
+            {
+                Stat newStat = new Stat();
+                newStat.UtilisateurId = App.client.CurrentUser.UtilisateurId;
+                newStat.ObjectifTempsSecMax = ToSecTimeObjective();
+                newStat.ObjectifDistanceKm = ToDouble(EntryDistance.Text);
+                newStat.ObjectifPauseSecMax = newStat.ObjectifTempsSecMax.Value * 0.1;
+
+                TimeSpan totalActivity = TimeSpan.FromSeconds(newStat.ObjectifTempsSecMax.Value * 1.1);
+                newStat.ObjectifVitesseMoyenneKmH =
+                    newStat.ObjectifDistanceKm.Value / totalActivity.TotalHours;
+
+                if(!await App.client.SendRequest(
+                    new EPSaveStat(newStat)
+                    ))
+                {
+                    _parent.StopLoading();
+                    _ = _parent.DisplayAlert("Erreur", "Une erreur est survenue pendant l'envoie des données", "OK");
+                    return;
+                }
+            }
+
+            if(!await App.client.SendRequest(
+                    new EPUpdateUser(null, null, null, null,
+                    (float)ToDouble(EntryWeight.Text),
+                    (ushort)ToDouble(EntrySize.Text)
+                    )))
+            {
+                {
+                    _parent.StopLoading();
+                    _ = _parent.DisplayAlert("Erreur", "Une erreur est survenue pendant l'envoie des données", "OK");
+                    return;
+                }
+            }
+
+            _parent.StopLoading();
+            _parent.GoToFinishCalibration();
 		}
+    }
+
+    private int ToSecTimeObjective()
+    {
+        string[] datas = EntryTime.Text.Split(':');
+        if (datas.Length == 3)
+        {
+            int sec = int.Parse(datas[0]);
+            int min = int.Parse(datas[1]);
+            int hour = int.Parse(datas[2]);
+            min += 60 * hour;
+            sec += 60 * min;
+            return sec;
+        }
+        throw new Exception("EntryTime value bad format");
+    }
+
+    private double ToDouble(string txt)
+    {
+        txt = txt.Replace(',', '.');
+        return double.Parse(txt, CultureInfo.InvariantCulture);
     }
 
     private void ContentView_Loaded(object sender, EventArgs e)
     {
         L_Time.IsVisible = false;
+        if (_withActivityEntry)
+        {
+            StackPresentation1.IsVisible = true;
+            StackPresentation2.IsVisible = true;
+            SL_Formular.IsVisible = false;
+            Validate.IsVisible = false;
+        }
+        else
+        {
+            StackPresentation1.IsVisible = false;
+            StackPresentation2.IsVisible = false;
+            SL_Formular.IsVisible = true;
+            Validate.IsVisible = true;
+        }
+    }
+
+    private void Start_Clicked(object sender, EventArgs e)
+    {
+        StackPresentation1.IsVisible = false;
+        StackPresentation2.IsVisible = false;
+        SL_Formular.IsVisible = true;
+        Validate.IsVisible = true;
+    }
+
+    private void Back_Clicked(object sender, EventArgs e)
+    {
+        _parent.GoToMainPage();
     }
 }
