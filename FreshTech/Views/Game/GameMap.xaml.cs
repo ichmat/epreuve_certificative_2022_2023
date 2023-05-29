@@ -1,5 +1,6 @@
 using FreshTech.Tools;
 using Microsoft.Maui.Controls.Shapes;
+using System;
 
 namespace FreshTech.Views.Game;
 
@@ -12,6 +13,8 @@ public partial class GameMap : ContentView
 	private bool _is_init = false;
     private bool _need_center = false;
 
+    private bool _is_size_changed = false;
+
     public GameMap()
 	{
 		InitializeComponent();
@@ -19,7 +22,7 @@ public partial class GameMap : ContentView
 
 	public void CenterMap()
 	{
-		if(_is_init)
+		if(_is_size_changed)
 		{
             double total_h = SIZE_CASE * NB_CASE_VERTICAL;
             double total_w = SIZE_CASE * NB_CASE_HORIZONTAL;
@@ -43,8 +46,6 @@ public partial class GameMap : ContentView
             LoadMap();
 
             _is_init = true;
-
-            
         }
     }
 
@@ -145,11 +146,18 @@ public partial class GameMap : ContentView
 
     private void MainGrid_SizeChanged(object sender, EventArgs e)
     {
-        // demande de centrer la carte avant que celui ci ne soit initialisé
-        if (_need_center)
+        if (!_is_size_changed)
         {
-            CenterMap();
-            _need_center = false;
+            _is_size_changed = true;
+            // demande de centrer la carte avant que celui ci ne soit initialisé
+            if (_need_center)
+            {
+                CenterMap();
+                _need_center = false;
+            }
         }
     }
+
+    public delegate void OnFinishingLoading();
+    public event OnFinishingLoading FinishingLoaded;
 }

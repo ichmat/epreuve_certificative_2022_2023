@@ -11,7 +11,7 @@ namespace AppCore.Services
         #region CONNEXION_CONTROLLER
         public const string ESTABLISH_CONNECTION = "/connect/establish";
         public const string SIGN_KEY = "/connect/sign";
-        public const string RESET_TIME_OUT = "/connect/resettimeout";
+        public const string RESET_TIME_OUT = "/connect/resetTimeout";
         public const string ATTEMPT_CONNECTION = "/connect/attempt";
         #endregion
         #region UTILISATEUR_CONTROLLER
@@ -22,6 +22,9 @@ namespace AppCore.Services
         #region STAT_CONTROLLER
         public const string SAVE_STAT = "/user/saveStat";
         public const string GET_STAT_BY_USER_ID = "/user/getStatByUserId";
+        #endregion
+        #region VILLAGE
+        public const string GET_ENTIRE_VILLAGE = "/village/getTheEntireUserVillage";
         #endregion
     }
 }

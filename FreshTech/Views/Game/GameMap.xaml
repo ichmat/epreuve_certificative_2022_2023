@@ -11,6 +11,8 @@
     <ScrollView x:Name="SV_Map"
                 Orientation="Both"
                 IsEnabled="False"
+                VerticalScrollBarVisibility="Never"
+                HorizontalScrollBarVisibility="Never"
                 >
         <Grid SizeChanged="MainGrid_SizeChanged" x:Name="MainGrid" BackgroundColor="{StaticResource Gray100}">
 
