@@ -11,6 +11,10 @@ public partial class LoginPage : ContentPage
     public LoginPage()
 	{
         InitializeComponent();
+#if DEBUG
+        Mail.Text = "test";
+        MotDePasse.Text = "test";
+#endif
     }
 
     private async void OnLoginClicked(object sender, System.EventArgs e)
@@ -52,7 +56,7 @@ public partial class LoginPage : ContentPage
             }
             else
             {
-                _ = DisplayAlert("Connexion echoué", "Le mail ou le mot de passe ne correspond pas", "Ok");
+                _ = DisplayAlert("Connexion échoué", "Le mail ou le mot de passe ne correspond pas", "Ok");
             }
 
             AI_Loading.IsRunning = false;

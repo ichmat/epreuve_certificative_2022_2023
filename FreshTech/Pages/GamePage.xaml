@@ -1,63 +1,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             xmlns:game="clr-namespace:FreshTech.Views.Game"
           x:Class="FreshTech.Pages.GamePage">
-    <Frame BorderColor="Red" CornerRadius="0">
-        <Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <!-- Lignes horizontales -->
-                <BoxView BackgroundColor="Black" Grid.Row="0" Grid.ColumnSpan="10" HeightRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Row="1" Grid.ColumnSpan="10" HeightRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Row="2" Grid.ColumnSpan="10" HeightRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Row="3" Grid.ColumnSpan="10" HeightRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Row="4" Grid.ColumnSpan="10" HeightRequest="1" />
-
-                <BoxView BackgroundColor="Black" Grid.Row="5" Grid.ColumnSpan="10" HeightRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Row="6" Grid.ColumnSpan="10" HeightRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Row="7" Grid.ColumnSpan="10" HeightRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Row="8" Grid.ColumnSpan="10" HeightRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Row="9" Grid.ColumnSpan="10" HeightRequest="0" />
-                
-                <!-- Colonnes verticales -->
-                <BoxView BackgroundColor="Black" Grid.Column="0" Grid.RowSpan="10" WidthRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Column="1" Grid.RowSpan="10" WidthRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Column="2" Grid.RowSpan="10" WidthRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Column="3" Grid.RowSpan="10" WidthRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Column="4" Grid.RowSpan="10" WidthRequest="1" />
-
-                <BoxView BackgroundColor="Black" Grid.Column="5" Grid.RowSpan="10" WidthRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Column="6" Grid.RowSpan="10" WidthRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Column="7" Grid.RowSpan="10" WidthRequest="0" />
-                <BoxView BackgroundColor="Black" Grid.Column="8" Grid.RowSpan="10" WidthRequest="1" />
-                <BoxView BackgroundColor="Black" Grid.Column="9" Grid.RowSpan="10" WidthRequest="0" />
-                <!-- Chiffres dans les cases -->
-                <Label Text="1" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1" Grid.Column="1" />
-                <Label Text="2" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1" Grid.Column="3" />
-                <Label Text="3" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1" Grid.Column="5" />
-            </Grid>
-        </Grid>
-    </Frame>
+    <Grid BackgroundColor="{StaticResource Gray100}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="110" />
+        </Grid.RowDefinitions>
+        <game:GameMap Margin="10,0" 
+                      x:Name="gameMap" Grid.Row="1" />
+    </Grid>
 </ContentPage>
