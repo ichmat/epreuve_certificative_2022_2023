@@ -11,7 +11,7 @@
             x:Name="L_Title"
             HeightRequest="0"
             Text="#Title#" Margin="0,0,0,5" />
-        <Border BackgroundColor="#E6E6E6">
+        <Border x:Name="BorderMain" BackgroundColor="#E6E6E6">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10" />
             </Border.StrokeShape>
@@ -40,9 +40,9 @@
                     </Border.Background>
                 </Border>
                 
-                <HorizontalStackLayout Margin="15,3" VerticalOptions="Center">
+                <HorizontalStackLayout Margin="15,2" VerticalOptions="Center">
                     <Image x:Name="imgIcon" Source="pin.svg" Margin="0,0,10,0" />
-                    <local:BorderlessEntry x:Name="entry" MinimumWidthRequest="50" HorizontalOptions="Fill" HorizontalTextAlignment="Start" Margin="0,3,0,0" FontSize="Title" Text="0.00" VerticalTextAlignment="Center" TextColor="{StaticResource Gray500}" Background="Transparent"  />
+                    <local:BorderlessEntry x:Name="entry" MinimumWidthRequest="50" HorizontalOptions="Fill" HorizontalTextAlignment="Start" Margin="0,3,0,0" FontSize="Subtitle" Text="0.00" VerticalTextAlignment="Center" TextColor="{StaticResource Gray500}" Background="Transparent"  />
                 </HorizontalStackLayout>
             </Grid>
         </Border>

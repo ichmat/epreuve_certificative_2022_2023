@@ -6,13 +6,24 @@ namespace FreshTech.Views;
 public partial class CustomEntry : ContentView
 {
 	private bool is_init = false;
-    private string _text = string.Empty;
     private static readonly char[] numeric = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
     public string Text
     {
         get => entry.Text;
         set => entry.Text = value;
+    }
+
+    public Color TextColor
+    {
+        get => entry.TextColor;
+        set => entry.TextColor = value;
+    }
+
+    public Color TitleColor
+    {
+        get => L_Title.TextColor; 
+        set => L_Title.TextColor = value;
     }
 
     public string Title
@@ -153,4 +164,14 @@ public partial class CustomEntry : ContentView
         return true;
     }
     
+    public bool CheckIsNumber(out double result)
+    {
+        if (!string.IsNullOrWhiteSpace(Text) && CheckIsNumber(Text))
+        {
+            result = double.Parse(Text, System.Globalization.CultureInfo.InvariantCulture);
+            return true;
+        }
+        result = double.NaN;
+        return false;
+    }
 }
