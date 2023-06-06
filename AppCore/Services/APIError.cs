@@ -17,6 +17,7 @@ namespace AppCore.Services
         public const string BAD_ARGS = "Bad args";
         public const string BAD_USER_TOKEN = "Bad user token";
         public const string NOTHING_TO_UPDATE = "Nothing to update";
+        public const string VILLAGE_NOT_SET = "Village not set";
 
     }
 }

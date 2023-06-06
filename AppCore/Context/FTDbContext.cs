@@ -23,7 +23,7 @@ namespace AppCore.Context
 
         public DbSet<ConstructionInfo> ConstructionInfos { get; set; }
 
-        //public DbSet<Construction> Constructions { get; set; }
+        public DbSet<Coordonnee> Coordonnees { get; set; }
 
         public DbSet<Ressource> Ressources { get; set; }
 

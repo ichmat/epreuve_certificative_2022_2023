@@ -21,7 +21,7 @@ namespace WebApplicationAPI.Controllers
         {
             return await ProcessAndCheckToken<EPSaveStat>(message, (args) =>
             {
-                Guid? utilisateurId = GetUutilisateurIdByUserGuid(message.UserGuid);
+                Guid? utilisateurId = GetUtilisateurIdByUserGuid(message.UserGuid);
                 if(utilisateurId == null)
                 {
                     return BadRequest(APIError.USER_ID_NOT_EXIST);

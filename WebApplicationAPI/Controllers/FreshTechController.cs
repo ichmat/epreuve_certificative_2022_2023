@@ -189,7 +189,7 @@ namespace WebApplicationAPI.Controllers
             return null;
         }
 
-        protected Guid? GetUutilisateurIdByUserGuid(string userGuid)
+        protected Guid? GetUtilisateurIdByUserGuid(string userGuid)
         {
             return Program.serverManager.GetUserGuidByUserId(userGuid);
         }
