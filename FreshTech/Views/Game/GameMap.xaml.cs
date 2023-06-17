@@ -20,7 +20,9 @@ public partial class GameMap : ContentView
 		InitializeComponent();
 	}
 
-	public void CenterMap()
+    #region PUBLIC
+
+    public void CenterMap()
 	{
 		if(_is_size_changed)
 		{
@@ -39,6 +41,10 @@ public partial class GameMap : ContentView
         }
 	}
 
+    #endregion
+
+    #region LOADING
+
     private void ContentView_Loaded(object sender, EventArgs e)
     {
         if (!_is_init)
@@ -46,6 +52,8 @@ public partial class GameMap : ContentView
             LoadMap();
 
             _is_init = true;
+
+            FinishingLoaded?.Invoke();
         }
     }
 
@@ -94,6 +102,13 @@ public partial class GameMap : ContentView
         }
     }
 
+    public delegate void OnFinishingLoading();
+    public event OnFinishingLoading FinishingLoaded;
+
+    #endregion
+
+    #region GESTURE
+
     private void SwipeLeft()
     {
         SV_Map.ScrollToAsync(SV_Map.ScrollX + SIZE_CASE * 1.5, SV_Map.ScrollY, false);
@@ -134,15 +149,27 @@ public partial class GameMap : ContentView
         Dispatcher.Dispatch(SwipeDown);
     }
 
+    #endregion
+
+    #region TAPPED
+
+    public delegate void OnTappedCoord(int x, int y);
+    public event OnTappedCoord TappedCoord;
+
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
+        if (!_is_init) return;
+
         Point? point = e.GetPosition(MainGrid);
         if(point.HasValue)
         {
             int x = Convert.ToInt32(Math.Floor(point.Value.X / SIZE_CASE));
             int y = Convert.ToInt32(Math.Floor(point.Value.Y / SIZE_CASE));
+            TappedCoord?.Invoke(x, y);
         }
     }
+
+    #endregion
 
     private void MainGrid_SizeChanged(object sender, EventArgs e)
     {
@@ -157,7 +184,5 @@ public partial class GameMap : ContentView
             }
         }
     }
-
-    public delegate void OnFinishingLoading();
-    public event OnFinishingLoading FinishingLoaded;
+    
 }

@@ -48,5 +48,25 @@ namespace WebApplicationAPI.Controllers
                     );
             });
         }
+
+        [HttpPost(APIRoute.GET_NECESSARY_DATA_VILLAGE)]
+        public async Task<IActionResult> GetNecessaryDataVillage(FTMessageClient message)
+        {
+            return await ProcessAndCheckToken<EPGetNecessaryDataVillage>(message, (args) =>
+            {
+                return Json(
+                    Message(message.UserGuid, new ResponseGetNecessaryDataVillage(
+                        dbContext.ConstructionInfos.ToArray(),
+                        dbContext.Ressources.ToArray(),
+                        dbContext.Objets.ToArray(),
+                        dbContext.CreationRessources.ToArray(),
+                        dbContext.AmeliorationRessources.ToArray(),
+                        dbContext.ReparationRessources.ToArray(),
+                        dbContext.CreationObjets.ToArray(),
+                        dbContext.AmeliorationObjets.ToArray()
+                        )
+                    ));
+            });
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AppCore.Property;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AppCore.Models
 {
+    [PrimaryKey(nameof(VillageId), nameof(ConsInfoId), nameof(Type), nameof(ConstructionId))]
     public class Coordonnee
     {
         public int VillageId { get; set; }

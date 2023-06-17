@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AppCore.Services.GeneralMessage.Response
 {
-    public class ResponseGetGameNecessaryData : EndPointResponse
+    public class ResponseGetNecessaryDataVillage : EndPointResponse
     {
         [JsonInclude]
         public ConstructionInfo[] ConstructionInfos;
@@ -34,7 +34,7 @@ namespace AppCore.Services.GeneralMessage.Response
         [JsonInclude]
         public AmeliorationObjet[] AmeliorationObjets;
 
-        public ResponseGetGameNecessaryData(ConstructionInfo[] constructionInfos, Ressource[] ressources, Objet[] objets, CreationRessource[] creationRessources, AmeliorationRessource[] ameliorationRessources, ReparationRessource[] reparationRessources, CreationObjet[] creationObjets, AmeliorationObjet[] ameliorationObjets)
+        public ResponseGetNecessaryDataVillage(ConstructionInfo[] constructionInfos, Ressource[] ressources, Objet[] objets, CreationRessource[] creationRessources, AmeliorationRessource[] ameliorationRessources, ReparationRessource[] reparationRessources, CreationObjet[] creationObjets, AmeliorationObjet[] ameliorationObjets)
         {
             ConstructionInfos = constructionInfos;
             Ressources = ressources;

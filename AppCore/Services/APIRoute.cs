@@ -25,6 +25,7 @@ namespace AppCore.Services
         #endregion
         #region VILLAGE
         public const string GET_ENTIRE_VILLAGE = "/village/getTheEntireUserVillage";
+        public const string GET_NECESSARY_DATA_VILLAGE = "/village/getNecessaryDataVillage";
         #endregion
     }
 }

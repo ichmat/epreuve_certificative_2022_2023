@@ -15,11 +15,17 @@ public partial class GamePage : ContentPage
     private void GameMap_FinishingLoaded()
     {
         StopLoading();
+        gameMap.TappedCoord += GameMap_TappedCoord;
+    }
+
+    private void GameMap_TappedCoord(int x, int y)
+    {
     }
 
     private void ContentPage_Unloaded(object sender, EventArgs e)
     {
         gameMap.FinishingLoaded -= GameMap_FinishingLoaded;
+        gameMap.TappedCoord -= GameMap_TappedCoord;
     }
 
     internal void StartLoading()
