@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AppCore.Models
 {
-    [PrimaryKey(nameof(RessourceId), nameof(ConsInfoId), nameof(Type), nameof(NiveauConcerner))]
+    [PrimaryKey(nameof(RessourceId), nameof(ConsInfoId), nameof(Type), nameof(NiveauConcerne))]
     public class AmeliorationRessource
     {
         public int RessourceId { get; set; }
@@ -19,7 +19,7 @@ namespace AppCore.Models
 
         public TypeConstruction Type { get; set; }
 
-        public byte NiveauConcerner { get; set; }
+        public byte NiveauConcerne { get; set; }
 
         [ForeignKey("RessourceId")]
         public Ressource Ressource { get; set; }
