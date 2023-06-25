@@ -26,5 +26,8 @@ namespace AppCore.Models
 
         [Required]
         public byte NiveauMax { get; set; }
+
+        [Required]
+        public long TempsSecConstruction { get; set; }
     }
 }

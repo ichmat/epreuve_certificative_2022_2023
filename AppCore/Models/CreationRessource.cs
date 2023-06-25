@@ -27,8 +27,5 @@ namespace AppCore.Models
 
         [Required]
         public int Nombre { get; set; }
-
-        [Required]
-        public long TempsSec { get; set; }
     }
 }
