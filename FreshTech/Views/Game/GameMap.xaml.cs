@@ -15,12 +15,9 @@ public partial class GameMap : ContentView
 
     private bool _is_size_changed = false;
 
-    private GameEngine _engine;
-
     public GameMap()
 	{
 		InitializeComponent();
-        _engine = new GameEngine();
     }
 
     #region PUBLIC
@@ -48,12 +45,11 @@ public partial class GameMap : ContentView
 
     #region LOADING
 
-    private async void ContentView_Loaded(object sender, EventArgs e)
+    private void ContentView_Loaded(object sender, EventArgs e)
     {
         if (!_is_init)
         {
             LoadMap();
-            await _engine.ReloadAllData();
             _is_init = true;
 
             FinishingLoaded?.Invoke();

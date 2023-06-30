@@ -142,4 +142,8 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Resources\Images\Ressources\" />
+	</ItemGroup>
+
 </Project>
