@@ -44,11 +44,11 @@ namespace FreshTech.Views.Game
             {
                 // mise en place des informations de constructions des bâtiments
                 infoId_schema.Add(ci.ConsInfoId, new ConstructionSchema(ci,
-                    infoTown.CreationObjets.Where(x => x.ConsInfoId == ci.ConsInfoId),
-                    infoTown.CreationRessources.Where(x => x.ConsInfoId == ci.ConsInfoId),
-                    infoTown.AmeliorationObjets.Where(x => x.ConsInfoId == ci.ConsInfoId),
-                    infoTown.AmeliorationRessources.Where(x => x.ConsInfoId == ci.ConsInfoId),
-                    infoTown.ReparationRessources.Where(x => x.ConsInfoId == ci.ConsInfoId)
+                    infoTown.CreationObjets.Where(x => x.ConsInfoId == ci.ConsInfoId).ToArray(),
+                    infoTown.CreationRessources.Where(x => x.ConsInfoId == ci.ConsInfoId).ToArray(),
+                    infoTown.AmeliorationObjets.Where(x => x.ConsInfoId == ci.ConsInfoId).ToArray(),
+                    infoTown.AmeliorationRessources.Where(x => x.ConsInfoId == ci.ConsInfoId).ToArray(),
+                    infoTown.ReparationRessources.Where(x => x.ConsInfoId == ci.ConsInfoId).ToArray()
                     ));
             }
         }
@@ -245,22 +245,33 @@ namespace FreshTech.Views.Game
                 CreationRessources.Add(ressource.Ressource, ressource.Nombre);
             }
             UpgradeSchemasParNiveau = new Dictionary<int, UpgradeSchema>();
-            for (int i = 1; i <= constructionInfo.NiveauMax; i++)
+            for (int i = 2; i <= constructionInfo.NiveauMax; i++)
             {
-                UpgradeSchema schema = new UpgradeSchema();
-                foreach(AmeliorationObjet AO in ameliorationObjets.Where(x => x.NiveauConcerne == i))
+                UpgradeSchema schema = new UpgradeSchema(i);
+
+                var levelUpgradeObj = ameliorationObjets.Where(x => x.NiveauConcerne == i);
+                if(levelUpgradeObj.Count() > 0)
                 {
-                    schema.AmeliorationObjets.Add(AO.Objet, AO.Nombre);
+                    foreach (AmeliorationObjet AO in levelUpgradeObj)
+                    {
+                        schema.AmeliorationObjets.Add(AO.Objet, AO.Nombre);
+                    }
                 }
 
-                foreach (AmeliorationRessource AR in ameliorationRessources.Where(x => x.NiveauConcerne == i))
+                var levelUpgradeRes = ameliorationRessources.Where(x => x.NiveauConcerne == i);
+                if(levelUpgradeRes.Count() > 0)
                 {
-                    schema.AmeliorationRessources.Add(AR.Ressource, AR.Nombre);
+                    foreach (AmeliorationRessource AR in levelUpgradeRes)
+                    {
+                        schema.AmeliorationRessources.Add(AR.Ressource, AR.Nombre);
+                    }
                 }
+                
                 UpgradeSchemasParNiveau.Add(i, schema);
             }
             ReparationRessources = new Dictionary<Ressource, int>();
-            foreach(ReparationRessource reparation in reparationRessources)
+            ReparationMultParNiveau = new Dictionary<Ressource, float>();
+            foreach (ReparationRessource reparation in reparationRessources)
             {
                 ReparationRessources.Add(reparation.Ressource, reparation.Nombre);
                 ReparationMultParNiveau.Add(reparation.Ressource, reparation.MultParNiveau);

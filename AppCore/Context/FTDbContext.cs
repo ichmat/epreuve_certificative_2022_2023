@@ -75,6 +75,8 @@ namespace AppCore.Context
                 context.Utilisateurs.Add(u);
                 context.SaveChanges();
             }
+            NecessaryData necessaryData = new NecessaryData(context);
+            necessaryData.CheckDataIntegrity().Wait();
 #endif
         }
 

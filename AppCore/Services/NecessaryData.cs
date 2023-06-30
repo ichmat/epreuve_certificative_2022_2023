@@ -23,22 +23,15 @@ namespace AppCore.Services
 
         public async Task<bool> CheckDataIntegrity()
         {
-            if(await context.Database.EnsureCreatedAsync())
+            CheckObjets();
+            CheckRessources();
+            CheckConstructionInfo();
+            if (_need_to_save)
             {
-                CheckObjets();
-                CheckRessources();
-                CheckConstructionInfo();
-                if(_need_to_save)
-                {
-                    await context.SaveChangesAsync();
-                }
+                await context.SaveChangesAsync();
+            }
 
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
 
         private void Add<T>(in DbSet<T> list, in T data) where T : class
@@ -80,6 +73,21 @@ namespace AppCore.Services
             new Objet(){ObjetId = 7, Rarete = TypeRarete.COMMUN, Nom = "Layton"},
         };
 
+        private static Objet GetObjet(string name) => objets.First(x => x.Nom == name);
+
+        public static Objet GetObjet(OBJET obj) => objets[(int)obj];
+
+        public enum OBJET
+        {
+            FIL_DE_FER = 0,
+            BATTERIE = 1,
+            MOTEUR = 2,
+            CIMENT = 3,
+            ARGILE = 4,
+            RESSORT = 5,
+            LAYTON = 6,
+        }
+
         #endregion
 
         #region RESSOURCES
@@ -101,6 +109,21 @@ namespace AppCore.Services
             new Ressource(){RessourceId = 7, Nom = "Habitant"},
         };
 
+        private static Ressource GetRessource(string name) => ressources.First(x => x.Nom == name);
+
+        public static Ressource GetRessource(RESSOURCE res) => ressources[(int)res];
+
+        public enum RESSOURCE
+        {
+            EAU = 0,
+            NOURRITURE = 1,
+            BONHEUR = 2,
+            ENERGIE = 3,
+            BOIS = 4,
+            FERRAILLE = 5,
+            HABITANT = 6,
+        }
+
         #endregion
 
         #region CONSTRUCTION_INFO
@@ -117,7 +140,8 @@ namespace AppCore.Services
                             Nom = schema.Nom,
                             Type = schema.Type,
                             VieMax = schema.VieMax,
-                            NiveauMax = schema.NiveauMax
+                            NiveauMax = schema.NiveauMax,
+                            TempsSecConstruction = schema.TempsSecConstruction,
                         });
 
                     // mise en place des schémas de constructions
@@ -191,29 +215,64 @@ namespace AppCore.Services
 
         private readonly ConstructionInfoSchema[] constructionInfoSchemas =
         {
-            ConstructionInfoSchema.Create(1, "Tourelle Auto", 100, TypeConstruction.DEFENSE, 187200) // données initial
+            ConstructionInfoSchema.CreateDef(1, "Tourelle Auto", 100, TypeConstruction.DEFENSE, 187200, 2.4f, 150) // données initial
                 // schémas de créations
-                .WithCreationsObjects(objets[0],objets[1])
-                .AddCreationRessources(ressources[3], 50)
-                .AddCreationRessources(ressources[5], 60)
+                .WithCreationsObjects(GetObjet(OBJET.FIL_DE_FER),GetObjet(OBJET.BATTERIE))
+                .AddCreationRessources(GetRessource(RESSOURCE.ENERGIE), 50)
+                .AddCreationRessources(GetRessource(RESSOURCE.FERRAILLE), 60)
+                .AddCreationRessources(GetRessource(RESSOURCE.HABITANT), 5)
                 // schémas d'améliorations
-                .AddLevel(new []{
-                    ressources[5]
+                .AddLevel(new []{ // niveau 2 
+                    GetRessource(RESSOURCE.FERRAILLE)
                 },new []{
                     50
                 })
-                .AddLevel(new []{
-                    ressources[5]
+                .AddLevel(new []{ // niveau 3
+                    GetRessource(RESSOURCE.FERRAILLE)
                 },new []{
                     170
                 })
-                .AddLevel(new []{
-                    ressources[5]
+                .AddLevel(new []{ // niveau 4
+                    GetRessource(RESSOURCE.FERRAILLE)
                 },new []{
                     350
                 })
                 // schéma de réparations
-                .AddReparationRessources(ressources[5], 10, 1.2f, 4500)
+                .AddReparationRessources(GetRessource(RESSOURCE.FERRAILLE), 10, 1.2f, 4500),
+            ConstructionInfoSchema.CreateDef(2, "Barrière", 120, TypeConstruction.DEFENSE, 3600, 1.4f, 20)
+                .AddCreationRessources(GetRessource(RESSOURCE.BOIS),100)
+                .AddLevel(new[] { // niveau 2
+                    GetRessource(RESSOURCE.BOIS)
+                }, new[] {
+                    110
+                })
+                .AddLevel(new[] { // niveau 3
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE)
+                }, new[] {
+                    160,
+                    30
+                })
+                .AddLevel(new[] { // niveau 4
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE)
+                }, new[] {
+                    200,
+                    150
+                })
+                .AddLevel(new[] { // niveau 5
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE)
+                }, new[] {
+                    150,
+                    350
+                })
+                .AddLevel(new[] { // niveau 6
+                    GetRessource(RESSOURCE.FERRAILLE)
+                }, new[] {
+                    800
+                })
+                .AddReparationRessources(GetRessource(RESSOURCE.BOIS), 20, 1.5f, 1200),
         };
 
         #endregion

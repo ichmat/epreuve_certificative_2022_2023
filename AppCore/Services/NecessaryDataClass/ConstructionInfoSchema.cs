@@ -16,6 +16,10 @@ namespace AppCore.Services.NecessaryDataClass
         public byte NiveauMax;
         public TypeConstruction Type;
         public long TempsSecConstruction;
+        public float? MultParNiveau;
+        public int? Production;
+        public Ressource? RessourceProduit;
+        public int? Puissance;
 
         /// <summary>
         /// 1 => id objet <br></br>
@@ -65,7 +69,8 @@ namespace AppCore.Services.NecessaryDataClass
             ReparationsRessources = reparationRessources;
         }
 
-        private ConstructionInfoSchema(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsCons)
+        private ConstructionInfoSchema(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsCons, 
+            float? multParNiveau = null, int? production = null, Ressource? ressourceProduit = null, int? puissance = null)
         {
             ConsInfoId = consInfoId;
             Nom = nom;
@@ -78,6 +83,10 @@ namespace AppCore.Services.NecessaryDataClass
             AmeliorationsRessources = new Dictionary<int, List<KeyValuePair<int, int>>>();
             ReparationsRessources = new Dictionary<int, Tuple<int, float, long>>();
             TempsSecConstruction = tempsCons;
+            MultParNiveau = multParNiveau;
+            Production = production;
+            Puissance = puissance;
+            RessourceProduit = ressourceProduit;
         }
 
         public ConstructionInfoSchema WithCreationsObjects(params Objet[] objets)
@@ -156,9 +165,21 @@ namespace AppCore.Services.NecessaryDataClass
             return this;
         }
 
-        public static ConstructionInfoSchema Create(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsSecConstruction)
+        public static ConstructionInfoSchema CreateAutre(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsSecConstruction)
         {
             return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction);
+        }
+
+        public static ConstructionInfoSchema CreateProd(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsSecConstruction, 
+            float multParNiveau, int production, Ressource ressourceProduit)
+        {
+            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction, multParNiveau, production, ressourceProduit);
+        }
+
+        public static ConstructionInfoSchema CreateDef(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsSecConstruction,
+            float multParNiveau, int puissance)
+        {
+            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction, multParNiveau, null, null, puissance);
         }
     }
 }
