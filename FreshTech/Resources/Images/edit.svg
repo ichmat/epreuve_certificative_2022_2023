@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44.704" height="44.576" viewBox="0 0 44.704 44.576">
+  <defs>
+    <filter id="design-solid" x="0" y="0" width="44.704" height="44.576" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#design-solid)">
+    <path id="design-solid-2" data-name="design-solid" d="M28.466,26.113l-3.921-3.9V7.223L22.693,3.817a1.61,1.61,0,0,0-2.85,0L18.1,7.231v8.575L3.377,1.152A.805.805,0,0,0,2,1.724V8.23H3.747V9.518H2v5.153H3.747V15.96H2v5.354H3.747V22.6H2v4.082a.805.805,0,0,0,.805.805H27.894a.805.805,0,0,0,.572-1.377Zm-20.025-5V13.818l7.3,7.295Zm14.493,1.7H19.714V20.855h3.221Zm0-3.221H19.714V7.626L21.276,4.59l1.659,3.044Z" transform="translate(7 5.09)" fill="#686868"/>
+  </g>
+</svg>

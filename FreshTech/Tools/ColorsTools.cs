@@ -19,6 +19,7 @@ namespace FreshTech.Tools
         public static SolidColorBrush SuccessDarkBrush = Application.Current.Resources.MergedDictionaries.First()["SuccessDarkBrush"] as SolidColorBrush;
 
         public static SolidColorBrush Gray500Brush = Application.Current.Resources.MergedDictionaries.First()["Gray500Brush"] as SolidColorBrush;
+        public static SolidColorBrush Gray200Brush = Application.Current.Resources.MergedDictionaries.First()["Gray200Brush"] as SolidColorBrush;
 
         public static Color Primary = Application.Current.Resources.MergedDictionaries.First()["Primary"] as Color;
         public static Color Secondary = Application.Current.Resources.MergedDictionaries.First()["Secondary"] as Color;

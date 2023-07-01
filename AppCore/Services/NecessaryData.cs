@@ -239,6 +239,7 @@ namespace AppCore.Services
                 })
                 // schéma de réparations
                 .AddReparationRessources(GetRessource(RESSOURCE.FERRAILLE), 10, 1.2f, 4500),
+
             ConstructionInfoSchema.CreateDef(2, "Barrière", 120, TypeConstruction.DEFENSE, 3600, 1.4f, 20)
                 .AddCreationRessources(GetRessource(RESSOURCE.BOIS),100)
                 .AddLevel(new[] { // niveau 2
@@ -273,6 +274,76 @@ namespace AppCore.Services
                     800
                 })
                 .AddReparationRessources(GetRessource(RESSOURCE.BOIS), 20, 1.5f, 1200),
+
+            ConstructionInfoSchema.CreateDef(3, "Tour de guet",80, TypeConstruction.DEFENSE, 10000,1.5f, 60)
+                .WithCreationsObjects(GetObjet(OBJET.ARGILE))
+                .AddCreationRessources(GetRessource(RESSOURCE.BOIS), 150)
+                .AddCreationRessources(GetRessource(RESSOURCE.FERRAILLE), 50)
+                .AddLevel(new[] { // niveau 2
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    150,
+                    50
+                })
+                .AddLevel(new[] { // niveau 3
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    320,
+                    140
+                })
+                .AddLevel(new[] { // niveau 4
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    400,
+                    200
+                })
+                .AddLevel(new[] { // niveau 5
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    500,
+                    250
+                },GetObjet(OBJET.CIMENT))
+                .AddReparationRessources(GetRessource(RESSOURCE.BOIS),30,2f, 3600)
+                .AddReparationRessources(GetRessource(RESSOURCE.FERRAILLE),15,1.8f, 3600),
+
+            ConstructionInfoSchema.CreateProd(4, "Eolienne de fortune", 40, TypeConstruction.ENERGIE, 5000, 1.4f, 15, GetRessource(RESSOURCE.ENERGIE))
+                .WithCreationsObjects(GetObjet(OBJET.FIL_DE_FER))
+                .AddCreationRessources(GetRessource(RESSOURCE.BOIS),100)
+                .AddCreationRessources(GetRessource(RESSOURCE.FERRAILLE),20)
+                .AddLevel(new[] { // niveau 2
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    80,
+                    20
+                })
+                .AddLevel(new[] { // niveau 3
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    120,
+                    40
+                })
+                .AddLevel(new[] { // niveau 4
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    160,
+                    75
+                })
+                .AddLevel(new[] { // niveau 5
+                    GetRessource(RESSOURCE.BOIS),
+                    GetRessource(RESSOURCE.FERRAILLE),
+                }, new[] {
+                    200,
+                    100
+                })
+                .AddReparationRessources(GetRessource(RESSOURCE.BOIS),20,1.8f, 3600)
+                .AddReparationRessources(GetRessource(RESSOURCE.FERRAILLE),12,1.6f, 3600),
         };
 
         #endregion

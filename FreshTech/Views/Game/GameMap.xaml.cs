@@ -15,6 +15,10 @@ public partial class GameMap : ContentView
 
     private bool _is_size_changed = false;
 
+    private bool _cancel_scroll = false;
+    private double _scroll_x = 0;
+    private double _scroll_y = 0;
+
     public GameMap()
 	{
 		InitializeComponent();
@@ -29,10 +33,10 @@ public partial class GameMap : ContentView
             double total_h = SIZE_CASE * NB_CASE_VERTICAL;
             double total_w = SIZE_CASE * NB_CASE_HORIZONTAL;
 
-            double x = total_w / 2 - SV_Map.Width / 2;
-            double y = total_h / 2 - SV_Map.Height / 2;
+            _scroll_x = total_w / 2 - SV_Map.Width / 2;
+            _scroll_y = total_h / 2 - SV_Map.Height / 2;
 
-            _ = SV_Map.ScrollToAsync(x,y,true); 
+            _ = SV_Map.ScrollToAsync(_scroll_x, _scroll_y, true); 
         }
         else
         {
@@ -40,6 +44,24 @@ public partial class GameMap : ContentView
             _need_center = true;
         }
 	}
+
+    public void AddElement(VisualElement view, int x, int y)
+    {
+        _scroll_x = SV_Map.ScrollX;
+        _scroll_y = SV_Map.ScrollY;
+        _cancel_scroll = true;
+        MainGrid.Children.Add(view);
+        Grid.SetColumn(view, x);
+        Grid.SetRow(view, y);
+    }
+
+    public void RemoveElement(VisualElement view)
+    {
+        _scroll_x = SV_Map.ScrollX;
+        _scroll_y = SV_Map.ScrollY;
+        _cancel_scroll = true;
+        MainGrid.Children.Remove(view);
+    }
 
     #endregion
 
@@ -93,7 +115,7 @@ public partial class GameMap : ContentView
                     aCase.BackgroundColor = Colors.Transparent;
 
                 aCase.StrokeThickness = 1;
-                aCase.Stroke = ColorsTools.Gray500Brush;
+                aCase.Stroke = ColorsTools.Gray200Brush;
                 MainGrid.Children.Add(aCase);
                 Grid.SetColumn(aCase, i);
                 Grid.SetRow(aCase, j);
@@ -110,22 +132,26 @@ public partial class GameMap : ContentView
 
     private void SwipeLeft()
     {
-        SV_Map.ScrollToAsync(SV_Map.ScrollX + SIZE_CASE * 1.5, SV_Map.ScrollY, false);
+        _scroll_x += SIZE_CASE * 1.5;
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
     }
 
     private void SwipeRight()
     {
-        SV_Map.ScrollToAsync(SV_Map.ScrollX - SIZE_CASE*1.5, SV_Map.ScrollY, false);
+        _scroll_x -= SIZE_CASE * 1.5;
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
     }
 
     private void SwipeUp()
     {
-        SV_Map.ScrollToAsync(SV_Map.ScrollX, SV_Map.ScrollY - SIZE_CASE * 1.5, false);
+        _scroll_y -= SIZE_CASE * 1.5;
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
     }
 
     private void SwipeDown()
     {
-        SV_Map.ScrollToAsync(SV_Map.ScrollX, SV_Map.ScrollY + SIZE_CASE * 1.5, false);
+        _scroll_y += SIZE_CASE * 1.5;
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
     }
 
     private void SwipeGestureRecognizer_SwipedLeft(object sender, SwipedEventArgs e)
@@ -183,5 +209,13 @@ public partial class GameMap : ContentView
             }
         }
     }
-    
+
+    private void SV_Map_Scrolled(object sender, ScrolledEventArgs e)
+    {
+        if (_cancel_scroll)
+        {
+            _cancel_scroll = false;
+            SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
+        }
+    }
 }

@@ -9,6 +9,7 @@
     LE PROBLEME SERA RESOLU EN CAS DE MISE À NIVEAU POUR LA VERSION .NET 8
     -->
     <ScrollView x:Name="SV_Map"
+                Scrolled="SV_Map_Scrolled"
                 Orientation="Both"
                 IsEnabled="False"
                 VerticalScrollBarVisibility="Never"

@@ -59,12 +59,16 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\arrow_up_down.svg" />
+	  <None Remove="Resources\Images\dots.svg" />
+	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\info_circle.svg" />
 	  <None Remove="Resources\Images\ionic_ios_speedometer.svg" />
 	  <None Remove="Resources\Images\ionic_ios_star.svg" />
 	  <None Remove="Resources\Images\ionic_ios_time.svg" />
 	  <None Remove="Resources\Images\pin.svg" />
 	  <None Remove="Resources\Images\thumb_image.svg" />
 	  <None Remove="Resources\Images\weight_hanging.svg" />
+	  <None Remove="Resources\Images\windmillalt.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -108,6 +112,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\TestPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ButtonBadge.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Calibration\CalFinish.xaml">
