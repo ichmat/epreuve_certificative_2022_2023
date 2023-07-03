@@ -239,6 +239,7 @@ namespace AppCore.Services
                 })
                 // schéma de réparations
                 .AddReparationRessources(GetRessource(RESSOURCE.FERRAILLE), 10, 1.2f, 4500),
+
             ConstructionInfoSchema.CreateDef(2, "Barrière", 120, TypeConstruction.DEFENSE, 3600, 1.4f, 20)
                 .AddCreationRessources(GetRessource(RESSOURCE.BOIS),100)
                 .AddLevel(new[] { // niveau 2

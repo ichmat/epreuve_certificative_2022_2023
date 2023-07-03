@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             SizeChanged="ContentView_SizeChanged"
+             x:Class="FreshTech.Views.ButtonBadge">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="colImg" Width="35"/>
+            <ColumnDefinition/>
+            <ColumnDefinition x:Name="colBadge" Width="25"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.ColumnSpan="3">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+        </Border>
+        <Image x:Name="img" Source="info_circle.svg" Aspect="AspectFit" Margin="2,4,0,2"/>
+        <Label 
+            Margin="8,0,0,0"
+            x:Name="L_Title"
+            Grid.Column="1"
+            FontSize="Large"
+            TextTransform="Uppercase"
+            FontAttributes="Bold"
+            Text="Title"
+            TextColor="{StaticResource Gray500}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <Border x:Name="B_Badge" BackgroundColor="#FF4444" Grid.Column="2" WidthRequest="15" HeightRequest="15">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <Label x:Name="L_Badge" TextColor="White" Text="1" VerticalOptions="Center" HorizontalOptions="Center" />
+        </Border>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  NumberOfTapsRequired="1" />
+        </Grid.GestureRecognizers>
+        <Grid.Behaviors>
+            <toolkit:AnimationBehavior>
+                <toolkit:AnimationBehavior.AnimationType>
+                    <toolkit:FadeAnimation Opacity="0.5"/>
+                </toolkit:AnimationBehavior.AnimationType>
+            </toolkit:AnimationBehavior>
+        </Grid.Behaviors>
+        <Grid.Shadow>
+            <Shadow Brush="Black"
+                    Offset="0,5"
+                    Opacity="0.2"
+                        Radius="15"/>
+        </Grid.Shadow>
+    </Grid>
+</ContentView>

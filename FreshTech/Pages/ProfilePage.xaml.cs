@@ -23,8 +23,9 @@ public partial class ProfilePage : ContentPage
             ContentLayout = new Button.ButtonContentLayout(Button.ButtonContentLayout.ImagePosition.Left, 20)
         };
         Content = avatarView;
-            InitializeComponent();
-	}
+        InitializeComponent();
+
+    }
     private void OnMenu1Clicked(object sender, EventArgs e)
     {
     //    Menu1Grid.IsVisible = true;

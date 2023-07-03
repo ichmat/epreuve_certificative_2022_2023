@@ -10,7 +10,7 @@ public partial class TestPage : ContentPage
 
 	private async void Test()
 	{
-        map.StartLoading();
+        /*map.StartLoading();
 		map.QualityMode();
 		try
 		{
@@ -30,6 +30,11 @@ public partial class TestPage : ContentPage
 		{
 			await DisplayAlert("err", ex.ToString(), "cancel");
 		}
-		finally { map.StopLoading(); }
+		finally { map.StopLoading(); }*/
+    }
+
+    private void ButtonBadge_Clicked()
+    {
+
     }
 }

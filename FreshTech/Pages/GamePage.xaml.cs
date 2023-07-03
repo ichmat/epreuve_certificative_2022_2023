@@ -1,7 +1,9 @@
 namespace FreshTech.Pages;
 
+using FreshTech.Tools;
 using FreshTech.Views.Game;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Shapes;
 
 public partial class GamePage : ContentPage
 {
@@ -16,6 +18,8 @@ public partial class GamePage : ContentPage
         StartLoading();
     }
 
+    #region INIT
+
     private async void GameMap_FinishingLoaded()
     {
         await _engine.ReloadAllData();
@@ -23,14 +27,49 @@ public partial class GamePage : ContentPage
         gameMap.TappedCoord += GameMap_TappedCoord;
     }
 
-    private void GameMap_TappedCoord(int x, int y)
-    {
-    }
-
     private void ContentPage_Unloaded(object sender, EventArgs e)
     {
         gameMap.FinishingLoaded -= GameMap_FinishingLoaded;
         gameMap.TappedCoord -= GameMap_TappedCoord;
+    }
+
+    #endregion
+
+    #region VISUAL_CASE_CLICKED
+
+    private Rectangle rect;
+
+    private void HideCaseClicked()
+    {
+        if (rect != null)
+        {
+            gameMap.RemoveElement(rect);
+        }
+    }
+
+    private void ShowCaseClicked(int x, int y)
+    {
+        if (rect != null)
+        {
+            HideCaseClicked();
+        }
+        else
+        {
+            rect = new Rectangle();
+            rect.VerticalOptions = LayoutOptions.Fill;
+            rect.HorizontalOptions = LayoutOptions.Fill;
+            rect.BackgroundColor = ColorsTools.Primary;
+            rect.Opacity = 0.4;
+        }
+        gameMap.AddElement(rect, x, y);
+    }
+
+    #endregion
+
+    private void GameMap_TappedCoord(int x, int y)
+    {
+        // afficher visuellement le click de l'utilisateur
+        ShowCaseClicked(x, y);
     }
 
     internal void StartLoading()
@@ -41,5 +80,20 @@ public partial class GamePage : ContentPage
     internal void StopLoading()
     {
         AI_Loading.IsRunning = false;
+    }
+
+    private void ButtonCurrentSituation_Clicked()
+    {
+
+    }
+
+    private void ButtonEdit_Clicked()
+    {
+
+    }
+
+    private void ButtonPlus_Clicked()
+    {
+
     }
 }
