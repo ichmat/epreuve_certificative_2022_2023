@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.ObjectifPage"
+             Title="ObjectifPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+            <!-- Grand titre "A propos" -->
+            <Label Text="A Objectif" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Barre de séparation grise -->
+            <BoxView Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+            <!-- Distance en KM -->
+            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Margin="0,20,0,0">
+                <Label Text="Distance" TextColor="Black" FontSize="20" HorizontalOptions="Start" VerticalOptions="Center" />
+                <BoxView Color="Gray" WidthRequest="1" HeightRequest="30" Margin="10,0" />
+                <Label Text="10" TextColor="Black" FontSize="20" HorizontalOptions="Start" VerticalOptions="Center" />
+                <Label Text="KM" TextColor="Black" FontSize="20" HorizontalOptions="Start" VerticalOptions="Center" />
+            </StackLayout>
+
+            <!-- Temps -->
+            <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Margin="0,20,0,0">
+                <Label Text="Temps" TextColor="Black" FontSize="20" HorizontalOptions="Start" VerticalOptions="Center" />
+                <BoxView Color="Gray" WidthRequest="1" HeightRequest="30" Margin="10,0" />
+                <Label Text="5" TextColor="Black" FontSize="20" HorizontalOptions="Start" VerticalOptions="Center" />
+                <Label Text="min" TextColor="Black" FontSize="20" HorizontalOptions="Start" VerticalOptions="Center" />
+            </StackLayout>
+
+            <!-- Reste de la page vide -->
+            <StackLayout VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

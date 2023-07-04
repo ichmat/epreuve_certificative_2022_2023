@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.LangagePage"
+             Title="LangagePage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+            <!-- Grand titre "Language" cliquable -->
+            <Label Text="Language" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Barre de séparation grise -->
+            <BoxView Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+            <!-- Radio boutons -->
+            <StackLayout>
+                <RadioButton Content="Francais" IsChecked="true" />
+                <RadioButton Content="Anglais" />
+            </StackLayout>
+
+            <!-- Reste de la page vide -->
+            <StackLayout VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
