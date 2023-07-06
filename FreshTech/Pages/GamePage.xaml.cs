@@ -82,9 +82,9 @@ public partial class GamePage : ContentPage
         AI_Loading.IsRunning = false;
     }
 
-    private void ButtonCurrentSituation_Clicked()
+    private async void ButtonCurrentSituation_Clicked()
     {
-
+        await Navigation.PushModalAsync(new EtatDesLieuxPage());
     }
 
     private void ButtonEdit_Clicked()

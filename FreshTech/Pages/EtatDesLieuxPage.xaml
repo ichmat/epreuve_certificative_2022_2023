@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.EtatDesLieuxPage"
+             Title="EtatDesLieuxPage">
+    
+        <ContentPage.Content>
+            <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+                <!-- Grand titre "Confidentialité" -->
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="&lt;" Clicked="OnTitleLabelTapped" Margin="0,0,20,0"/>
+                    <Label Text="Etat Des Lieux" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+                <!-- Barre de séparation grise -->
+                <BoxView Margin="10" Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+                <Label FontSize="15" Text="Votre objectif va être constamment mit à jour selon vos activités et votre performance. Le formulaire ci dessous représente les valeurs de vos objectifs moyen. Les changer recalculera vos objectifs." Margin="0,10" />
+                <!-- Reste de la page vide -->
+                <StackLayout Margin="0,0,0,0">
+                    <StackLayout Orientation="Horizontal" Margin="10">
+                        <Image x:Name="img" Source="pin.svg" Aspect="AspectFit" Margin="2,4,0,2" />
+                        <Label Margin="10,4,0,2" Text="Distance (en mètres)" VerticalOptions="Center" FontSize="20"/>
+                    </StackLayout>
+
+
+                    <Frame BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
+                        <Label Text="{Binding Distance}"  FontSize="20" />
+                    </Frame>
+
+                    <StackLayout Orientation="Horizontal" Margin="10">
+                        <Image x:Name="img2" Source="ionic_ios_time.svg" Aspect="AspectFit" Margin="2,4,0,2" />
+                        <Label Margin="10,4,0,2" Text="Temps (en secondes)" VerticalOptions="Center" FontSize="20"/>
+
+                    </StackLayout>
+                    <Frame BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
+                        <Label Text="{Binding Temps}" FontSize="20" />
+                    </Frame>
+                </StackLayout>
+
+
+                <StackLayout VerticalOptions="FillAndExpand" />
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
