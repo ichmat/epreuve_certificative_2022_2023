@@ -11,4 +11,9 @@ public partial class ProposPage : ContentPage
         // Ajoutez ici la logique de navigation pour revenir au menu précédent
         await Shell.Current.Navigation.PopAsync();
     }
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.Navigation.PopAsync();
+
+    }
 }

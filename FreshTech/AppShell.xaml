@@ -36,6 +36,10 @@
     <ShellContent Title="Objectif"
                       Route="ObjectifPage"
                       ContentTemplate="{DataTemplate page:ObjectifPage}" />
+    
+    <ShellContent Title="Compte"
+                      Route="ComptePage"
+                      ContentTemplate="{DataTemplate page:ComptePage}" />
 
     <TabBar>
 

@@ -99,6 +99,9 @@
 	  <MauiXaml Update="Pages\CalibrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\ComptePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ConfidentialitePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

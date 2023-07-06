@@ -6,15 +6,17 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Margin="20">
             <!-- Grand titre "Confidentialité" -->
-            <!-- Grand titre "Language" cliquable -->
-            <Label Text="Confidentialité" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
-                </Label.GestureRecognizers>
-            </Label>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="&lt;" Clicked="OnTitleLabelTapped" Margin="0,0,20,0"/>
+                <Label Text="Confidentialité" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
 
             <!-- Barre de séparation grise -->
-            <BoxView Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+            <BoxView Margin="10" Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
 
             <!-- Reste de la page vide -->
             <StackLayout VerticalOptions="FillAndExpand" />

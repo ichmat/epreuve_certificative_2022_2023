@@ -37,10 +37,10 @@ public partial class ProfilePage : ContentPage
         await Navigation.PushModalAsync(new ConfidentialitePage());
     }
 
-    private void OnCompteClicked(object sender, EventArgs e)
+    private async void OnCompteClicked(object sender, EventArgs e)
     {
-        DisplayAlert("click", "OnCompteClicked", "canceml");
-        
+        await Navigation.PushModalAsync(new ComptePage());
+
     } 
     private async void OnproposClicked(object sender, EventArgs e)
     {
