@@ -9,9 +9,10 @@ public partial class PlusPage : ContentPage
     
     private async void OnTitleLabelTapped(object sender, EventArgs e)
     {
+        await Shell.Current.Navigation.PopAsync();
 
     }
-    
+
     private async void OnInventaireClicked(object sender, EventArgs e)
     {
 
