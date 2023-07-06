@@ -1,0 +1,35 @@
+namespace FreshTech.Pages;
+
+public partial class PlusPage : ContentPage
+{
+	public PlusPage()
+	{
+		InitializeComponent();
+	}
+    
+    private async void OnTitleLabelTapped(object sender, EventArgs e)
+    {
+
+    }
+    
+    private async void OnInventaireClicked(object sender, EventArgs e)
+    {
+
+    }
+    
+    private async void OnReparationClicked(object sender, EventArgs e)
+    {
+
+    }
+    
+    private async void OnConstructionclicked(object sender, EventArgs e)
+    {
+
+    }
+    
+    private async void OnAmeliorationClicked(object sender, EventArgs e)
+    {
+
+
+    }
+}

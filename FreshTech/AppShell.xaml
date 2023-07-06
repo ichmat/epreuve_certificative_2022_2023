@@ -20,6 +20,12 @@
                         Title="Calibration"
                       Route="CalibrationPage"
                       ContentTemplate="{DataTemplate page:CalibrationPage}" />
+    
+    <ShellContent
+                        Title="Plus"
+                      Route="PlusPage"
+                      ContentTemplate="{DataTemplate page:PlusPage}" />
+
 
     <TabBar>
 
