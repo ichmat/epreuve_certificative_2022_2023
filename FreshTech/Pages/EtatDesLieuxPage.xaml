@@ -3,46 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FreshTech.Pages.EtatDesLieuxPage"
              Title="EtatDesLieuxPage">
-    
-        <ContentPage.Content>
-            <StackLayout VerticalOptions="FillAndExpand" Margin="20">
-                <!-- Grand titre "Confidentialité" -->
-                <StackLayout Orientation="Horizontal">
-                    <Button Text="&lt;" Clicked="OnTitleLabelTapped" Margin="0,0,20,0"/>
-                    <Label Text="Etat Des Lieux" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </StackLayout>
-
-                <!-- Barre de séparation grise -->
-                <BoxView Margin="10" Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
-                <Label FontSize="15" Text="Votre objectif va être constamment mit à jour selon vos activités et votre performance. Le formulaire ci dessous représente les valeurs de vos objectifs moyen. Les changer recalculera vos objectifs." Margin="0,10" />
-                <!-- Reste de la page vide -->
-                <StackLayout Margin="0,0,0,0">
-                    <StackLayout Orientation="Horizontal" Margin="10">
-                        <Image x:Name="img" Source="pin.svg" Aspect="AspectFit" Margin="2,4,0,2" />
-                        <Label Margin="10,4,0,2" Text="Distance (en mètres)" VerticalOptions="Center" FontSize="20"/>
-                    </StackLayout>
-
-
-                    <Frame BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
-                        <Label Text="{Binding Distance}"  FontSize="20" />
-                    </Frame>
-
-                    <StackLayout Orientation="Horizontal" Margin="10">
-                        <Image x:Name="img2" Source="ionic_ios_time.svg" Aspect="AspectFit" Margin="2,4,0,2" />
-                        <Label Margin="10,4,0,2" Text="Temps (en secondes)" VerticalOptions="Center" FontSize="20"/>
-
-                    </StackLayout>
-                    <Frame BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
-                        <Label Text="{Binding Temps}" FontSize="20" />
-                    </Frame>
-                </StackLayout>
-
-
-                <StackLayout VerticalOptions="FillAndExpand" />
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+            <!-- Grand titre "Confidentialité" -->
+            <StackLayout Orientation="Horizontal">
+                <Button Text="&lt;" Clicked="OnTitleLabelTapped" Margin="0,0,20,0"/>
+                <Label Text="Etat Des Lieux" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
+
+            <!-- Barre de séparation grise -->
+            <BoxView Margin="10" Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+            <!-- Titre "Ressources" -->
+            <Label Text="Ressources" FontSize="24" Margin="10,20,0,10" TextColor="Gray" />
+
+
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Eau" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                <Image x:Name="img" Source="ionic_ios_water.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
+                <Label Text="{Binding Eau}" FontSize="20" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Nourriture" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                <Image x:Name="img2" Source="map_food.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
+                <Label Text="{Binding Nourriture}" FontSize="20" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Bonheur" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                <Image x:Name="img3" Source="ionic_ios_happy.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
+                <Label Text="{Binding Bonheur}" FontSize="20" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Energie" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                <Image x:Name="img4" Source="ionic_ios_flash.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
+                <Label Text="{Binding Energie}" FontSize="20" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Bois" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                <Image x:Name="img5" Source="forest.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
+                <Label Text="{Binding Bois}" FontSize="20" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Feraille" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                <Image x:Name="img6" Source="awesome_box_open.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
+                <Label Text="{Binding Feraille}" FontSize="20" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Habitant" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                <Image x:Name="img7" Source="ionic_ios_man.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
+                <Label Text="{Binding Habitant}" FontSize="20" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
