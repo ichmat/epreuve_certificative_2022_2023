@@ -3,6 +3,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Net;
 using CommunityToolkit.Maui.Views;
 
+
 namespace FreshTech.Pages;
 
 public partial class ProfilePage : ContentPage
@@ -26,26 +27,32 @@ public partial class ProfilePage : ContentPage
         InitializeComponent();
 
     }
-    private void OnMenu1Clicked(object sender, EventArgs e)
+    private async void OnObjectifsClicked(object sender, EventArgs e)
     {
-    //    Menu1Grid.IsVisible = true;
-    //    Menu2Grid.IsVisible = false;
-    //    Menu3Grid.IsVisible = false;
+        await Navigation.PushModalAsync(new ObjectifPage());
     }
 
-    private void OnMenu2Clicked(object sender, EventArgs e)
+    private async void OnConfidentialiteClicked(object sender, EventArgs e)
     {
-        //Menu1Grid.IsVisible = false;
-        //Menu2Grid.IsVisible = true;
-        //Menu3Grid.IsVisible = false;
+        await Navigation.PushModalAsync(new ConfidentialitePage());
     }
 
-    private void OnMenu3Clicked(object sender, EventArgs e)
+    private async void OnCompteClicked(object sender, EventArgs e)
     {
-        //Menu1Grid.IsVisible = false;
-        //Menu2Grid.IsVisible = false;
-        //Menu3Grid.IsVisible = true;
+        await Navigation.PushModalAsync(new ComptePage());
+
+    } 
+    private async void OnproposClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushModalAsync(new ProposPage());
+    } 
+
+    private async void OnLanguageClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushModalAsync(new LangagePage());
+
     }
+
    
 
 
