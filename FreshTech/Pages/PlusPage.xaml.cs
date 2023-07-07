@@ -25,7 +25,7 @@ public partial class PlusPage : ContentPage
     
     private async void OnConstructionclicked(object sender, EventArgs e)
     {
-
+        await Navigation.PushModalAsync(new ConstructionPage());
     }
     
     private async void OnAmeliorationClicked(object sender, EventArgs e)
