@@ -1,0 +1,52 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.PlusPage"
+             Title="PlusPage">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <Shadow Opacity="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+        <!-- Grand titre "Confidentialité" -->
+        <StackLayout Orientation="Horizontal">
+            <Button Text="&lt;" Clicked="OnTitleLabelTapped" Margin="0,0,20,0"/>
+            <Label Text="Plus" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+
+        <!-- Barre de séparation grise -->
+        <BoxView Margin="10" Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+        <!-- Menu -->
+        <StackLayout Margin="10,20,10,0">
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="awesome_boxes.svg" Text="Inventaire" BackgroundColor="White" TextColor="Black" Clicked="OnInventaireClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="ionic_md_build.svg" Text="Réparation" BackgroundColor="White" TextColor="Black" Clicked="OnReparationClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="awesome_building.svg" Text="Construction" BackgroundColor="White" TextColor="Black" Clicked="OnConstructionclicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="awesome_angle_double_up.svg" Text="Amélioration" BackgroundColor="White" TextColor="Black" Clicked="OnAmeliorationClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+
+        <!-- Reste de la page vide -->
+        <StackLayout VerticalOptions="FillAndExpand" />
+    </StackLayout>
+
+</ContentPage>
