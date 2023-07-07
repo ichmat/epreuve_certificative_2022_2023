@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.ComptePage"
+             Title="ComptePage">
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+
+            <StackLayout Orientation="Horizontal">
+                <Button Text="&lt;" Clicked="OnTitleLabelTapped" Margin="0,0,20,0"/>
+                <Label Text="Langage" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+            
+            <!-- Barre de séparation grise -->
+            <BoxView Margin="10" Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+            
+            <!-- Lien hypertexte vers Facebook -->
+
+
+            <StackLayout Margin="10,30,10,10" Orientation="Horizontal" >
+                <Image x:Name="img2" Source="logo_facebook.svg" Aspect="AspectFit" Margin="2,4,0,2"
+       WidthRequest="50" HeightRequest="50" />
+
+                <Label Margin="10"  Text="Connectez-vous avec Facebook" FontSize="20" TextColor="Blue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped= "OnFacebookTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </StackLayout>
+            
+            
+
+            <!-- Lien hypertexte vers Google -->
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Image x:Name="img" Source="awesome_google.svg" Aspect="AspectFit" Margin="2,4,0,2"
+       WidthRequest="50" HeightRequest="50" />
+                <Label Margin="10" Text="Connectez-vous avec Google" FontSize="20" TextColor="Blue">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped= "OnGoogleTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+        
+        <!-- Texte cliquable pour se déconnecter -->
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Image x:Name="img3" Source="awesome_google.svg" Aspect="AspectFit" Margin="2,4,0,2"
+       WidthRequest="50" HeightRequest="50" />
+                <Label Margin="10" FontSize="20" Text="Se déconnecter"  TextColor="Red">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped= "OnDeconnecterTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            </StackLayout>
+        
+            <!-- Section de changement de mot de passe -->
+            <Label Margin="10" Text="Changer de mot de passe" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
+
+            </Label>
+            <!-- Barre de séparation grise -->
+            <BoxView Margin="10"  Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+            <Frame Margin="10" BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
+                <Entry Placeholder="Ancien mot de passe" PlaceholderColor="Gray" />
+            </Frame>
+            <Frame Margin="10" BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
+                <Entry Placeholder="Nouveau mot de passe" PlaceholderColor="Gray" />
+            </Frame>
+            <Frame Margin="10" BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
+                <Entry Placeholder="Confirmer le nouveau mot de passe" PlaceholderColor="Gray" />
+            </Frame>
+
+
+
+            <Button Margin="10" Text="Changer" BackgroundColor="#7ED957" TextColor="White" CornerRadius="10" WidthRequest="150" Clicked="OnChangerClicked" />
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
