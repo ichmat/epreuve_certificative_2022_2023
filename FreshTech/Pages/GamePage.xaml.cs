@@ -92,8 +92,8 @@ public partial class GamePage : ContentPage
 
     }
 
-    private void ButtonPlus_Clicked()
+    private async void ButtonPlus_Clicked()
     {
-
+        await Navigation.PushModalAsync(new PlusPage());
     }
 }

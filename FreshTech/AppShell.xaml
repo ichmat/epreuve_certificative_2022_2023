@@ -20,6 +20,32 @@
                         Title="Calibration"
                       Route="CalibrationPage"
                       ContentTemplate="{DataTemplate page:CalibrationPage}" />
+    
+    <ShellContent
+                        Title="Plus"
+                      Route="PlusPage"
+                      ContentTemplate="{DataTemplate page:PlusPage}" />
+
+
+    <ShellContent Title="Confidentialite"
+                      Route="ConfidentialitePage"
+                      ContentTemplate="{DataTemplate page:ConfidentialitePage}" />
+    
+    <ShellContent Title="Langage"
+                      Route="LangagePage"
+                      ContentTemplate="{DataTemplate page:LangagePage}" />
+
+    <ShellContent Title="Propos"
+                      Route="ProposPage"
+                      ContentTemplate="{DataTemplate page:ProposPage}" />
+    
+    <ShellContent Title="Objectif"
+                      Route="ObjectifPage"
+                      ContentTemplate="{DataTemplate page:ObjectifPage}" />
+    
+    <ShellContent Title="Compte"
+                      Route="ComptePage"
+                      ContentTemplate="{DataTemplate page:ComptePage}" />
 
     <TabBar>
 
