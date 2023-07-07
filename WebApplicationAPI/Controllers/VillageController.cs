@@ -33,9 +33,7 @@ namespace WebApplicationAPI.Controllers
                 {
                     return BadRequest(APIError.VILLAGE_NOT_SET);
                 }
-
-                return Json(
-                    Message(message.UserGuid, new ResponseGetEntireVillage(
+                var response = new ResponseGetEntireVillage(
                         town,
                         dbContext.ConstructionDefs.Where(x => x.VillageId == town.VillageId).ToArray(),
                         dbContext.ConstructionProds.Where(x => x.VillageId == town.VillageId).ToArray(),
@@ -44,8 +42,9 @@ namespace WebApplicationAPI.Controllers
                         dbContext.Coordonnees.Where(x => x.VillageId == town.VillageId).ToArray(),
                         dbContext.RessourcePossedes.Where(x => x.VillageId == town.VillageId).ToArray(),
                         dbContext.ObjetsPossedes.Where(x => x.VillageId == town.VillageId).ToArray()
-                        ))
                     );
+                var jsonResult = Json(Message(message.UserGuid, response));
+                return jsonResult;
             });
         }
 
