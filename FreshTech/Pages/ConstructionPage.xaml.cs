@@ -38,13 +38,15 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
     private async void GetData()
     {
         ResponseGetNecessaryDataVillage infoTown = await App.client.SendAndGetResponse<ResponseGetNecessaryDataVillage>(new EPGetNecessaryDataVillage());
+        
         var infoTownconsrtuction = infoTown.ConstructionInfos.ToList();
+        var infoTownRessources = infoTown.CreationRessources.ToList();
 
         stackLayout.Children.Clear(); // Effacer les anciennes cartes (frames) du stackLayout
 
         foreach (ConstructionInfo construction in infoTownconsrtuction)
         {
-            Frame frame = CreateRessourceFrame(construction);
+            Frame frame = CreateRessourceFrame(construction, infoTownRessources.Where(x => x.ConsInfoId == construction.ConsInfoId).ToList());
             stackLayout.Children.Add(frame);
         }
     }
@@ -74,7 +76,7 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
         return mainStackLayout;
     }
 
-    private Frame CreateRessourceFrame(ConstructionInfo constructionInfo)
+    private Frame CreateRessourceFrame(ConstructionInfo constructionInfo, List<CreationRessource> craftList)
     {
         Frame frame = new Frame
         {
@@ -89,28 +91,20 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
         {
             Text = constructionInfo.Nom,
             FontSize = 24,
-            //TextColor = Color.Black,
             Margin = new Thickness(0, 0, 0, 10)
         };
         stackLayout.Children.Add(titleLabel);
 
-        //Image image = new Image
-        //{
-        //    Source = constructionInfo.ImagePath,
-        //    WidthRequest = 100,
-        //    HeightRequest = 100,
-        //    Margin = new Thickness(0, 0, 0, 10)
-        //};
-        //stackLayout.Children.Add(image);
-
-        //Label quantityLabel = new Label
-        //{
-        //    Text = $"Quantité nécessaire: {constructionInfo.}",
-        //    FontSize = 16,
-        //    TextColor = Color.Gray,
-        //    Margin = new Thickness(0, 0, 0, 5)
-        //};
-        //stackLayout.Children.Add(quantityLabel);
+        foreach (var ressources in craftList)
+        {
+            Label quantityLabel = new Label
+            {
+                Text = $"Ressource nécessaire {ressources.Ressource.Nom} : {ressources.Nombre}",
+                FontSize = 16,
+                Margin = new Thickness(0, 0, 0, 5)
+            };
+            stackLayout.Children.Add(quantityLabel);
+        }
 
         Label descriptionLabel = new Label
         {
@@ -122,32 +116,39 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
 
         Label timeLabel = new Label
         {
-            Text = $"Temps de contruction: {constructionInfo.TempsSecConstruction} secondes",
+            Text = $"Temps de construction: {constructionInfo.TempsSecConstruction} secondes",
             FontSize = 16,
-            //TextColor = Color.Gray,
             Margin = new Thickness(0, 0, 0, 5)
         };
         stackLayout.Children.Add(timeLabel);
 
-        ProgressBar progressBar = new ProgressBar
+        Button buyButton = new Button
         {
-            Progress = constructionInfo.TempsSecConstruction / 187200,
-            HeightRequest = 10,
-            Margin = new Thickness(0, 0, 0, 10)
+            Text = "Acheter"
         };
-        stackLayout.Children.Add(progressBar);
 
-        Label timerLabel = new Label
+        buyButton.Clicked += (sender, e) =>
         {
-            Text = constructionInfo.TempsSecConstruction.ToString("hh\\:mm"),
-            FontSize = 20,
-            //TextColor = Color.Black,
-            HorizontalOptions = LayoutOptions.Center
+            ActionOnBuyButton();
         };
-        stackLayout.Children.Add(timerLabel);
+        stackLayout.Children.Add(buyButton);
 
         frame.Content = stackLayout;
 
         return frame;
+    }
+    private async void ActionOnBuyButton()
+    {
+        bool result = await DisplayAlert("Confirmation", "Voulez-vous acheter cette construction ?", "Oui", "Non");
+
+        if (result)
+        {
+            // L'utilisateur a cliqué sur "Oui", effectuez ici les actions pour l'achat de la construction
+        }
+        else
+        {
+            
+            // L'utilisateur a cliqué sur "Non" ou a fermé la popup, vous pouvez effectuer des actions supplémentaires si nécessaire
+        }
     }
 }
