@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="FreshTech.Pages.ProfilePage">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="FreshTech.Pages.ProfilePage"
+             Title="ProfilePage">
     <ContentPage.Resources>
         <Style TargetType="Button">
             <Setter Property="Shadow">
@@ -14,31 +12,49 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    <Grid>
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
 
+    <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+
+        
         <!-- Ajouter l'image de profil et le nom de l'utilisateur ici -->
         <StackLayout Orientation="Horizontal" BackgroundColor="White">
-            <toolkit:AvatarView ImageSource="dotnet_bot.png "                     
-                    HeightRequest="150"
-                    WidthRequest="150"
-                    CornerRadius="75" />
+            <toolkit:AvatarView ImageSource="dotnet_bot.png"                     
+                HeightRequest="150"
+                WidthRequest="150"
+                CornerRadius="75" />
 
-            <StackLayout Orientation="Vertical" Margin="50,0,0,0"  VerticalOptions="Center">
+            <StackLayout Orientation="Vertical" Margin="50,0,0,0" VerticalOptions="Center">
                 <Label Text="Nom d'utilisateur" TextColor="Black" FontSize="18" VerticalOptions="Center" />
                 <Label Text="john.doe@example.com" TextColor="Black" FontSize="12" VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>
-        <StackLayout Grid.Row="2"  Orientation="Vertical" VerticalOptions="Center" BackgroundColor ="White" >
-            <Button x:Name="test" ImageSource="metro_target.svg"  Text="Objecifs" BackgroundColor="White" TextColor="Black" Margin="0,10,0,0" Clicked="OnMenu1Clicked"  BorderWidth="0"/>
-            <Button ImageSource="ionic_ios_lock.svg" Text="Confidentialité" BackgroundColor="White" Margin="0,10,0,0" TextColor="Black" Clicked="OnMenu2Clicked" BorderWidth="0"/>
-            <Button ImageSource="material_language.svg" Text="Language" BackgroundColor="White" Margin="0,10,0,0" TextColor="Black" Clicked="OnMenu3Clicked"  BorderWidth="0"/>
-            <Button ImageSource="material_face.svg"  Text="Compte" BackgroundColor="White" Margin="0,10,0,0" TextColor="Black" Clicked="OnMenu3Clicked"  BorderWidth="0"/>
-            <Button ImageSource="ionic_ios_information_circle_outline.svg" Text="À propos" BackgroundColor="White" Margin="0,10,0,0" TextColor="Black" Clicked="OnMenu3Clicked" BorderWidth="0" />
+        
+        <!-- Menu -->
+        <StackLayout Margin="10,20,10,0">
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="metro_target.svg" Text="Objectifs" BackgroundColor="White" TextColor="Black" Clicked="OnObjectifsClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="ionic_ios_lock.svg" Text="Confidentialité" BackgroundColor="White" TextColor="Black" Clicked="OnConfidentialiteClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="material_language.svg" Text="Language" BackgroundColor="White" TextColor="Black" Clicked="OnLanguageClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="material_face.svg" Text="Compte" BackgroundColor="White" TextColor="Black" Clicked="OnCompteClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+            
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <Button ImageSource="ionic_ios_information_circle_outline.svg" Text="À propos" BackgroundColor="White" TextColor="Black" Clicked="OnproposClicked" BorderWidth="1" Margin="25,0,0,0" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
         </StackLayout>
-    </Grid>
+
+        <!-- Reste de la page vide -->
+        <StackLayout VerticalOptions="FillAndExpand" />
+    </StackLayout>
+
 </ContentPage>

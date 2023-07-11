@@ -64,14 +64,19 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\arrow_up_down.svg" />
+	  <None Remove="Resources\Images\awesome_box_open.svg" />
 	  <None Remove="Resources\Images\dashboard.svg" />
 	  <None Remove="Resources\Images\dots.svg" />
 	  <None Remove="Resources\Images\edit.svg" />
 	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\info_circle.svg" />
+	  <None Remove="Resources\Images\ionic_ios_flash.svg" />
+	  <None Remove="Resources\Images\ionic_ios_man.svg" />
 	  <None Remove="Resources\Images\ionic_ios_speedometer.svg" />
 	  <None Remove="Resources\Images\ionic_ios_star.svg" />
 	  <None Remove="Resources\Images\ionic_ios_time.svg" />
+	  <None Remove="Resources\Images\ionic_ios_water.svg" />
+	  <None Remove="Resources\Images\map_food.svg" />
 	  <None Remove="Resources\Images\pin.svg" />
 	  <None Remove="Resources\Images\running.svg" />
 	  <None Remove="Resources\Images\thumb_image.svg" />
@@ -108,13 +113,37 @@
 	  <MauiXaml Update="Pages\CalibrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\ConstructionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\EtatDesLieuxPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ComptePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ConfidentialitePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\GamePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\LangagePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\PlusPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ObjectifPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ProposPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\RegisterPage.xaml">

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="47" height="47" viewBox="0 0 47 47">
+  <defs>
+    <filter id="Icon_ionic-ios-happy" x="0" y="0" width="47" height="47" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Icon_ionic-ios-happy)">
+    <path id="Icon_ionic-ios-happy-2" data-name="Icon ionic-ios-happy" d="M17.875,3.375a14.5,14.5,0,1,0,14.5,14.5A14.5,14.5,0,0,0,17.875,3.375Zm5.019,10.6a1.673,1.673,0,1,1-1.673,1.673A1.669,1.669,0,0,1,22.894,13.971Zm-10.038,0a1.673,1.673,0,1,1-1.673,1.673A1.669,1.669,0,0,1,12.856,13.971Zm5.019,11.781a6.844,6.844,0,0,1-6.567-4.929.56.56,0,0,1,.537-.718H23.9a.561.561,0,0,1,.537.718A6.83,6.83,0,0,1,17.875,25.752Z" transform="translate(5.63 2.63)" fill="#dd00e5"/>
+  </g>
+</svg>
