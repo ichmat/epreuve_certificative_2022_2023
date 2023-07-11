@@ -6,25 +6,26 @@ public partial class ComptePage : ContentPage
 	{
 		InitializeComponent();
 	}
-    private async void OnTitleLabelTapped(object sender, EventArgs e)
-    {
-        await Shell.Current.Navigation.PopAsync();
-    }
 
     private void OnDeconnecterTapped(object sender, EventArgs e)
     {
-         DisplayAlert("click", "decon", "canceml");
+         DisplayAlert("click", "decon", "ok");
     }
     private void OnFacebookTapped(object sender, EventArgs e)
     {
-        DisplayAlert("click", "facebook", "canceml");
+        DisplayAlert("click", "facebook", "ok");
     } 
     private void OnGoogleTapped(object sender, EventArgs e)
     {
-        DisplayAlert("click", "google", "canceml");
+        DisplayAlert("click", "google", "ok");
     }
     private void OnChangerClicked(object sender, EventArgs e)
     {
-        DisplayAlert("click", "Change", "canceml");
+        DisplayAlert("click", "Change", "ok");
+    }
+
+    private async void TitleSpan_GoBack()
+    {
+        await Shell.Current.Navigation.PopAsync();
     }
 }

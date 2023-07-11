@@ -26,8 +26,8 @@ namespace FreshTech.Views.Game
         internal async Task ReloadAllData()
         {
             // faire en sorte de compiler les informations en plusieurs objets struct pour permettre une meilleur accessibilité et un meilleur traitement
-            //await ReloadNecessaryData();
-            //await ReloadUserTown();
+            await ReloadNecessaryData();
+            await ReloadUserTown();
         }
 
         private async Task ReloadNecessaryData()
@@ -83,8 +83,8 @@ namespace FreshTech.Views.Game
             });
 
             // comptage des ressources
-            //Array.ForEach(dataTown.RessourcesPossede, x => ressourceNumbers[x.Ressource] = x.Nombre);
-            //Array.ForEach(dataTown.ObjetsPossedes, x => objectsNumbers[x.Objet] = x.Nombre);
+            Array.ForEach(dataTown.RessourcesPossede, x => ressourceNumbers[x.Ressource] = x.Nombre);
+            Array.ForEach(dataTown.ObjetsPossedes, x => objectsNumbers[x.Objet] = x.Nombre);
 
             incomingAttacks = dataTown.AttaquesActuel;
         }

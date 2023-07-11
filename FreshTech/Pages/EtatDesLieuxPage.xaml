@@ -2,21 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FreshTech.Pages.EtatDesLieuxPage"
+             xmlns:views="clr-namespace:FreshTech.Views"
              Title="EtatDesLieuxPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand" Margin="20">
-            <!-- Grand titre "Confidentialité" -->
-            <StackLayout Orientation="Horizontal">
-                <Button Text="&lt;" Clicked="OnTitleLabelTapped" Margin="0,0,20,0"/>
-                <Label Text="Etat Des Lieux" TextColor="Gray" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnTitleLabelTapped" />
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
 
-            <!-- Barre de séparation grise -->
-            <BoxView Margin="10" Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+            <views:TitleSpan Title="Etat des lieux" GoBack="TitleSpan_GoBack" />
 
             <!-- Titre "Ressources" -->
             <Label Text="Ressources" FontSize="24" Margin="10,20,0,10" TextColor="Gray" />

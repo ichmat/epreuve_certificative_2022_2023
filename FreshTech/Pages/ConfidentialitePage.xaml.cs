@@ -6,7 +6,8 @@ public partial class ConfidentialitePage : ContentPage
 	{
 		InitializeComponent();
 	}
-    private async void OnTitleLabelTapped(object sender, EventArgs e)
+
+    private async void TitleSpan_GoBack()
     {
         await Shell.Current.Navigation.PopAsync();
     }

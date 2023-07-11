@@ -6,12 +6,6 @@ public partial class PlusPage : ContentPage
 	{
 		InitializeComponent();
 	}
-    
-    private async void OnTitleLabelTapped(object sender, EventArgs e)
-    {
-        await Shell.Current.Navigation.PopAsync();
-
-    }
 
     private async void OnInventaireClicked(object sender, EventArgs e)
     {
@@ -32,5 +26,10 @@ public partial class PlusPage : ContentPage
     {
 
 
+    }
+
+    private async void TitleSpan_GoBack()
+    {
+        await Shell.Current.Navigation.PopAsync();
     }
 }

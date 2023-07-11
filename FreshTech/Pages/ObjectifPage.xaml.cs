@@ -12,11 +12,9 @@ public partial class ObjectifPage : ContentPage
 		InitializeComponent();
         BindingContext = this;
     }
-    private async void OnTitleLabelTapped(object sender, EventArgs e)
+
+    private async void TitleSpan_GoBack()
     {
-        // Ajoutez ici la logique de navigation pour revenir au menu précédent
         await Shell.Current.Navigation.PopAsync();
-
     }
-
 }

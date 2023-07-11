@@ -2,15 +2,22 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              HorizontalOptions="Fill"
+             SizeChanged="ContentView_SizeChanged"
              x:Class="FreshTech.Views.TitleSpan">
     <VerticalStackLayout HorizontalOptions="Fill">
-        <Label 
-            FontSize="30"
-            x:Name="L_Title"
-            TextColor="Gray"
-            Text="#Title#"
-            Margin="0,0,0,25"
-            HorizontalOptions="Start" />
+        <HorizontalStackLayout>
+
+            <ImageButton Clicked="imgBack_Clicked" HeightRequest="18" WidthRequest="18" x:Name="imgBack" Source="arrow_back" Margin="0,0,10,20" />
+
+            <Label 
+                FontSize="30"
+                x:Name="L_Title"
+                TextColor="Gray"
+                Text="#Title#"
+                Margin="0,0,0,20"
+                HorizontalOptions="Start" />
+        </HorizontalStackLayout>
+        
 
         <Border HorizontalOptions="Fill" HeightRequest="3" BackgroundColor="LightGray">
             <Border.StrokeShape>

@@ -151,4 +151,9 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
             // L'utilisateur a cliqué sur "Non" ou a fermé la popup, vous pouvez effectuer des actions supplémentaires si nécessaire
         }
     }
+
+    private void TitleSpan_GoBack()
+    {
+
+    }
 }

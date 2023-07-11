@@ -140,15 +140,14 @@ public partial class EtatDesLieuxPage : ContentPage, INotifyPropertyChanged
 
         Console.WriteLine("");
     }
-    private async void OnTitleLabelTapped(object sender, EventArgs e)
-    {
-        // Ajoutez ici la logique de navigation pour revenir au menu précédent
-        await Shell.Current.Navigation.PopAsync();
-
-    }
-
+    
     protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    private async void TitleSpan_GoBack()
+    {
+        await Shell.Current.Navigation.PopAsync();
     }
 }

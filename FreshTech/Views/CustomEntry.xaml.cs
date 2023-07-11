@@ -27,6 +27,20 @@ public partial class CustomEntry : ContentView
         set => L_Title.TextColor = value;
     }
 
+    public string Placeholder
+    {
+        get => entry.Placeholder;
+        set => entry.Placeholder = value;
+    }
+
+    public Color PlaceholderColor
+    {
+        get => entry.PlaceholderColor;
+        set => entry.PlaceholderColor = value;
+    }
+
+    #region TITLE
+
     public string Title
     {
         get => (string)GetValue(TitleProperty);
@@ -58,6 +72,10 @@ public partial class CustomEntry : ContentView
             }
         }
     }
+
+    #endregion
+
+    #region IMGSOURCE
 
     public string ImgSource
     {
@@ -94,6 +112,10 @@ public partial class CustomEntry : ContentView
         }
     }
 
+    #endregion
+
+    #region NUMBERONLY
+
     public bool NumberOnly
     {
         get => (bool)GetValue(NumberOnlyProperty);
@@ -127,6 +149,10 @@ public partial class CustomEntry : ContentView
         }
     }
 
+    #endregion
+
+    #region TIMERONLY
+
     public bool TimerOnly
     {
         get => (bool)GetValue(TimerOnlyProperty);
@@ -159,6 +185,8 @@ public partial class CustomEntry : ContentView
             }
         }
     }
+
+    #endregion
 
     public CustomEntry()
 	{
@@ -223,10 +251,7 @@ public partial class CustomEntry : ContentView
             if (!CheckTimer(e.NewTextValue))
             {
                 entry.Text = e.OldTextValue;
-                //_cancel_txt_changed_event = true;
             }
-            /*if(e.OldTextValue != e.NewTextValue)
-                _cancel_txt_changed_event = true;*/
         }
         else if (NumberOnly)
         {

@@ -6,10 +6,9 @@ public partial class LangagePage : ContentPage
 	{
 		InitializeComponent();
 	}
-    private async void OnTitleLabelTapped(object sender, EventArgs e)
+
+    private async void TitleSpan_GoBack()
     {
-        // Ajoutez ici la logique de navigation pour revenir au menu précédent
         await Shell.Current.Navigation.PopAsync();
-        DisplayAlert("click", "OnproposClicked", "canceml");
     }
 }
