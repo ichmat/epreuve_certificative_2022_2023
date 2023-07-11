@@ -12,7 +12,7 @@
             <!-- Titre "Ressources" -->
             <Label Text="Ressources" FontSize="24"  TextColor="Gray" Margin="25" />
 
-            <views:DataContent x:Name="L_Eau" ImageSource="ionic_ios_water" Color="#33B5E5" ImageSourceRight="ionic_ios_water"/>
+            <views:DataContent x:Name="L_Eau" ImageSource="ionic_ios_water" Color="#33B5E5"/>
             <views:DataContent x:Name="L_Nourriture" ImageSource="map_food" Color="#00E15A"/>
             <views:DataContent x:Name="L_Bonheur" ImageSource="ionic_ios_happy" Color="#DD00E5"/>
             <views:DataContent x:Name="L_Energie" ImageSource="ionic_ios_flash" Color="#F7FF00"/>
