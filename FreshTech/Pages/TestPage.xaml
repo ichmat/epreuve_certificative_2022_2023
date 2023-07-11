@@ -5,10 +5,32 @@
              xmlns:views="clr-namespace:FreshTech.Views"
              xmlns:map="clr-namespace:FreshTech.Views.Map"
              xmlns:uitools="clr-namespace:FreshTech.Views"
+             xmlns:tabs="http://sharpnado.com"
              BackgroundColor="{StaticResource Gray100}"
              Title="">
     <VerticalStackLayout VerticalOptions="Center">
         <!--<map:FTMap x:Name="map" />-->
-        <uitools:CustomButton BackgroundColor="White" Color="Black" Title="Test" ImageSource="edit.svg"/>
+        <!--<tabs:TabHostView x:Name="TabHost"
+                    Grid.Row="2"
+                    BackgroundColor="#272727"
+                    SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                    TabType="Fixed">
+            <tabs:TabHostView.Tabs>
+                <tabs:BottomTabItem IconImageSource="home.svg" >
+                    
+                </tabs:BottomTabItem>
+                <tabs:BottomTabItem IconImageSource="running.svg" >
+                    
+                </tabs:BottomTabItem>
+                <tabs:BottomTabItem IconImageSource="dashboard.svg" >
+
+                </tabs:BottomTabItem>
+                <tabs:BottomTabItem IconImageSource="user.svg" >
+                   
+                </tabs:BottomTabItem>
+            </tabs:TabHostView.Tabs>
+        </tabs:TabHostView>-->
+
+        <views:DataContent Title="test" SubTitle="Test" BackgroundColor="White" Color="{StaticResource Success}" ScaleImageSource="1.5" ImageSource="ionic_ios_man.svg"  />
     </VerticalStackLayout>
 </ContentPage>

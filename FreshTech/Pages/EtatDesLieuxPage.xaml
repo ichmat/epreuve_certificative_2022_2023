@@ -5,57 +5,21 @@
              xmlns:views="clr-namespace:FreshTech.Views"
              Title="EtatDesLieuxPage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand" Margin="20">
+        <StackLayout VerticalOptions="FillAndExpand" >
 
-            <views:TitleSpan Title="Etat des lieux" GoBack="TitleSpan_GoBack" />
+            <views:TitleSpan Title="Etat des lieux" GoBack="TitleSpan_GoBack" Margin="25"/>
 
             <!-- Titre "Ressources" -->
-            <Label Text="Ressources" FontSize="24" Margin="10,20,0,10" TextColor="Gray" />
+            <Label Text="Ressources" FontSize="24"  TextColor="Gray" Margin="25" />
 
+            <views:DataContent x:Name="L_Eau" ImageSource="ionic_ios_water" Color="#33B5E5" ImageSourceRight="ionic_ios_water"/>
+            <views:DataContent x:Name="L_Nourriture" ImageSource="map_food" Color="#00E15A"/>
+            <views:DataContent x:Name="L_Bonheur" ImageSource="ionic_ios_happy" Color="#DD00E5"/>
+            <views:DataContent x:Name="L_Energie" ImageSource="ionic_ios_flash" Color="#F7FF00"/>
+            <views:DataContent x:Name="L_Bois" ImageSource="forest" Color="#BF8600"/>
+            <views:DataContent x:Name="L_Feraille" ImageSource="awesome_box_open" Color="#B1B1B1"/>
+            <views:DataContent x:Name="L_Habitant" ImageSource="ionic_ios_man" Color="#B1B1B1"/>
 
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Eau" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                <Image x:Name="img" Source="ionic_ios_water.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
-                <Label Text="{Binding Eau}" FontSize="20" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-            
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Nourriture" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                <Image x:Name="img2" Source="map_food.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
-                <Label Text="{Binding Nourriture}" FontSize="20" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Bonheur" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                <Image x:Name="img3" Source="ionic_ios_happy.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
-                <Label Text="{Binding Bonheur}" FontSize="20" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Energie" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                <Image x:Name="img4" Source="ionic_ios_flash.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
-                <Label Text="{Binding Energie}" FontSize="20" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Bois" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                <Image x:Name="img5" Source="forest.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
-                <Label Text="{Binding Bois}" FontSize="20" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Feraille" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                <Image x:Name="img6" Source="awesome_box_open.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
-                <Label Text="{Binding Feraille}" FontSize="20" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Habitant" FontSize="20" HorizontalOptions="StartAndExpand"/>
-                <Image x:Name="img7" Source="ionic_ios_man.svg" Aspect="AspectFit" Margin="2,4,0,2" HorizontalOptions="End"/>
-                <Label Text="{Binding Habitant}" FontSize="20" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-
-            <StackLayout VerticalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

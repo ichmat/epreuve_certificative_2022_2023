@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Views.DataContent"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             SizeChanged="ContentView_SizeChanged"
+             HeightRequest="60"
+             HorizontalOptions="Fill">
+    <Grid BackgroundColor="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="auto" x:Name="colRightTxt" />
+            <ColumnDefinition Width="75" x:Name="colRightIcon" />
+        </Grid.ColumnDefinitions>
+
+        <!-- IMG DE GAUCHE -->
+        <Image x:Name="img" HorizontalOptions="Center" Grid.Column="0" Margin="25,0,15,0" VerticalOptions="Center" Aspect="AspectFit">
+            <Image.Behaviors>
+                <toolkit:IconTintColorBehavior x:Name="imgSourceColor" TintColor="Black" />
+            </Image.Behaviors>
+            <Image.Shadow>
+                <Shadow Brush="{StaticResource Gray500}"
+                    Offset="0,5"
+                    Opacity="0.3"
+                        Radius="15"/>
+            </Image.Shadow>
+        </Image>
+
+        <!-- TITRE ET SOUS TITRE DE L'ELELMENT -->
+        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+            <Label x:Name="L_Title" FontSize="Title" Text="#Title#" />
+            <Label x:Name="L_SubTitle" FontSize="Default" Text="#Subtitle#" />
+        </VerticalStackLayout>
+
+        <!-- RIGHT TEXT -->
+        <Label Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" x:Name="L_RightText" FontSize="Default" Text="#RightText#" />
+
+        <!-- IMG DE DROITE -->
+        <Image x:Name="imgRight" Grid.Column="3" Source="ionic_ios_man.svg" WidthRequest="30" HeightRequest="30" Margin="15,0,25,0" Aspect="AspectFit">
+            <Image.Behaviors>
+                <toolkit:IconTintColorBehavior x:Name="imgRightSourceColor" TintColor="Black" />
+            </Image.Behaviors>
+        </Image>
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</ContentView>

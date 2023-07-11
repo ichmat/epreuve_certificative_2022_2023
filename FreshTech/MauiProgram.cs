@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
+using Sharpnado.Tabs;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace FreshTech;
@@ -31,6 +32,7 @@ public static class MauiProgram
                 fonts.AddFont("TwCenMTStd-UltraBoldCond.otf", "TwCenUltraBoldCond");
                 fonts.AddFont("TwCenMTStd-UltraBoldIt.otf", "TwCenUltraBoldIt");
             }).UseMauiMaps().UseMauiCommunityToolkit()
+            .UseSharpnadoTabs(false)
             .UseSkiaSharp(true);
 
 #if DEBUG

@@ -102,7 +102,7 @@ namespace FreshTech.Tools
             r = 0.3;
 
             x = q * Matrix.Build.Random(L, 1); //initial state with noise
-            P = Matrix.Build.Diagonal(L, L, 1); //initial state covraiance
+            P = Matrix.Build.Diagonal(L, L, 1); //initial state covariance
 
             Q = Matrix.Build.Diagonal(L, L, q * q); //covariance of process
             R = Matrix.Build.Dense(m, m, r * r); //covariance of measurement  

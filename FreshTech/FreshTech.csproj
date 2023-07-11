@@ -53,7 +53,7 @@
 		<MauiImage Update="Resources\Images\home.svg" BaseSize="50,50" />
 		<MauiImage Update="Resources\Images\running.svg" BaseSize="50,50" />
 		<MauiImage Update="Resources\Images\user.svg" BaseSize="50,50" />
-
+		<MauiImage Update="Resources\Images\ionic_ios_man.svg" BaseSize="50,50" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -93,6 +93,7 @@
 		<PackageReference Include="MathNet.Filtering.Kalman" Version="0.7.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.59" />
+		<PackageReference Include="Sharpnado.Tabs.Maui" Version="3.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -173,6 +174,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DataContent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Game\GameMap.xaml">
