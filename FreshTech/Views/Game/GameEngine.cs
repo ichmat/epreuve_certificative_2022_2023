@@ -95,8 +95,8 @@ namespace FreshTech.Views.Game
             infoId_schema.Clear();
 
             ResponseGetNecessaryDataVillage infoTown = await App.client.SendAndGetResponse<ResponseGetNecessaryDataVillage>(new EPGetNecessaryDataVillage());
-            Array.ForEach(infoTown.Ressources, x => ressourceNumbers.Add(x, 0)); // mise en place des ressources
-            Array.ForEach(infoTown.Objets, x => objectsNumbers.Add(x, 0)); // mise en place des objets
+            Array.ForEach(NecessaryData.ressources, x => ressourceNumbers.Add(x, 0)); // mise en place des ressources
+            Array.ForEach(NecessaryData.objets, x => objectsNumbers.Add(x, 0)); // mise en place des objets
             
             foreach(ConstructionInfo ci in infoTown.ConstructionInfos)
             {

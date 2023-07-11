@@ -258,9 +258,9 @@ public partial class CalFormular : ContentView
         string[] datas = EntryTime.Text.Split(':');
         if (datas.Length == 3)
         {
-            int sec = int.Parse(datas[0]);
+            int sec = int.Parse(datas[2]);
             int min = int.Parse(datas[1]);
-            int hour = int.Parse(datas[2]);
+            int hour = int.Parse(datas[0]);
             min += 60 * hour;
             sec += 60 * min;
             return sec;

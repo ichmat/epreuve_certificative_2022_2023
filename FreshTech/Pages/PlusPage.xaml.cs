@@ -12,29 +12,28 @@ public partial class PlusPage : ContentPage
         _engine = gameEngine;
 	}
 
-    private async void OnInventaireClicked(object sender, EventArgs e)
-    {
-
-    }
-    
-    private async void OnReparationClicked(object sender, EventArgs e)
-    {
-
-    }
-    
-    private async void OnConstructionclicked(object sender, EventArgs e)
-    {
-        await Navigation.PushModalAsync(new ConstructionPage(_engine));
-    }
-    
-    private async void OnAmeliorationClicked(object sender, EventArgs e)
-    {
-
-
-    }
-
     private async void TitleSpan_GoBack()
     {
         await Shell.Current.Navigation.PopAsync();
+    }
+
+    private async void Inventaire_Clicked()
+    {
+
+    }
+
+    private async void Reparation_Clicked()
+    {
+
+    }
+
+    private async void Construction_Clicked()
+    {
+        await Navigation.PushModalAsync(new ConstructionPage(_engine));
+    }
+
+    private async void Amelioration_Clicked()
+    {
+
     }
 }

@@ -2,35 +2,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:FreshTech.Views"
              x:Class="FreshTech.Pages.ObjectifPage"
-             Title="ObjectifPage">
+             Loaded="ContentPage_Loaded"
+             Title="">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand" Margin="20">
-            <views:TitleSpan Title="Objectif" GoBack="TitleSpan_GoBack"/>
+        <Grid>
+            <VerticalStackLayout VerticalOptions="FillAndExpand" Margin="25">
+                <views:TitleSpan Title="Objectif" GoBack="TitleSpan_GoBack" Margin="0,0,0,25"/>
 
-            <!-- Reste de la page vide -->
-            <StackLayout Margin="0,0,0,0">
-                <StackLayout Orientation="Horizontal" Margin="10">
-                    <Image x:Name="img" Source="pin.svg" Aspect="AspectFit" Margin="2,4,0,2" />
-                    <Label Margin="10,4,0,2" Text="Distance (en mètres)" VerticalOptions="Center" FontSize="20"/>
-                </StackLayout>
+                <Label Margin="0,0,0,25">
+                    Votre objectif va être constamment mit à jour selon vos activités et votre performance. Le formulaire ci dessous représente les valeurs de vos objectifs moyen. Les changer recalculera vos objectifs.
+                </Label>
 
+                <views:CustomEntry Title="Distance (Km)" NumberOnly="True" Text="0.00" ImgSource="pin.svg" x:Name="EntryDistance" Margin="0,0,0,25" />
+                <views:CustomEntry TimerOnly="True" Title="Temps" Text="00:00:00" ImgSource="ionic_ios_time.svg" x:Name="EntryTime" Margin="0,0,0,25" />
 
-                <Frame BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
-                    <Label Text="{Binding Distance}"  FontSize="20" />
-                </Frame>
-                
-                <StackLayout Orientation="Horizontal" Margin="10">
-                    <Image x:Name="img2" Source="ionic_ios_time.svg" Aspect="AspectFit" Margin="2,4,0,2" />
-                    <Label Margin="10,4,0,2" Text="Temps (en secondes)" VerticalOptions="Center" FontSize="20"/>
-                    
-                </StackLayout>
-                <Frame BackgroundColor="#D3D3D3" CornerRadius="10" Padding="5">
-                    <Label Text="{Binding Temps}" FontSize="20" />
-                </Frame>
-            </StackLayout>
+            </VerticalStackLayout>
 
-
-            <StackLayout VerticalOptions="FillAndExpand" />
-        </StackLayout>
+            <Button WidthRequest="170" HeightRequest="58" VerticalOptions="End" Text="Sauvegarder" Clicked="Save_Clicked" BackgroundColor="{StaticResource Success}" TextColor="White" Margin="0,0,0,25"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -7,8 +7,8 @@
              xmlns:uitools="clr-namespace:FreshTech.Views"
              BackgroundColor="{StaticResource Gray100}"
              Title="">
-    <VerticalStackLayout>
+    <VerticalStackLayout VerticalOptions="Center">
         <!--<map:FTMap x:Name="map" />-->
-        <uitools:CustomButton />
+        <uitools:CustomButton BackgroundColor="White" Color="Black" Title="Test" ImageSource="edit.svg"/>
     </VerticalStackLayout>
 </ContentPage>

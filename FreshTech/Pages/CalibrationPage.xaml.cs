@@ -16,7 +16,7 @@ public partial class CalibrationPage : ContentPage
         StartLoading();
 
         // vérifie que l'objet stat est initialiser pour cette utilisateur
-        Stat? stat = await App.client.SendAndGetResponse<Stat>(new EPGetStatByUserId(App.client.CurrentUser.UtilisateurId));
+        Stat? stat = await App.client.SendAndGetResponse<Stat>(new EPGetStatByUserId());
         if(stat != null &&
             stat.ObjectifTempsSecMax != null && 
             stat.ObjectifPauseSecMax != null &&

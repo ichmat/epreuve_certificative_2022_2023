@@ -62,7 +62,7 @@ namespace AppCore.Services
                 (dbSet, data) => dbSet.FirstOrDefault(x => x.ObjetId == data.ObjetId) != null);
         }
 
-        private static readonly Objet[] objets = 
+        public static readonly Objet[] objets = 
         {
             new Objet(){ObjetId = 1, Rarete = TypeRarete.COMMUN, Nom = "Fil de fer"},
             new Objet(){ObjetId = 2, Rarete = TypeRarete.EPIC, Nom = "Batterie"},
@@ -89,7 +89,7 @@ namespace AppCore.Services
                 (dbSet, data) => dbSet.FirstOrDefault(x => x.RessourceId == data.RessourceId) != null);
         }
 
-        private static readonly Ressource[] ressources =
+        public static readonly Ressource[] ressources =
         {
             new Ressource(){RessourceId = 1, Nom = "Eau"},
             new Ressource(){RessourceId = 2, Nom = "Nourriture"},

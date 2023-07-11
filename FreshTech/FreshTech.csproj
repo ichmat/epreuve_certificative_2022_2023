@@ -64,6 +64,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\arrow_back.svg" />
+	  <None Remove="Resources\Images\arrow_forward.svg" />
 	  <None Remove="Resources\Images\arrow_up_down.svg" />
 	  <None Remove="Resources\Images\awesome_box_open.svg" />
 	  <None Remove="Resources\Images\dashboard.svg" />

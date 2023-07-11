@@ -10,52 +10,33 @@ public partial class ProfilePage : ContentPage
 {
 	public ProfilePage()
 	{
-        AvatarView avatarView = new()
-        {
-            ImageSource = "dotnet_bot.png"
-        };
-        Button button = new Button
-        {
-            Text = "Objecifs",
-            ImageSource = new FileImageSource
-            {
-                File = "ionic-ios-information-circle-outline.svg"
-            },
-            ContentLayout = new Button.ButtonContentLayout(Button.ButtonContentLayout.ImagePosition.Left, 20)
-        };
-        Content = avatarView;
         InitializeComponent();
-
+        L_UserName.Text = App.client.CurrentUser.Pseudo;
+        L_Mail.Text = App.client.CurrentUser.Mail;
     }
-    private async void OnObjectifsClicked(object sender, EventArgs e)
+    
+    private async void Objectif_Clicked()
     {
         await Navigation.PushModalAsync(new ObjectifPage());
     }
 
-    private async void OnConfidentialiteClicked(object sender, EventArgs e)
+    private async void Confidentialite_Clicked()
     {
         await Navigation.PushModalAsync(new ConfidentialitePage());
     }
 
-    private async void OnCompteClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushModalAsync(new ComptePage());
-
-    } 
-    private async void OnproposClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushModalAsync(new ProposPage());
-    } 
-
-    private async void OnLanguageClicked(object sender, EventArgs e)
+    private async void Language_Clicked()
     {
         await Navigation.PushModalAsync(new LangagePage());
-
     }
 
-   
+    private async void Compte_Clicked()
+    {
+        await Navigation.PushModalAsync(new ComptePage());
+    }
 
-
-
-
+    private async void APropos_Clicked()
+    {
+        await Navigation.PushModalAsync(new ProposPage());
+    }
 }

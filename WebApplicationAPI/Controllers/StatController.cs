@@ -50,7 +50,13 @@ namespace WebApplicationAPI.Controllers
         {
             return await ProcessAndCheckToken<EPGetStatByUserId>(message, (args) =>
             {
-                var stat = dbContext.Stats.FirstOrDefault(x => x.UtilisateurId == args.UtilisateurId);
+                Guid? userId = GetUtilisateurIdByUserGuid(message.UserGuid);
+                if (userId == null)
+                {
+                    return BadRequest(APIError.BAD_USER_TOKEN);
+                }
+
+                var stat = dbContext.Stats.FirstOrDefault(x => x.UtilisateurId == userId.Value);
                 if(stat != null)
                 {
                     return Json(Message(message.UserGuid, stat));

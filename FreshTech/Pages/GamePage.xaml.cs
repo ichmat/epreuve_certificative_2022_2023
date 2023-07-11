@@ -86,6 +86,7 @@ public partial class GamePage : ContentPage
     {
         // afficher visuellement le click de l'utilisateur
         ShowCaseClicked(x, y);
+        gameMap.ReloadViewElement();
     }
 
     internal void StartLoading()

@@ -47,18 +47,25 @@ public partial class GameMap : ContentView
 
     public void AddElement(VisualElement view, int x, int y)
     {
-        _scroll_x = SV_Map.ScrollX;
-        _scroll_y = SV_Map.ScrollY;
         _cancel_scroll = true;
         MainGrid.Children.Add(view);
         Grid.SetColumn(view, x);
         Grid.SetRow(view, y);
     }
 
+    public void ReloadViewElement()
+    {
+        Dispatcher.Dispatch(triggerReloadView);
+    }
+
+    private async void triggerReloadView()
+    {
+        await Task.Delay(1);
+        await SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
+    }
+
     public void RemoveElement(VisualElement view)
     {
-        _scroll_x = SV_Map.ScrollX;
-        _scroll_y = SV_Map.ScrollY;
         _cancel_scroll = true;
         MainGrid.Children.Remove(view);
     }
@@ -133,25 +140,29 @@ public partial class GameMap : ContentView
     private void SwipeLeft()
     {
         _scroll_x += SIZE_CASE * 1.5;
-        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false).Wait();
+        _scroll_x = _scroll_x > SV_Map.ScrollX ? SV_Map.ScrollX : _scroll_x;
     }
 
     private void SwipeRight()
     {
         _scroll_x -= SIZE_CASE * 1.5;
-        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false).Wait();
+        _scroll_x = _scroll_x > SV_Map.ScrollX ? SV_Map.ScrollX : _scroll_x;
     }
 
     private void SwipeUp()
     {
         _scroll_y -= SIZE_CASE * 1.5;
-        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false).Wait();
+        _scroll_y = _scroll_y > SV_Map.ScrollY ? SV_Map.ScrollY : _scroll_y;
     }
 
     private void SwipeDown()
     {
         _scroll_y += SIZE_CASE * 1.5;
-        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
+        SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false).Wait();
+        _scroll_y = _scroll_y > SV_Map.ScrollY ? SV_Map.ScrollY : _scroll_y;
     }
 
     private void SwipeGestureRecognizer_SwipedLeft(object sender, SwipedEventArgs e)
@@ -217,5 +228,6 @@ public partial class GameMap : ContentView
             _cancel_scroll = false;
             SV_Map.ScrollToAsync(_scroll_x, _scroll_y, false);
         }
+        
     }
 }
