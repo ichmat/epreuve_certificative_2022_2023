@@ -59,6 +59,24 @@ namespace FreshTech.Views.Game
             return await App.client.SendRequest(new EPCreateUserVillage());
         }
 
+        internal async void BuyConstruction(int idConsToBuy)
+        {
+            KeyValuePair<Ressource, int >ressourUser;
+            var shemasToBuy = infoId_schema.Where(x => x.Key == idConsToBuy).First();
+            foreach(var ressources in shemasToBuy.Value.CreationRessources)
+            {
+                ressourUser = ressourceNumbers.Where(x => x.Key.RessourceId == ressources.Key.RessourceId).First();
+                if(ressourUser.Value >= ressources.Value)
+                {
+
+                }
+                else{
+                    return;
+                }
+            }
+            
+
+        }
         #endregion
 
         #region GET_DATA
