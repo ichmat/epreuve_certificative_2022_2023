@@ -40,15 +40,20 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#33b5e5" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#33b5e5" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\metro_target.svg" />
+		<MauiImage Update="Resources\Images\dashboard.svg" BaseSize="50,50" />
+		<MauiImage Update="Resources\Images\home.svg" BaseSize="50,50" />
+		<MauiImage Update="Resources\Images\running.svg" BaseSize="50,50" />
+		<MauiImage Update="Resources\Images\user.svg" BaseSize="50,50" />
+
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -59,14 +64,18 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\arrow_up_down.svg" />
+	  <None Remove="Resources\Images\dashboard.svg" />
 	  <None Remove="Resources\Images\dots.svg" />
 	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\info_circle.svg" />
 	  <None Remove="Resources\Images\ionic_ios_speedometer.svg" />
 	  <None Remove="Resources\Images\ionic_ios_star.svg" />
 	  <None Remove="Resources\Images\ionic_ios_time.svg" />
 	  <None Remove="Resources\Images\pin.svg" />
+	  <None Remove="Resources\Images\running.svg" />
 	  <None Remove="Resources\Images\thumb_image.svg" />
+	  <None Remove="Resources\Images\user.svg" />
 	  <None Remove="Resources\Images\weight_hanging.svg" />
 	  <None Remove="Resources\Images\windmillalt.svg" />
 	</ItemGroup>
