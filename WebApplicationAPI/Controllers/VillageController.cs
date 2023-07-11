@@ -17,6 +17,33 @@ namespace WebApplicationAPI.Controllers
 
         }
 
+        [HttpPost(APIRoute.CREATE_USER_VILLAGE)]
+        public async Task<IActionResult> CreateUserVillage(FTMessageClient message)
+        {
+            return await ProcessAndCheckToken<EPCreateUserVillage>(message, (args) =>
+            {
+                Guid? userId = GetUtilisateurIdByUserGuid(message.UserGuid);
+                if (userId == null)
+                {
+                    return BadRequest(APIError.BAD_USER_TOKEN);
+                }
+
+                Village? town = dbContext.Villages.FirstOrDefault(x => x.UtilisateurId == userId);
+
+                if (town != null)
+                {
+                    return BadRequest(APIError.VILLAGE_ALREADY_SET);
+                }
+
+                // création du village
+                Village village = new Village();
+                village.UtilisateurId = userId.Value;
+                dbContext.Villages.Add(village);
+                dbContext.SaveChanges();
+                return Ok();
+            });
+        }
+
         [HttpPost(APIRoute.GET_ENTIRE_VILLAGE)]
         public async Task<IActionResult> GetEntireVillageOfUser(FTMessageClient message)
         {

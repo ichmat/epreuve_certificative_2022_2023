@@ -1,10 +1,15 @@
+using FreshTech.Views.Game;
+
 namespace FreshTech.Pages;
 
 public partial class PlusPage : ContentPage
 {
-	public PlusPage()
+    private readonly GameEngine _engine;
+
+    public PlusPage(GameEngine gameEngine)
 	{
 		InitializeComponent();
+        _engine = gameEngine;
 	}
 
     private async void OnInventaireClicked(object sender, EventArgs e)
@@ -19,7 +24,7 @@ public partial class PlusPage : ContentPage
     
     private async void OnConstructionclicked(object sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new ConstructionPage());
+        await Navigation.PushModalAsync(new ConstructionPage(_engine));
     }
     
     private async void OnAmeliorationClicked(object sender, EventArgs e)

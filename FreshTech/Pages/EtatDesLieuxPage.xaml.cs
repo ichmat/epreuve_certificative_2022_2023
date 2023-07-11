@@ -1,7 +1,9 @@
 using AppCore.Models;
+using AppCore.Services;
 using AppCore.Services.GeneralMessage;
 using AppCore.Services.GeneralMessage.Args;
 using AppCore.Services.GeneralMessage.Response;
+using FreshTech.Views.Game;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -9,6 +11,7 @@ namespace FreshTech.Pages;
 
 public partial class EtatDesLieuxPage : ContentPage, INotifyPropertyChanged
 {
+    #region PROPERTY
 
     private int eau;
     public int Eau
@@ -107,38 +110,34 @@ public partial class EtatDesLieuxPage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public int Temps { get; set; } = 42;
+    #endregion
+
     public event PropertyChangedEventHandler PropertyChanged;
-    public EtatDesLieuxPage()
+
+    private readonly GameEngine _engine;
+
+    public EtatDesLieuxPage(GameEngine gameEngine)
     {
         InitializeComponent();
         BindingContext = this;
+        _engine = gameEngine;
     }
+
     protected override  void OnAppearing()
     {
         base.OnAppearing();
-         GetData();
+        GetData();
     }
-    private async void GetData()
+
+    private void GetData()
     {
-        ResponseGetEntireVillage dataTown = await App.client.SendAndGetResponse<ResponseGetEntireVillage>(new EPGetEntireVillage());
-        var ressourcesPossedeEau = dataTown.RessourcesPossede.Select(x => x).Where(x => x.RessourceId == 1).First();
-        var ressourcesPossedeNourriture = dataTown.RessourcesPossede.Select(x => x).Where(x => x.RessourceId == 2).First();
-        var ressourcesPossedeBonheur = dataTown.RessourcesPossede.Select(x => x).Where(x => x.RessourceId == 3).First();
-        var ressourcesPossedeEnergie = dataTown.RessourcesPossede.Select(x => x).Where(x => x.RessourceId == 4).First();
-        var ressourcesPossedeBois = dataTown.RessourcesPossede.Select(x => x).Where(x => x.RessourceId == 5).First();
-        var ressourcesPossedeFerraille = dataTown.RessourcesPossede.Select(x => x).Where(x => x.RessourceId == 6).First();
-        var ressourcesPossedeHabitant = dataTown.RessourcesPossede.Select(x => x).Where(x => x.RessourceId == 7).First();
-
-        Eau = ressourcesPossedeEau.Nombre;
-        Nourriture = ressourcesPossedeNourriture.Nombre;
-        Bonheur = ressourcesPossedeBonheur.Nombre;
-        Energie = ressourcesPossedeEnergie.Nombre;
-        Bois = ressourcesPossedeBois.Nombre;
-        Feraille = ressourcesPossedeFerraille.Nombre;
-        Habitant = ressourcesPossedeHabitant.Nombre;
-
-        Console.WriteLine("");
+        Eau = _engine.GetRessourceQuantity(RESSOURCE.EAU);
+        Nourriture = _engine.GetRessourceQuantity(RESSOURCE.NOURRITURE);
+        Bonheur = _engine.GetRessourceQuantity(RESSOURCE.BONHEUR);
+        Energie = _engine.GetRessourceQuantity(RESSOURCE.ENERGIE);
+        Bois = _engine.GetRessourceQuantity(RESSOURCE.BOIS);
+        Feraille = _engine.GetRessourceQuantity(RESSOURCE.FERRAILLE);
+        Habitant = _engine.GetRessourceQuantity(RESSOURCE.HABITANT);
     }
     
     protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

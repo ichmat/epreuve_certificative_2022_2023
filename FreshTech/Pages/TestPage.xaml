@@ -7,9 +7,8 @@
              xmlns:uitools="clr-namespace:FreshTech.Views"
              BackgroundColor="{StaticResource Gray100}"
              Title="">
-    <Grid>
+    <VerticalStackLayout>
         <!--<map:FTMap x:Name="map" />-->
-        <uitools:ButtonBadge Title="TEST" ImageSource="info_circle.svg"
-            WidthRequest="200" HeightRequest="45" Clicked="ButtonBadge_Clicked" />
-    </Grid>
+        <uitools:CustomButton />
+    </VerticalStackLayout>
 </ContentPage>

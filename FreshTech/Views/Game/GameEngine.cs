@@ -1,5 +1,6 @@
 ﻿using AppCore.Models;
 using AppCore.Property;
+using AppCore.Services;
 using AppCore.Services.GeneralMessage.Args;
 using AppCore.Services.GeneralMessage.Response;
 using System;
@@ -10,18 +11,75 @@ using System.Threading.Tasks;
 
 namespace FreshTech.Views.Game
 {
-    internal class GameEngine
+    public class GameEngine
     {
+        /// <summary>
+        /// <b>Key</b> => La ressource <br></br>
+        /// <b>Value</b> => La quantité possédé par l'utilisateur
+        /// </summary>
         private Dictionary<Ressource, int> ressourceNumbers = new Dictionary<Ressource, int>();
+        /// <summary>
+        /// <b>Key</b> => L'objet <br></br>
+        /// <b>Value</b> => La quantité possédé par l'utilisateur
+        /// </summary>
         private Dictionary<Objet, int> objectsNumbers = new Dictionary<Objet, int>();
+        /// <summary>
+        /// <b>Key</b> => correspond à <see cref="ConstructionInfo.ConsInfoId"/> <br></br>
+        /// <b>Value</b> => le schéma de construction (voir <see cref="ConstructionSchema"/>)
+        /// </summary>
         private Dictionary<int, ConstructionSchema> infoId_schema = new Dictionary<int, ConstructionSchema>();
-
+        /// <summary>
+        /// Correspond à l'inventaire de bâtiment de l'utilisateur <br></br>
+        /// <b>Key</b> => Le bâtiment <br></br>
+        /// <b>Value</b> => Les coordonnées du bâtiment. <br></br> 
+        /// </summary>
+        /// <remarks>
+        /// 💬<i> S'il ne possède pas de coordonnée, cela signifie que le bâtiment n'est pas sur la carte.</i>
+        /// </remarks>
         private Dictionary<IConstruction, Placement?> buildings = new Dictionary<IConstruction, Placement?>();
         private Village town;
 
         private Attaque[] incomingAttacks;
 
         internal bool TownNotCreated { get; private set; } = false;
+
+        public GameEngine()
+        {
+        }
+
+        #region MODIFY_DATA
+
+        internal async Task<bool> CreateUserVillage()
+        {
+            if (!TownNotCreated)
+            {
+                return false;
+            }
+
+            return await App.client.SendRequest(new EPCreateUserVillage());
+        }
+
+        #endregion
+
+        #region GET_DATA
+
+        internal IEnumerable<ConstructionSchema> GetConstructionSchemas() => infoId_schema.Values;
+
+        internal IEnumerable<IConstruction> GetBuildingsNotInMap() => buildings.Where(x => x.Value == null).ToDictionary(x => x.Key, x => x.Value).Keys;
+
+        internal IEnumerable<KeyValuePair<IConstruction, Placement?>> GetBuildingsInMap() => buildings.Where(x => x.Value != null);
+
+        internal KeyValuePair<Ressource, int>[] GetRessourcesWithQuantity() => ressourceNumbers.ToArray();
+
+        internal KeyValuePair<Objet, int>[] GetObjetsWithQuantity() => objectsNumbers.ToArray();
+
+        internal int GetRessourceQuantity(RESSOURCE ressource) => ressourceNumbers[NecessaryData.GetRessource(ressource)];
+
+        internal int GetObjetQuantity(OBJET objet) => objectsNumbers[NecessaryData.GetObjet(objet)];
+
+        #endregion
+
+        #region RELOAD
 
         internal async Task ReloadAllData()
         {
@@ -83,11 +141,18 @@ namespace FreshTech.Views.Game
             });
 
             // comptage des ressources
-            Array.ForEach(dataTown.RessourcesPossede, x => ressourceNumbers[x.Ressource] = x.Nombre);
-            Array.ForEach(dataTown.ObjetsPossedes, x => objectsNumbers[x.Objet] = x.Nombre);
+            Array.ForEach(dataTown.RessourcesPossede,
+                // on récupère l'instance dans NecessaryData pour éviter de le créer plusieurs fois
+                x => ressourceNumbers[NecessaryData.GetRessourceById(x.RessourceId)] = x.Nombre
+                );
+            Array.ForEach(dataTown.ObjetsPossedes,
+                // on récupère l'instance dans NecessaryData pour éviter de le créer plusieurs fois
+                x => objectsNumbers[NecessaryData.GetObjetById(x.ObjetId)] = x.Nombre);
 
             incomingAttacks = dataTown.AttaquesActuel;
         }
+
+        #endregion
     }
 
     public interface IConstruction
@@ -218,16 +283,46 @@ namespace FreshTech.Views.Game
         public int GetConsId() => ConsId;
     }
 
+    /// <summary>
+    /// Schéma de construction pour un bâtiment spécifique. Possède les besoins de créations, 
+    /// d'amélioration (voir <see cref="UpgradeSchema"/>) et de réparation.
+    /// </summary>
     public struct ConstructionSchema
     {
         public readonly ConstructionInfo ConsInfo;
         // besoin pour effectuer la construction
+        /// <summary>
+        /// <b>Key</b> => l'objet nécessaire pour la création <br></br>
+        /// <b>Value</b> => la quantité nécessaire pour la création
+        /// </summary>
         public readonly Dictionary<Objet, int> CreationObjets;
+        /// <summary>
+        /// <b>Key</b> => la ressource nécessaire pour la création <br></br>
+        /// <b>Value</b> => la quantité nécessaire pour la création
+        /// </summary>
         public readonly Dictionary<Ressource, int> CreationRessources;
         // besoin pour effectuer une amélioration
+        /// <summary>
+        /// <b>Key</b> => le niveau concerné (exemple : s'il est égal à 2 cela signifie que 
+        /// cela correspond au niveau 2) <br></br>
+        /// <b>Value</b> => le Schéma de construction, voir <see cref="UpgradeSchema"/> pour 
+        /// plus d'info
+        /// </summary>
+        /// <remarks>
+        /// ⚠<i> Les schémas de constructions commence toujours à partir du niveau 2</i>
+        /// </remarks>
         public readonly Dictionary<int, UpgradeSchema> UpgradeSchemasParNiveau;
         // besoin pour effectuer une réparation
+        /// <summary>
+        /// <b>Key</b> => la ressource nécessaire pour la réparation <br></br>
+        /// <b>Value</b> => la quantité nécessaire pour la réparation
+        /// </summary>
         public readonly Dictionary<Ressource, int> ReparationRessources;
+        /// <summary>
+        /// <b>Key</b> => la ressource nécessaire pour la réparation <br></br>
+        /// <b>Value</b> => le facteur de multiplication à appliquer selon le niveau de construction
+        /// et la quantité de ressource nécessaire
+        /// </summary>
         public readonly Dictionary<Ressource, float> ReparationMultParNiveau;
 
         public ConstructionSchema(ConstructionInfo constructionInfo, IEnumerable<CreationObjet> creationObjets, IEnumerable<CreationRessource> creationRessources, 
@@ -293,10 +388,25 @@ namespace FreshTech.Views.Game
         }
     }
 
+    /// <summary>
+    /// Schéma d'amélioration pour la construction
+    /// </summary>
     public struct UpgradeSchema
     {
+        /// <summary>
+        /// Le niveau concerné (exemple : s'il est égal à 2 cela signifie que 
+        /// cela correspond au niveau 2) <br></br>
+        /// </summary>
         public readonly int NiveauConcerne;
+        /// <summary>
+        /// <b>Key</b> => l'objet nécessaire pour l'amélioration <br></br>
+        /// <b>Value</b> => la quantité nécessaire pour l'amélioration
+        /// </summary>
         public readonly Dictionary<Objet, int> AmeliorationObjets;
+        /// <summary>
+        /// <b>Key</b> => la ressource nécessaire pour l'amélioration <br></br>
+        /// <b>Value</b> => la quantité nécessaire pour l'amélioration
+        /// </summary>
         public readonly Dictionary<Ressource, int> AmeliorationRessources;
 
         public UpgradeSchema(int niveauConcerne)

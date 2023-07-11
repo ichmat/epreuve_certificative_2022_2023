@@ -75,18 +75,9 @@ namespace AppCore.Services
 
         private static Objet GetObjet(string name) => objets.First(x => x.Nom == name);
 
-        public static Objet GetObjet(OBJET obj) => objets[(int)obj];
+        public static Objet GetObjetById(int id) => objets[id - 1];
 
-        public enum OBJET
-        {
-            FIL_DE_FER = 0,
-            BATTERIE = 1,
-            MOTEUR = 2,
-            CIMENT = 3,
-            ARGILE = 4,
-            RESSORT = 5,
-            LAYTON = 6,
-        }
+        public static Objet GetObjet(OBJET obj) => objets[(int)obj];
 
         #endregion
 
@@ -111,18 +102,9 @@ namespace AppCore.Services
 
         private static Ressource GetRessource(string name) => ressources.First(x => x.Nom == name);
 
-        public static Ressource GetRessource(RESSOURCE res) => ressources[(int)res];
+        public static Ressource GetRessourceById(int id) => ressources[id - 1];
 
-        public enum RESSOURCE
-        {
-            EAU = 0,
-            NOURRITURE = 1,
-            BONHEUR = 2,
-            ENERGIE = 3,
-            BOIS = 4,
-            FERRAILLE = 5,
-            HABITANT = 6,
-        }
+        public static Ressource GetRessource(RESSOURCE res) => ressources[(int)res];
 
         #endregion
 

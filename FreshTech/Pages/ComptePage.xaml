@@ -48,7 +48,7 @@
                 </Label>
             </StackLayout>
 
-
+            <!-- Changer son mot de passe -->
             <views:TitleSpan Title="Changer mot de passe" Margin="0,25" />
 
             <views:CustomEntry Margin="0,0,0,25" x:Name="CE_Old_Pwd" Text="" Placeholder="Ancien mot de passe" />

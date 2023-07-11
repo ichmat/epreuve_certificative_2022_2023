@@ -23,6 +23,22 @@ public partial class GamePage : ContentPage
     private async void GameMap_FinishingLoaded()
     {
         await _engine.ReloadAllData();
+        if (_engine.TownNotCreated)
+        {
+            // normalement quand l'utilisateur n'a pas encore de village dans la BDD, il faut lui 
+            // afficher un tutoriel pour qu'il comprenne comment marche le village. Une fois 
+            // le tuto terminé, il faut créer le village.
+            if(!await _engine.CreateUserVillage())
+            {
+                // une erreur est survenu, pour éviter tout problème supplémentaire, on arrête l'application.
+                await DisplayAlert("erreur", "Une erreur est survenu pendant le processus de création du village. Veuillez-vous reconnecter.", "Ok");
+                App.Current.Quit();
+            }
+            else
+            {
+                await _engine.ReloadUserTown();
+            }
+        }
         StopLoading();
         gameMap.TappedCoord += GameMap_TappedCoord;
     }
@@ -84,7 +100,7 @@ public partial class GamePage : ContentPage
 
     private async void ButtonCurrentSituation_Clicked()
     {
-        await Navigation.PushModalAsync(new EtatDesLieuxPage());
+        await Navigation.PushModalAsync(new EtatDesLieuxPage(_engine));
     }
 
     private void ButtonEdit_Clicked()
@@ -94,6 +110,6 @@ public partial class GamePage : ContentPage
 
     private async void ButtonPlus_Clicked()
     {
-        await Navigation.PushModalAsync(new PlusPage());
+        await Navigation.PushModalAsync(new PlusPage(_engine));
     }
 }

@@ -1,6 +1,7 @@
 using AppCore.Models;
 using AppCore.Services.GeneralMessage.Args;
 using AppCore.Services.GeneralMessage.Response;
+using FreshTech.Views.Game;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using static AppCore.Services.NecessaryData;
@@ -12,11 +13,14 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
     StackLayout stackLayout = new StackLayout();
     ScrollView scrollView = new ScrollView();
 
-    public ConstructionPage()
+    private readonly GameEngine _engine;
+
+    public ConstructionPage(GameEngine engine)
     {
         InitializeComponent();
         BindingContext = this;
         Content = CreateMainLayout();
+        _engine = engine;
     }
 
     protected override void OnAppearing()

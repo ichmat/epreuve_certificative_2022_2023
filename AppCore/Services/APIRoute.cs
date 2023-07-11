@@ -26,6 +26,10 @@ namespace AppCore.Services
         #region VILLAGE
         public const string GET_ENTIRE_VILLAGE = "/village/getTheEntireUserVillage";
         public const string GET_NECESSARY_DATA_VILLAGE = "/village/getNecessaryDataVillage";
+        public const string CREATE_USER_VILLAGE = "/village/createUserVillage";
+        #endregion
+        #region BUILDING
+        public const string CREATE_BUILDING = "/village/createBuilding";
         #endregion
     }
 }

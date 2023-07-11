@@ -168,6 +168,9 @@
 	  <MauiXaml Update="Views\Calibration\CalTracking.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\CustomButton.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomEntry.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
