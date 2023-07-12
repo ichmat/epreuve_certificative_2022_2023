@@ -42,7 +42,7 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
     private async void GetData()
     {
         ResponseGetNecessaryDataVillage infoTown = await App.client.SendAndGetResponse<ResponseGetNecessaryDataVillage>(new EPGetNecessaryDataVillage());
-        
+ 
         var infoTownconsrtuction = infoTown.ConstructionInfos.ToList();
         var infoTownRessources = infoTown.CreationRessources.ToList();
 
@@ -133,7 +133,7 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
 
         buyButton.Clicked += (sender, e) =>
         {
-            ActionOnBuyButton();
+            ActionOnBuyButton(constructionInfo);
         };
         stackLayout.Children.Add(buyButton);
 
@@ -141,18 +141,27 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
 
         return frame;
     }
-    private async void ActionOnBuyButton()
+    private async void ActionOnBuyButton(ConstructionInfo construction)
     {
         bool result = await DisplayAlert("Confirmation", "Voulez-vous acheter cette construction ?", "Oui", "Non");
 
         if (result)
         {
-            // L'utilisateur a cliqué sur "Oui", effectuez ici les actions pour l'achat de la construction
+          if(await _engine.BuyConstruction(construction))
+          {
+
+                await DisplayAlert("Succès", "La construction a été achetée avec succès.", "OK");
+          }
+          else
+          {
+
+                await DisplayAlert("Erreur", "Erreur lors de l'achat verifiez d'avoir les ressources nécéssaires", "OK");
+          }
+
         }
         else
         {
-            
-            // L'utilisateur a cliqué sur "Non" ou a fermé la popup, vous pouvez effectuer des actions supplémentaires si nécessaire
+            // ferme la popup
         }
     }
 

@@ -3,11 +3,6 @@ using AppCore.Property;
 using AppCore.Services;
 using AppCore.Services.GeneralMessage.Args;
 using AppCore.Services.GeneralMessage.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FreshTech.Views.Game
 {
@@ -59,6 +54,24 @@ namespace FreshTech.Views.Game
             return await App.client.SendRequest(new EPCreateUserVillage());
         }
 
+        internal async Task<bool> BuyConstruction(ConstructionInfo ConsToBuy)
+        {
+            KeyValuePair<Ressource, int >ressourUser;
+            var shemasToBuy = infoId_schema.Where(x => x.Key == ConsToBuy.ConsInfoId).First();
+
+            foreach (var ressources in shemasToBuy.Value.CreationRessources)
+            {
+                ressourUser = ressourceNumbers.Where(x => x.Key.RessourceId == ressources.Key.RessourceId).First();
+                if(ressourUser.Value <= ressources.Value)
+                {
+                    throw new InvalidOperationException("Vous n'avez pas suffisamment de ressources pour acheter cette construction.");
+                }
+                
+            }
+            
+            return await App.client.SendRequest(new EpBuyBuilding(ConsToBuy.ConsInfoId, (int)ConsToBuy.Type, ConsToBuy.VieMax));
+
+        }
         #endregion
 
         #region GET_DATA
@@ -114,6 +127,7 @@ namespace FreshTech.Views.Game
         internal async Task ReloadUserTown()
         {
             buildings.Clear();
+            ressourceNumbers.Clear();
 
             ResponseGetEntireVillage dataTown = await App.client.SendAndGetResponse<ResponseGetEntireVillage>(new EPGetEntireVillage());
             if (dataTown == null)
