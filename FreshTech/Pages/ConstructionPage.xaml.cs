@@ -133,7 +133,7 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
 
         buyButton.Clicked += (sender, e) =>
         {
-            ActionOnBuyButton(constructionInfo.ConsInfoId);
+            ActionOnBuyButton(constructionInfo);
         };
         stackLayout.Children.Add(buyButton);
 
@@ -141,19 +141,27 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
 
         return frame;
     }
-    private async void ActionOnBuyButton(int construction)
+    private async void ActionOnBuyButton(ConstructionInfo construction)
     {
         bool result = await DisplayAlert("Confirmation", "Voulez-vous acheter cette construction ?", "Oui", "Non");
 
         if (result)
         {
-            _engine.BuyConstruction(construction);
-            // L'utilisateur a cliqué sur "Oui", effectuez ici les actions pour l'achat de la construction
+          if(await _engine.BuyConstruction(construction))
+          {
+
+                await DisplayAlert("Succès", "La construction a été achetée avec succès.", "OK");
+          }
+          else
+          {
+
+                await DisplayAlert("Erreur", "Erreur lors de l'achat verifiez d'avoir les ressources nécéssaires", "OK");
+          }
+
         }
         else
         {
-            
-            // L'utilisateur a cliqué sur "Non" ou a fermé la popup, vous pouvez effectuer des actions supplémentaires si nécessaire
+            // ferme la popup
         }
     }
 

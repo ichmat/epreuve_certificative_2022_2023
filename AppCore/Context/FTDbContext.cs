@@ -14,6 +14,7 @@ namespace AppCore.Context
     public class FTDbContext : DbContext
     {
         public DbSet<Utilisateur> Utilisateurs { get; set; }
+        public DbSet<Construction> Construction { get; set; }
 
         public DbSet<Stat> Stats { get; set; }
 
