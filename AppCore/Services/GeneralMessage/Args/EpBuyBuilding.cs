@@ -12,16 +12,20 @@ namespace AppCore.Services.GeneralMessage.Args
     {
         [JsonInclude]
         public int ConsInfoId;
+        
         [JsonInclude]
         public int Type;
+        
         [JsonInclude]
         public int Vie;
+        
         public EpBuyBuilding(int consInfoId,int type, int vie)
         {
             ConsInfoId = consInfoId;
             Type = type;
             Vie = vie;
         }
+        
         public override string Route() => APIRoute.CREATE_BUILDING;
     }
 }
