@@ -3,6 +3,7 @@ using AppCore.Property;
 using AppCore.Services;
 using AppCore.Services.GeneralMessage.Args;
 using AppCore.Services.GeneralMessage.Response;
+using AppCore.Services.NecessaryDataClass;
 
 namespace FreshTech.Views.Game
 {
@@ -56,7 +57,7 @@ namespace FreshTech.Views.Game
 
         internal async Task<bool> BuyConstruction(ConstructionInfo ConsToBuy)
         {
-            KeyValuePair<Ressource, int >ressourUser;
+            KeyValuePair<Ressource, int>ressourUser;
             var shemasToBuy = infoId_schema.Where(x => x.Key == ConsToBuy.ConsInfoId).First();
 
             foreach (var ressources in shemasToBuy.Value.CreationRessources)
@@ -64,14 +65,32 @@ namespace FreshTech.Views.Game
                 ressourUser = ressourceNumbers.Where(x => x.Key.RessourceId == ressources.Key.RessourceId).First();
                 if(ressourUser.Value <= ressources.Value)
                 {
-                    throw new InvalidOperationException("Vous n'avez pas suffisamment de ressources pour acheter cette construction.");
+                    return false;
                 }
                 
             }
             
-            return await App.client.SendRequest(new EpBuyBuilding(ConsToBuy.ConsInfoId, (int)ConsToBuy.Type, ConsToBuy.VieMax));
+            ResponseBuyBuilding? responseBuy = await App.client.SendAndGetResponse<ResponseBuyBuilding>(new EPBuyBuilding(ConsToBuy.ConsInfoId));
+            if(responseBuy != null)
+            {
+                // ajout du bâtiment créé
+                buildings.Add(ConvertConstruction(responseBuy.ConstructionCreated), null);
+                // MAJ des ressources et objets possédés par l'utilisateur
+                responseBuy.ObjetsPossedesUpdated.ForEach(obj =>
+                    objectsNumbers[NecessaryData.GetObjetById(obj.ObjetId)] = obj.Nombre
+                );
+                responseBuy.RessourcePossedesUpdated.ForEach(res =>
+                    ressourceNumbers[NecessaryData.GetRessourceById(res.RessourceId)] = res.Nombre
+                );
 
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
         #endregion
 
         #region GET_DATA
@@ -89,6 +108,30 @@ namespace FreshTech.Views.Game
         internal int GetRessourceQuantity(RESSOURCE ressource) => ressourceNumbers[NecessaryData.GetRessource(ressource)];
 
         internal int GetObjetQuantity(OBJET objet) => objectsNumbers[NecessaryData.GetObjet(objet)];
+
+        internal ConstructionInfo GetConstructionInfoById(int consInfoId) => infoId_schema[consInfoId].ConsInfo; 
+
+        #endregion
+
+        #region CONVERT
+
+        private IConstruction ConvertConstruction(Construction construction)
+        {
+
+            if(!infoId_schema.ContainsKey(construction.ConsInfoId)) throw new NullReferenceException("Aucun schéma trouver pour cette construction");
+            ConstructionSchema schema = infoId_schema[construction.ConsInfoId];
+            switch (construction)
+            {
+                case ConstructionAutre constructionAutre:
+                    return new GConstructionAutre(schema.ConsInfo, constructionAutre);
+                case ConstructionDef constructionDef:
+                    return new GConstructionDef(schema.ConsInfo, constructionDef);
+                case ConstructionProd constructionProd:
+                    return new GConstructionProd(schema.ConsInfo, constructionProd);
+                default:
+                    throw new ArgumentException("type de class Construction non supporté", nameof(construction));
+            }
+        }
 
         #endregion
 
@@ -127,7 +170,6 @@ namespace FreshTech.Views.Game
         internal async Task ReloadUserTown()
         {
             buildings.Clear();
-            ressourceNumbers.Clear();
 
             ResponseGetEntireVillage dataTown = await App.client.SendAndGetResponse<ResponseGetEntireVillage>(new EPGetEntireVillage());
             if (dataTown == null)
@@ -138,11 +180,11 @@ namespace FreshTech.Views.Game
             town = dataTown.Village;
             // mise en place des constructions que le joueur possède
             Array.ForEach(dataTown.ConstructionAutres, x => buildings.Add(
-                new GConstructionAutre(x.ConstructionInfo, x), null));
+                new GConstructionAutre(GetConstructionInfoById(x.ConsInfoId), x), null));
             Array.ForEach(dataTown.ConstructionsDef, x => buildings.Add(
-                new GConstructionDef(x.ConstructionInfo, x), null));
+                new GConstructionDef(GetConstructionInfoById(x.ConsInfoId), x), null));
             Array.ForEach(dataTown.ConstructionProds, x => buildings.Add(
-                new GConstructionProd(x.ConstructionInfo, x), null));
+                new GConstructionProd(GetConstructionInfoById(x.ConsInfoId), x), null));
 
             // mise en place des coordonnées des constructions
             Array.ForEach(dataTown.Coordonnees, coord =>
@@ -211,6 +253,22 @@ namespace FreshTech.Views.Game
             Ressource = constructionProd.Ressource;
         }
 
+        public GConstructionProd(string nom, int vieMax, int niveauMax, ConstructionProd constructionProd)
+        {
+            Nom = nom;
+            VieMax = vieMax;
+            NiveauMax = niveauMax;
+            ConsId = constructionProd.ConstructionId;
+            ConsInfoId = constructionProd.ConsInfoId;
+            Type = constructionProd.Type;
+            Vie = constructionProd.Vie;
+            Niveau = constructionProd.Niveau;
+            Production = constructionProd.Production;
+            MultParNiveau = constructionProd.MultParNiveau;
+            // vérifier si ressource n'est pas null
+            Ressource = constructionProd.Ressource;
+        }
+
         public int GetNivMax() => NiveauMax;
 
         public int GetVie() => Vie;
@@ -251,6 +309,20 @@ namespace FreshTech.Views.Game
             MultParNiveau = constructionDef.MultParNiveau;
         }
 
+        public GConstructionDef(string nom, int vieMax, int niveauMax, ConstructionDef constructionDef)
+        {
+            Nom = nom;
+            VieMax = vieMax;
+            NiveauMax = niveauMax;
+            ConsId = constructionDef.ConstructionId;
+            ConsInfoId = constructionDef.ConsInfoId;
+            Type = constructionDef.Type;
+            Vie = constructionDef.Vie;
+            Niveau = constructionDef.Niveau;
+            Puissance = constructionDef.Puissance;
+            MultParNiveau = constructionDef.MultParNiveau;
+        }
+
         public int GetNivMax() => NiveauMax;
 
         public int GetVie() => Vie;
@@ -284,6 +356,18 @@ namespace FreshTech.Views.Game
             VieMax = info.VieMax;
             Niveau = constructionAutre.Niveau;
             NiveauMax = info.NiveauMax;
+        }
+
+        public GConstructionAutre(string nom, int vieMax, int niveauMax, ConstructionAutre constructionAutre)
+        {
+            Nom = nom;
+            VieMax = vieMax;
+            NiveauMax = niveauMax;
+            ConsId = constructionAutre.ConstructionId;
+            ConsInfoId = constructionAutre.ConsInfoId;
+            Type = constructionAutre.Type;
+            Vie = constructionAutre.Vie;
+            Niveau = constructionAutre.Niveau;
         }
 
         public int GetNivMax() => NiveauMax;

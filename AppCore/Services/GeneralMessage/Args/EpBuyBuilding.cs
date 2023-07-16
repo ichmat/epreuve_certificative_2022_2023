@@ -8,22 +8,14 @@ using System.Threading.Tasks;
 
 namespace AppCore.Services.GeneralMessage.Args
 {
-    public class EpBuyBuilding : EndPointArgs
+    public class EPBuyBuilding : EndPointArgs
     {
         [JsonInclude]
         public int ConsInfoId;
         
-        [JsonInclude]
-        public int Type;
-        
-        [JsonInclude]
-        public int Vie;
-        
-        public EpBuyBuilding(int consInfoId,int type, int vie)
+        public EPBuyBuilding(int consInfoId)
         {
             ConsInfoId = consInfoId;
-            Type = type;
-            Vie = vie;
         }
         
         public override string Route() => APIRoute.CREATE_BUILDING;

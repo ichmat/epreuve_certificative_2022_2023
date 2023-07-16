@@ -70,8 +70,7 @@ namespace WebApplicationAPI.Controllers
                         dbContext.RessourcePossedes.Where(x => x.VillageId == town.VillageId).ToArray(),
                         dbContext.ObjetsPossedes.Where(x => x.VillageId == town.VillageId).ToArray()
                     );
-                var jsonResult = Json(Message(message.UserGuid, response));
-                return jsonResult;
+                return Json(Message(message.UserGuid, response));
             });
         }
 

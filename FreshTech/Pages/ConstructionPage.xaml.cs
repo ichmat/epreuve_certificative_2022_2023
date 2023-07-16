@@ -155,7 +155,7 @@ public partial class ConstructionPage : ContentPage, INotifyPropertyChanged
           else
           {
 
-                await DisplayAlert("Erreur", "Erreur lors de l'achat verifiez d'avoir les ressources nécéssaires", "OK");
+                await DisplayAlert("Erreur", "Erreur lors de l'achat vérifiez d'avoir les ressources nécessaires.", "OK");
           }
 
         }

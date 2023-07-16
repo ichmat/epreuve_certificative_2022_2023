@@ -20,7 +20,7 @@ namespace AppCore.Services
 
         private readonly HttpClient _client;
 
-        private const string API_URL = "https://2a6c-84-55-165-156.eu.ngrok.io";
+        private const string API_URL = "https://e529-2001-861-e080-5540-88dc-175d-b7ce-16b5.ngrok-free.app";
 
         public Utilisateur? CurrentUser { get; private set; }
 

@@ -19,6 +19,7 @@ namespace AppCore.Services
         public const string NOTHING_TO_UPDATE = "Nothing to update";
         public const string VILLAGE_NOT_SET = "Village not set";
         public const string VILLAGE_ALREADY_SET = "Village already set";
-
+        public const string NOT_ENOUGHT_RESSOURCE = "Not enought ressource";
+        public const string ERROR_SCHEMA_NOT_FOUND_OR_INCOMPLET = "Error schema not found or incomplet";
     }
 }

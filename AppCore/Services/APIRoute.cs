@@ -29,7 +29,7 @@ namespace AppCore.Services
         public const string CREATE_USER_VILLAGE = "/village/createUserVillage";
         #endregion
         #region BUILDING
-        public const string CREATE_BUILDING = "/village/createBuilding";
+        public const string CREATE_BUILDING = "/building/createBuilding";
         #endregion
     }
 }

@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace AppCore.Services.NecessaryDataClass
 {
-    internal class ConstructionInfoSchema
+    public class ConstructionInfoSchema
     {
+        public TypeSchema ConsTypeSchema;
         public int ConsInfoId;
         public string Nom;
         public int VieMax;
@@ -70,7 +71,7 @@ namespace AppCore.Services.NecessaryDataClass
         }
 
         private ConstructionInfoSchema(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsCons, 
-            float? multParNiveau = null, int? production = null, Ressource? ressourceProduit = null, int? puissance = null)
+            float? multParNiveau = null, int? production = null, Ressource? ressourceProduit = null, int? puissance = null, TypeSchema typeSchema = TypeSchema.None)
         {
             ConsInfoId = consInfoId;
             Nom = nom;
@@ -87,6 +88,7 @@ namespace AppCore.Services.NecessaryDataClass
             Production = production;
             Puissance = puissance;
             RessourceProduit = ressourceProduit;
+            ConsTypeSchema = typeSchema;
         }
 
         public ConstructionInfoSchema WithCreationsObjects(params Objet[] objets)
@@ -167,19 +169,28 @@ namespace AppCore.Services.NecessaryDataClass
 
         public static ConstructionInfoSchema CreateAutre(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsSecConstruction)
         {
-            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction);
+            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction,
+                null, null, null, null, TypeSchema.Other);
         }
 
         public static ConstructionInfoSchema CreateProd(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsSecConstruction, 
             float multParNiveau, int production, Ressource ressourceProduit)
         {
-            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction, multParNiveau, production, ressourceProduit);
+            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction, multParNiveau, production, ressourceProduit, null, TypeSchema.Prod);
         }
 
         public static ConstructionInfoSchema CreateDef(int consInfoId, string nom, int vieMax, TypeConstruction type, long tempsSecConstruction,
             float multParNiveau, int puissance)
         {
-            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction, multParNiveau, null, null, puissance);
+            return new ConstructionInfoSchema(consInfoId, nom, vieMax, type, tempsSecConstruction, multParNiveau, null, null, puissance, TypeSchema.Def);
         }
+    }
+
+    public enum TypeSchema
+    {
+        None = -1,
+        Prod = 0,
+        Other = 1,
+        Def = 2,
     }
 }

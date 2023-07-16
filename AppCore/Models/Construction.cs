@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace AppCore.Models
 {
     [PrimaryKey(nameof(ConsInfoId), nameof(Type), nameof(VillageId), nameof(ConstructionId))]
-    public class Construction
+    public abstract class Construction
     {
         public int ConsInfoId { get; set; }
 

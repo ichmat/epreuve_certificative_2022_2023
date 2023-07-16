@@ -14,7 +14,6 @@ namespace AppCore.Context
     public class FTDbContext : DbContext
     {
         public DbSet<Utilisateur> Utilisateurs { get; set; }
-        public DbSet<Construction> Construction { get; set; }
 
         public DbSet<Stat> Stats { get; set; }
 
@@ -50,10 +49,18 @@ namespace AppCore.Context
 
         public DbSet<ConstructionAutre> ConstructionAutres { get; set; }
 
+        /// <summary>
+        /// Données nécessaire pour la configuration de la BDD. <br></br> 
+        /// </summary>
+        /// <remarks>
+        /// ⚠<i> S'il est null, vérifiez que <see cref="TriggerConfigureFinish"/> est appelé avant d'utiliser cette variable.</i>
+        /// </remarks>
+        public static NecessaryData? NecessaryData;
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var serverVersion = new MySqlServerVersion(new Version(5, 7, 36));
-            var connectionString = "server=localhost;port=3306;user=root;password=;database=freshtech";
+            var connectionString = "server=localhost;port=3306;user=root;password=root;database=freshtech";
             optionsBuilder.UseMySql(connectionString,serverVersion, options =>
             {
                 options.MigrationsAssembly("WebApplicationAPI");
@@ -69,15 +76,15 @@ namespace AppCore.Context
             {
                 Utilisateur u = new Utilisateur();
                 u.UtilisateurId = Guid.NewGuid();
-                u.Mail = "test";
+                u.Mail = "test@test.com";
                 u.MotDePasse = Password.HashPasword("test", out string salt);
                 u.Sel = salt;
                 u.Pseudo = "test";
                 context.Utilisateurs.Add(u);
                 context.SaveChanges();
             }
-            NecessaryData necessaryData = new NecessaryData(context);
-            necessaryData.CheckDataIntegrity().Wait();
+            NecessaryData = new NecessaryData(context);
+            NecessaryData.CheckDataIntegrity().Wait();
 #endif
         }
 
