@@ -46,6 +46,8 @@
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#33b5e5" BaseSize="128,128" />
 
 		<!-- Images -->
+		<MauiImage Include="Resources\Images\Badges\*" />
+		<MauiImage Include="Resources\Images\Buildings\*" />
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\metro_target.svg" />
@@ -67,6 +69,7 @@
 	  <None Remove="Resources\Images\arrow_forward.svg" />
 	  <None Remove="Resources\Images\arrow_up_down.svg" />
 	  <None Remove="Resources\Images\awesome_box_open.svg" />
+	  <None Remove="Resources\Images\Buildings\fence.svg" />
 	  <None Remove="Resources\Images\dashboard.svg" />
 	  <None Remove="Resources\Images\dots.svg" />
 	  <None Remove="Resources\Images\edit.svg" />
@@ -80,6 +83,7 @@
 	  <None Remove="Resources\Images\ionic_ios_water.svg" />
 	  <None Remove="Resources\Images\map_food.svg" />
 	  <None Remove="Resources\Images\pin.svg" />
+	  <None Remove="Resources\Images\question.svg" />
 	  <None Remove="Resources\Images\running.svg" />
 	  <None Remove="Resources\Images\thumb_image.svg" />
 	  <None Remove="Resources\Images\user.svg" />
@@ -177,6 +181,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DataContent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Game\ElementCase.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Game\GameMap.xaml">

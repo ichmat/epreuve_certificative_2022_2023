@@ -1,4 +1,4 @@
-using FreshTech.Tools;
+﻿using FreshTech.Tools;
 using Microsoft.Maui.Controls.Shapes;
 using System;
 
@@ -26,6 +26,9 @@ public partial class GameMap : ContentView
 
     #region PUBLIC
 
+    /// <summary>
+    /// Centre la carte au milieu
+    /// </summary>
     public void CenterMap()
 	{
 		if(_is_size_changed)
@@ -40,7 +43,7 @@ public partial class GameMap : ContentView
         }
         else
         {
-            // on reporte la demande de centrage une fois que la carte sera initialis�
+            // on reporte la demande de centrage une fois que la carte sera initialisé
             _need_center = true;
         }
 	}
@@ -53,6 +56,14 @@ public partial class GameMap : ContentView
         Grid.SetRow(view, y);
     }
 
+    /// <summary>
+    /// Demande à la carte de se recharger.
+    /// </summary>
+    /// <remarks>
+    /// 💬 <i>C'est nécessaire de le faire notamment après l'ajout d'un élément. Car la vue du scroll 
+    /// fournit par Microsoft est buggé quand on lui demande un scroll vertical et horizontal. <br></br>
+    /// C'est donc une solution temporaire</i> ＞︿＜
+    /// </remarks>
     public void ReloadViewElement()
     {
         Dispatcher.Dispatch(triggerReloadView);
@@ -212,7 +223,7 @@ public partial class GameMap : ContentView
         if (!_is_size_changed)
         {
             _is_size_changed = true;
-            // demande de centrer la carte avant que celui ci ne soit initialis�
+            // demande de centrer la carte avant que celui ci ne soit initialisé
             if (_need_center)
             {
                 CenterMap();

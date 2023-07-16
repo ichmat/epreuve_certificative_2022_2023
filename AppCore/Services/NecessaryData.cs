@@ -392,5 +392,5 @@ ConstructionInfoSchema.CreateDef(8, "Scierie", 180, TypeConstruction.ENERGIE, 54
 
         #endregion
     }
-    
+
 }

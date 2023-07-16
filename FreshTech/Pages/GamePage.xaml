@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:FreshTech.Views"
              xmlns:game="clr-namespace:FreshTech.Views.Game"
+             SizeChanged="ContentPage_SizeChanged"
              Unloaded="ContentPage_Unloaded"
              Title=""
           x:Class="FreshTech.Pages.GamePage">
@@ -15,6 +16,9 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <!-- VALIDER : mode éditeur -->
+        <Button x:Name="ButtonValidate" Text="VALIDER" Clicked="ButtonValidate_Clicked" HeightRequest="60" WidthRequest="170" HorizontalOptions="Center" VerticalOptions="Center" />
+
         <!-- ETAT DES LIEUX -->
         <views:ButtonBadge x:Name="ButtonCurrentSituation" Clicked="ButtonCurrentSituation_Clicked" ImageSource="info_circle.svg" Title="ETAT DES LIEUX" HeightRequest="45" Margin="10,10,10,5" VerticalOptions="Start" Grid.ColumnSpan="10"/>
         <!-- EDITER -->
