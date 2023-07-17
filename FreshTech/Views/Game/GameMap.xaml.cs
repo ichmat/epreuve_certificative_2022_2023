@@ -1,15 +1,28 @@
-using FreshTech.Tools;
+﻿using FreshTech.Tools;
 using Microsoft.Maui.Controls.Shapes;
 using System;
 
 namespace FreshTech.Views.Game;
 
+/// <summary>
+/// Une vue affichant un cadrillage servant à la carte du village. <br></br>
+/// À la déclaration de cette vue attendez que celle-ci se construise, 
+/// l'évènement <see cref="FinishingLoaded"/> exécutera. <br></br>
+/// Une fois ceci fait, utilisez <see cref="AddElement"/> et <see cref="RemoveElement(VisualElement)"/>
+/// pour ajouter/retirer des éléments. <br></br><br></br>
+/// ⚠ <b>Attention :</b> il se peut que la vue ne se recharge pas complètement à l'ajout ou à la 
+/// suppression d'une vue. Utilisez <see cref="ReloadViewElement"/> une fois que vous avez fini.
+/// <br></br><br></br>
+/// <u>Voir aussi :</u><br></br>
+/// <seealso cref="CenterMap"/> : centrer la carte <br></br>
+/// <seealso cref="TappedCoord"/> : évènement de toucher de l'utilisateur
+/// </summary>
 public partial class GameMap : ContentView
 {
 	private const int NB_CASE_HORIZONTAL = 16;
 	private const int NB_CASE_VERTICAL = 16;
 
-	private const double SIZE_CASE = 50;
+	public const double SIZE_CASE = 50;
 	private bool _is_init = false;
     private bool _need_center = false;
 
@@ -26,6 +39,9 @@ public partial class GameMap : ContentView
 
     #region PUBLIC
 
+    /// <summary>
+    /// Centre la carte au milieu
+    /// </summary>
     public void CenterMap()
 	{
 		if(_is_size_changed)
@@ -40,7 +56,7 @@ public partial class GameMap : ContentView
         }
         else
         {
-            // on reporte la demande de centrage une fois que la carte sera initialis�
+            // on reporte la demande de centrage une fois que la carte sera initialisé
             _need_center = true;
         }
 	}
@@ -53,6 +69,14 @@ public partial class GameMap : ContentView
         Grid.SetRow(view, y);
     }
 
+    /// <summary>
+    /// Demande à la carte de se recharger.
+    /// </summary>
+    /// <remarks>
+    /// 💬 <i>C'est nécessaire de le faire notamment après l'ajout d'un élément. Car la vue du scroll 
+    /// fournit par Microsoft est buggé quand on lui demande un scroll vertical et horizontal. <br></br>
+    /// C'est donc une solution temporaire</i>
+    /// </remarks>
     public void ReloadViewElement()
     {
         Dispatcher.Dispatch(triggerReloadView);
@@ -68,6 +92,15 @@ public partial class GameMap : ContentView
     {
         _cancel_scroll = true;
         MainGrid.Children.Remove(view);
+    }
+
+    public void RemoveElement(Func<IView, bool> predicate)
+    {
+        IView? view = MainGrid.Children.FirstOrDefault(predicate);
+        if (view != null)
+        {
+            MainGrid.Children.Remove(view);
+        }
     }
 
     #endregion
@@ -190,6 +223,10 @@ public partial class GameMap : ContentView
     #region TAPPED
 
     public delegate void OnTappedCoord(int x, int y);
+    /// <summary>
+    /// Enclenche l'évènement quand la vue détecte une touche. <br></br>
+    /// <b>X</b> et <b>Y</b> précise la localisation de la touche.
+    /// </summary>
     public event OnTappedCoord TappedCoord;
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
@@ -212,7 +249,7 @@ public partial class GameMap : ContentView
         if (!_is_size_changed)
         {
             _is_size_changed = true;
-            // demande de centrer la carte avant que celui ci ne soit initialis�
+            // demande de centrer la carte avant que celui ci ne soit initialisé
             if (_need_center)
             {
                 CenterMap();

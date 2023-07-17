@@ -61,54 +61,129 @@ namespace WebApplicationAPI.Controllers
             });
         }
 
-        [Obsolete("oublie de vérifier si l'utilisateur possédait les objets nécessaire et on souhaite renvoyer les données modifier pour que l'utilisateur les reçoivent (cela évite que l'utilisateur redemande les derniers info modifier)")]
-        private bool CheckAndUpdateUserRessources(int consInfoId)
+        [HttpPost(APIRoute.PLACE_BUILDING)]
+        public async Task<IActionResult> PlaceBuilding(FTMessageClient message)
         {
-            var creationRessourceList = dbContext.CreationRessources.Where(x => x.ConsInfoId == consInfoId);
-            var ressourcePossedeList = dbContext.RessourcePossedes.ToList();
-            var resourcesToRemove = new List<Tuple<RessourcePossede, int>>();
-
-            foreach (var creationRessource in creationRessourceList)
+            return await ProcessAndCheckToken<EPPlaceBuilding>(message, (args) =>
             {
-                var ressourcePossedeItem = ressourcePossedeList.FirstOrDefault(x => x.RessourceId == creationRessource.RessourceId);
+                Guid? userId = GetUtilisateurIdByUserGuid(message.UserGuid);
 
-                if (ressourcePossedeItem == null || ressourcePossedeItem.Nombre < creationRessource.Nombre)
+                if (userId == null)
                 {
-                    return false;
+                    return BadRequest(APIError.BAD_USER_TOKEN);
                 }
 
-                resourcesToRemove.Add(Tuple.Create(ressourcePossedeItem!, creationRessource.Nombre));
-            }
+                Village? town = dbContext.Villages.FirstOrDefault(x => x.UtilisateurId == userId);
 
-            // ATTENTION : foreach vérifie si les données ont été modifier, or vue que tu les modifie ici
-            // il va renvoyer une erreur
-            for(int i = 0; i < resourcesToRemove.Count; ++i)
-            {
-                var tuple = resourcesToRemove[i];
-                var ressourcePossedeItem = tuple.Item1;
-                var quantity = tuple.Item2;
-
-                try
+                if (town == null)
                 {
-                    // ATTENTION : si tu ne met pas le mot clé 'ref',
-                    // l'objet que tu donnes ne sera pas modifier en sortie de fonction
-                    RemoveRessources(ref ressourcePossedeItem,in quantity);
+                    return BadRequest(APIError.VILLAGE_NOT_SET);
                 }
-                catch (ArgumentException ex)
-                {
-                    // Gérer l'erreur de quantité insuffisante
-                    Console.WriteLine($"Erreur : {ex.Message}");
-                    return false;
-                }
-            }
 
-            // Mettre à jour les ressources possédées en une seule opération après la boucle
-            dbContext.RessourcePossedes.UpdateRange(ressourcePossedeList);
+                // récupération de la construction
+                Construction? construction = GetConstruction(args.ConstructionId);
+                if (construction == null)
+                {
+                    // construction non trouver
+                    return BadRequest(APIError.BUILDING_NOT_FOUND);
+                }
+                if(construction.VillageId != town.VillageId)
+                {
+                    // l'utilisateur courant ne peut pas modifier le placement d'un bâtiment d'un autre utilisateur
+                    return BadRequest(APIError.BAD_BUILDING_OWNER);
+                }
+
+                // vérifie qu'il n'y est pas une autre bâtiment dans ce village avec les mêmes coordonnées
+                // si oui, cela signifie qu'il va y avoir une superposition : il est interdit de faire cela
+                if(dbContext.Coordonnees.FirstOrDefault(c => 
+                    c.ConstructionId != construction.ConstructionId &&
+                    c.VillageId == town.VillageId &&
+                    c.X == args.X && c.Y == args.Y) != null)
+                {
+                    return BadRequest(APIError.BUILDINGS_ALREADY_SET_AT_THIS_COORD);
+                }
+
+                Coordonnee? old_coord = dbContext.Coordonnees.FirstOrDefault(x => x.ConstructionId == construction.ConstructionId);
             
-            // Ne SOURTOUT PAS mettre à jour, il faut que cela se fasse UNE fois seulement
-            //dbContext.SaveChanges();
+                if(old_coord != null)
+                {
+                    // suppression des anciennes coordonnées
+                    dbContext.Coordonnees.Remove(old_coord);
+                }
 
-            return true;
+                // ajout des coordonnée
+                dbContext.Coordonnees.Add(new Coordonnee()
+                {
+                    VillageId = construction.VillageId,
+                    ConsInfoId = construction.ConsInfoId,
+                    Type = construction.Type,
+                    ConstructionId = construction.ConstructionId,
+                    X = args.X,
+                    Y = args.Y,
+                    Z = 0
+                });
+
+                dbContext.SaveChanges();
+
+                return Ok();
+            });
+        }
+
+        [HttpPost(APIRoute.UNPLACE_BUILDING)]
+        public async Task<IActionResult> UnplaceBuilding(FTMessageClient message)
+        {
+            return await ProcessAndCheckToken<EPPlaceBuilding>(message, (args) =>
+            {
+                Guid? userId = GetUtilisateurIdByUserGuid(message.UserGuid);
+
+                if (userId == null)
+                {
+                    return BadRequest(APIError.BAD_USER_TOKEN);
+                }
+
+                Village? town = dbContext.Villages.FirstOrDefault(x => x.UtilisateurId == userId);
+
+                if (town == null)
+                {
+                    return BadRequest(APIError.VILLAGE_NOT_SET);
+                }
+
+                // récupération de la construction
+                Construction? construction = GetConstruction(args.ConstructionId);
+                if (construction == null)
+                {
+                    // construction non trouver
+                    return BadRequest(APIError.BUILDING_NOT_FOUND);
+                }
+                if (construction.VillageId != town.VillageId)
+                {
+                    // l'utilisateur courant ne peut pas modifier le placement d'un bâtiment d'un autre utilisateur
+                    return BadRequest(APIError.BAD_BUILDING_OWNER);
+                }
+
+                Coordonnee? old_coord = dbContext.Coordonnees.FirstOrDefault(x => x.ConstructionId == construction.ConstructionId);
+
+                if (old_coord != null)
+                {
+                    // suppression des anciennes coordonnées
+                    dbContext.Coordonnees.Remove(old_coord);
+                }
+
+                dbContext.SaveChanges();
+
+                return Ok();
+            });
+        }
+
+        private Construction? GetConstruction(int ConstructionId)
+        {
+            ConstructionDef? def = dbContext.ConstructionDefs.FirstOrDefault(x => x.ConstructionId == ConstructionId);
+            if(def != null) return def;
+            ConstructionProd? prod = dbContext.ConstructionProds.FirstOrDefault(x => x.ConstructionId == ConstructionId);
+            if (prod != null) return prod;
+            ConstructionAutre? autre = dbContext.ConstructionAutres.FirstOrDefault(x => x.ConstructionId == ConstructionId);
+            if (autre != null) return autre;
+            return null;
         }
 
         private bool CheckAndUpdateUserObjetAndRessources(int consInfoId, out List<RessourcePossede> ressourcePossedesUpdated, out List<ObjetsPossede> objetsPossedesUpdated)
@@ -270,21 +345,6 @@ namespace WebApplicationAPI.Controllers
             else
             {
                 throw new NullReferenceException("'FTDbContext.NecessaryData' est null, problème d'initialisation. 'FTDbContext.TriggerConfigureFinish()' n'a pas été appelé ou à été modifier") ;
-            }
-        }
-
-
-        [Obsolete("pas utilisée ici")]
-        private void RemoveRessources(ref RessourcePossede ressourcePossede,in int quantity)
-        {
-            if (ressourcePossede.Nombre >= quantity)
-            {
-                ressourcePossede.Nombre -= quantity;
-
-            }
-            else
-            {
-                throw new ArgumentException("La quantité de ressources à retirer dépasse la quantité disponible.");
             }
         }
     }

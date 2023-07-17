@@ -91,9 +91,58 @@ namespace FreshTech.Views.Game
             }
         }
 
+        internal async Task<bool> SetBuildingPlacement(IConstruction construction, int x, int y)
+        {
+            if(await App.client.SendRequest(new EPPlaceBuilding(construction.GetConsId(), x, y)))
+            {
+                buildings[construction] = new Placement(construction, x, y);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        internal async Task<bool> RemoveBuildingPlacement(IConstruction construction)
+        {
+            if (buildings[construction] == null)
+            {
+                return false;
+            }
+
+            if (await App.client.SendRequest(new EPUnplaceBuilding(construction.GetConsId())))
+            {
+                buildings[construction] = null;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region GET_DATA
+
+        internal bool TryGetBuildingAtThisCoord(int x, int y, out IConstruction? construction)
+        {
+            Placement? placement = buildings.Values.Where(
+                b => b.HasValue &&
+                b.Value.X == x &&
+                b.Value.Y == y).FirstOrDefault();
+            if(placement == null)
+            {
+                construction = null;
+                return false;
+            }
+            else
+            {
+                construction = placement.Value.Construction;
+                return true;
+            }
+        }
 
         internal IEnumerable<ConstructionSchema> GetConstructionSchemas() => infoId_schema.Values;
 
@@ -213,6 +262,7 @@ namespace FreshTech.Views.Game
 
     public interface IConstruction
     {
+        int GetConsInfoId();
         int GetConsId();
         int GetNivMax();
         int GetVie();
@@ -278,6 +328,8 @@ namespace FreshTech.Views.Game
         public TypeConstruction GetTypeConstruction() => Type;
 
         public int GetConsId() => ConsId;
+
+        public int GetConsInfoId() => ConsInfoId;
     }
 
     public struct GConstructionDef : IConstruction
@@ -332,6 +384,8 @@ namespace FreshTech.Views.Game
         public TypeConstruction GetTypeConstruction() => Type;
 
         public int GetConsId() => ConsId;
+
+        public int GetConsInfoId() => ConsInfoId;
     }
 
     public struct GConstructionAutre : IConstruction
@@ -379,6 +433,8 @@ namespace FreshTech.Views.Game
         public TypeConstruction GetTypeConstruction() => Type;
 
         public int GetConsId() => ConsId;
+
+        public int GetConsInfoId() => ConsInfoId;
     }
 
     /// <summary>

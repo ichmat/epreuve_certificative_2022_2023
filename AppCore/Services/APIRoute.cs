@@ -30,6 +30,8 @@ namespace AppCore.Services
         #endregion
         #region BUILDING
         public const string CREATE_BUILDING = "/building/createBuilding";
+        public const string PLACE_BUILDING = "/building/placeBuilding";
+        public const string UNPLACE_BUILDING = "/building/unplaceBuilding";
         #endregion
     }
 }
