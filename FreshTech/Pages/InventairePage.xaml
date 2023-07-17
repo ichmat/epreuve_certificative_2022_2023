@@ -1,0 +1,121 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.InventairePage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             Title="InventairePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Shadow
+                x:Key="CommonShadow"
+                Brush="gold"
+                Offset="0,7"
+                Radius="0.50"
+                Opacity="0.4"
+                />
+
+            <Style x:Key="light-theme-border" TargetType="Border">
+                <Setter Property="Shadow" Value="{StaticResource CommonShadow}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="25">
+                <views:TitleSpan Title="Inventaire" GoBack="TitleSpan_GoBack" />
+
+                <!-- Section "Bâtiment" -->
+                <Label Text="Bâtiment" FontAttributes="Bold" HorizontalOptions="Center" FontSize="25" Margin="0,20,0,20" />
+
+                <ScrollView Orientation="Vertical" BackgroundColor="LightGrey">
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout Orientation="Horizontal">
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label Text="Card 1" FontSize="16" />
+                                    <Label Text="Description 1" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label  Text="Card 2" FontSize="16" />
+                                    <Label Text="Description 2" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label Text="Card 3" FontSize="16" />
+                                    <Label Text="Description 3" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label Text="Card 4" FontSize="16" />
+                                    <Label Text="Description 4" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+                        </StackLayout>
+
+                        <!-- Ajoutez d'autres lignes de cartes ici -->
+
+                    </StackLayout>
+                </ScrollView>
+
+                <!-- Section "Objet" -->
+                <Label Text="Objet" FontAttributes="Bold" HorizontalOptions="Center" FontSize="25" Margin="0,20,0,20" />
+
+                <ScrollView Orientation="Vertical" BackgroundColor="LightGrey">
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout Orientation="Horizontal">
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label Text="Card 1" FontSize="16" />
+                                    <Label Text="Description 1" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label  Text="Card 2" FontSize="16" />
+                                    <Label Text="Description 2" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label Text="Card 3" FontSize="16" />
+                                    <Label Text="Description 3" FontSize="14" />
+                                </StackLayout>
+                            </Border>
+
+                            <Border Style="{StaticResource light-theme-border}" Margin="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout VerticalOptions="FillAndExpand" Margin = "10">
+                                    <Label Text="Card 4" FontSize="16" />
+                                    <Label Text="Description 4" FontSize="14" />
+
+                                    <Label 
+                                        FontSize="30"
+                                        x:Name="L_Title"
+                                        TextColor="Gray"
+                                        Text="#Title#"
+                                        Margin="0,0,0,20"
+                                        HorizontalOptions="Start" />
+                                </StackLayout>
+                            </Border>
+                        </StackLayout>
+
+                        <!-- Ajoutez d'autres lignes de cartes ici -->
+
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

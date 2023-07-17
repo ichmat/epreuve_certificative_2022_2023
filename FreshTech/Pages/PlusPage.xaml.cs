@@ -19,7 +19,7 @@ public partial class PlusPage : ContentPage
 
     private async void Inventaire_Clicked()
     {
-
+        await Navigation.PushModalAsync(new InventairePage(_engine));
     }
 
     private async void Reparation_Clicked()
