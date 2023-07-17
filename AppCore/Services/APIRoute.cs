@@ -33,5 +33,8 @@ namespace AppCore.Services
         public const string PLACE_BUILDING = "/building/placeBuilding";
         public const string UNPLACE_BUILDING = "/building/unplaceBuilding";
         #endregion
+        #region COURSES
+        public const string GET_COURSES_ORDERED_BY_DATE_DESC = "/courses/getCoursesOrderedByDateDesc";
+        #endregion
     }
 }

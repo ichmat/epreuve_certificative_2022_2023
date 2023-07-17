@@ -26,7 +26,7 @@ namespace AppCore.Models
         public DateTime DateDebut { get; set; }
 
         [Required]
-        public int UtilisateurId { get; set; }
+        public Guid UtilisateurId { get; set; }
 
         [ForeignKey("UtilisateurId")]
         public Utilisateur Utilisateur { get; set; }

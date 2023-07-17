@@ -54,6 +54,11 @@
                       ContentTemplate="{DataTemplate page:GamePage}" />
         </Tab>
 
+        <Tab Icon="running.svg" Title="Activité">
+            <ShellContent Route="ActivityPage"
+                          ContentTemplate="{DataTemplate page:ActivityPage}"/>
+        </Tab>
+        
         <Tab Icon="user.svg" Title="Profil">
             <ShellContent
                       Route="ProfilePage"

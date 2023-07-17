@@ -19,10 +19,12 @@ namespace AppCore.Services
         public const string NOTHING_TO_UPDATE = "Nothing to update";
         public const string VILLAGE_NOT_SET = "Village not set";
         public const string VILLAGE_ALREADY_SET = "Village already set";
-        public const string NOT_ENOUGHT_RESSOURCE = "Not enought ressource";
+        public const string NOT_ENOUGHT_RESSOURCE = "Not enough ressource";
         public const string ERROR_SCHEMA_NOT_FOUND_OR_INCOMPLET = "Error schema not found or incomplet";
         public const string BUILDING_NOT_FOUND = "Building not found";
         public const string BAD_BUILDING_OWNER = "Bad building owner";
         public const string BUILDINGS_ALREADY_SET_AT_THIS_COORD = "Buildings already set at this coord";
+        public const string TOO_MUCH_DATA = "too much data";
+
     }
 }

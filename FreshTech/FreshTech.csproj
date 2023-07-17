@@ -53,7 +53,7 @@
 		<MauiImage Update="Resources\Images\metro_target.svg" />
 		<MauiImage Update="Resources\Images\dashboard.svg" BaseSize="50,50" />
 		<MauiImage Update="Resources\Images\home.svg" BaseSize="50,50" />
-		<MauiImage Update="Resources\Images\running.svg" BaseSize="50,50" />
+		<MauiImage Update="Resources\Images\running.svg" BaseSize="400,400" />
 		<MauiImage Update="Resources\Images\user.svg" BaseSize="50,50" />
 		<MauiImage Update="Resources\Images\ionic_ios_man.svg" BaseSize="50,50" />
 
@@ -117,6 +117,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\ActivityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\CalibrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -172,6 +175,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Calibration\CalTracking.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Activity\ContentActivity.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ContentWithClippedIcon.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomButton.xaml">

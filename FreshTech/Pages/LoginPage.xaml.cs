@@ -12,7 +12,7 @@ public partial class LoginPage : ContentPage
 	{
         InitializeComponent();
 #if DEBUG
-        Mail.Text = "test";
+        Mail.Text = "test@test.com";
         MotDePasse.Text = "test";
 #endif
     }

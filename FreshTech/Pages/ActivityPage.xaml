@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.ActivityPage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             SizeChanged="ContentPage_SizeChanged"
+             BackgroundColor="White"
+             Title="">
+    <RefreshView Refreshing="RefreshView_Refreshing" x:Name="refreshView">
+        <ScrollView Orientation="Vertical">
+            <VerticalStackLayout Margin="25">
+                <!-- ACTIVITE -->
+                <views:ContentWithClippedIcon x:Name="ContentObjectiveActivity" ClippedIcon="running.svg" HeightRequest="130" HorizontalOptions="Fill" ImgScale="2" ImgAnchorX="0.6" ImgAnchorY="0.25"
+                                              LabelBottom="Lancer activité" LabelBottomClicked="Activity_LabelBottomClicked">
+                    <views:ContentWithClippedIcon.Shadow>
+                        <Shadow Brush="Gray" Offset="0,5" Opacity="0.5" />
+                    </views:ContentWithClippedIcon.Shadow>
+                </views:ContentWithClippedIcon>
+
+                <Button x:Name="ButtonModifyTarget" Clicked="ButtonModifyTarget_Clicked" Text="MODIFIER OBJECTIF" HeightRequest="60" Margin="0,25">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="#61D4FF" />
+                            <GradientStop Offset="1" Color="#0099CC" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+                <views:TitleSpan Title="Dernière(s) activité(s)" Margin="0,0,0,25" />
+
+                <VerticalStackLayout x:Name="VSL_Activities">
+                    
+                </VerticalStackLayout>
+
+                <ActivityIndicator Color="{StaticResource Primary}" HorizontalOptions="Center" x:Name="AI_Activity_Loading" WidthRequest="50" HeightRequest="50"/>
+
+                <Button x:Name="ButtonLoadMore" Clicked="ButtonLoadMore_Clicked" Text="Voir plus" HorizontalOptions="Center" Margin="0,0,0,25"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

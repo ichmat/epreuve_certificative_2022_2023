@@ -49,6 +49,8 @@ namespace AppCore.Context
 
         public DbSet<ConstructionAutre> ConstructionAutres { get; set; }
 
+        public DbSet<Courses> Courses { get; set; }
+
         /// <summary>
         /// Données nécessaire pour la configuration de la BDD. <br></br> 
         /// </summary>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             x:Class="FreshTech.Views.ContentWithClippedIcon">
+    <Border x:Name="mainBorder">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Offset="0" Color="#61D4FF" />
+                <GradientStop Offset="1" Color="#0099CC" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="12" />
+        </Border.StrokeShape>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <views:ViewBox x:Name="viewBox" VerticalOptions="Fill" Grid.RowSpan="10" Stretch="Fill" StretchDirection="DownOnly">
+                <Image x:Name="clippedImage" >
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </views:ViewBox>
+
+            <Label x:Name="Label_Top" FontSize="25" TextColor="White"
+                   Grid.Column="1" Grid.Row="0" 
+                   VerticalOptions="Center" HorizontalOptions="End" 
+                   Margin="0,0,10,0" />
+
+            <Label x:Name="Label_Middle" FontSize="25" TextColor="White" 
+                   Grid.Column="1" Grid.Row="1" 
+                   VerticalOptions="Center" HorizontalOptions="End" 
+                   Margin="0,0,10,0" />
+
+            <Label x:Name="Label_BottomClickable" FontSize="25" TextColor="White"
+                   Grid.Column="1" Grid.Row="2" TextDecorations="Underline"
+                   VerticalOptions="Center" HorizontalOptions="End" 
+                   Margin="0,0,10,0" >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+    </Border>
+</ContentView>
