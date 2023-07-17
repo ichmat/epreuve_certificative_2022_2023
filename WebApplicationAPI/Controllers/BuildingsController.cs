@@ -93,6 +93,16 @@ namespace WebApplicationAPI.Controllers
                     return BadRequest(APIError.BAD_BUILDING_OWNER);
                 }
 
+                // vérifie qu'il n'y est pas une autre bâtiment dans ce village avec les mêmes coordonnées
+                // si oui, cela signifie qu'il va y avoir une superposition : il est interdit de faire cela
+                if(dbContext.Coordonnees.FirstOrDefault(c => 
+                    c.ConstructionId != construction.ConstructionId &&
+                    c.VillageId == town.VillageId &&
+                    c.X == args.X && c.Y == args.Y) != null)
+                {
+                    return BadRequest(APIError.BUILDINGS_ALREADY_SET_AT_THIS_COORD);
+                }
+
                 Coordonnee? old_coord = dbContext.Coordonnees.FirstOrDefault(x => x.ConstructionId == construction.ConstructionId);
             
                 if(old_coord != null)

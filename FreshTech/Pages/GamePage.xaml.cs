@@ -1,5 +1,6 @@
 namespace FreshTech.Pages;
 
+using AppCore.Models;
 using FreshTech.Tools;
 using FreshTech.Views.Game;
 using Microsoft.Maui.Controls;
@@ -33,17 +34,25 @@ public partial class GamePage : ContentPage
                     ButtonPlus.IsVisible = true;
 
                     ButtonValidate.IsVisible = false;
+                    HideBorderToPlaceBuildings();
                 }
             }
         }
     }
 
     private bool _is_init = false;
+    private bool _request_loading = false;
+
+    private int x_to_place_new_building = -1;
+    private int y_to_place_new_building = -1;
 
     public GamePage()
 	{
         InitializeComponent();
+        // on demande à la carte de ce centrer
         gameMap.CenterMap();
+        // on attend que la carte finisse de se construire, voir la méthode GameMap_FinishingLoaded
+        // pour la suite
         gameMap.FinishingLoaded += GameMap_FinishingLoaded;
         _engine = new GameEngine();
         StartLoading();
@@ -53,6 +62,7 @@ public partial class GamePage : ContentPage
 
     private async void GameMap_FinishingLoaded()
     {
+        // on recharge toutes les données du jeux
         await _engine.ReloadAllData();
         if (_engine.TownNotCreated)
         {
@@ -70,8 +80,28 @@ public partial class GamePage : ContentPage
                 await _engine.ReloadUserTown();
             }
         }
+        // on charge le placement de tout les bâtiments
+        LoadPlacedBuildings();
         StopLoading();
         gameMap.TappedCoord += GameMap_TappedCoord;
+    }
+
+    private void LoadPlacedBuildings()
+    {
+        foreach(KeyValuePair<IConstruction, Placement?> dataBuilding in _engine.GetBuildingsInMap())
+        {
+            Placement? coord = dataBuilding.Value;
+            if(coord != null)
+            {
+                AddView(dataBuilding.Key, coord.Value.X, coord.Value.Y);
+            }
+            else
+            {
+                throw new ArgumentNullException("Coord de la construction ne peut pas être null", "Placement");
+            }
+        }
+
+        gameMap.ReloadViewElement();
     }
 
     private void ContentPage_Unloaded(object sender, EventArgs e)
@@ -86,10 +116,78 @@ public partial class GamePage : ContentPage
         {
             _is_init = true;
             ButtonValidate.IsVisible = false;
+            BorderBuildingsNotInMap.IsVisible = false;
+            if (_request_loading)
+            {
+                StartLoading();
+            }
+            else
+            {
+                StopLoading();
+            }
         }
     }
 
     #endregion
+
+    #region VIEW
+
+    private void AddView(IConstruction construction, int x, int y)
+    {
+        ElementCase visualBuilding = new ElementCase(construction);
+        visualBuilding.ZIndex = 100;
+        gameMap.AddElement(visualBuilding, x, y);
+    }
+
+    private void RemoveViewIfExist(IConstruction construction)
+    {
+        gameMap.RemoveElement(x =>
+            x is ElementCase el &&
+            el.Construction.GetConsId() == construction.GetConsId());
+    }
+
+    private void ShowBorderToPlaceBuildings(int x, int y)
+    {
+        if (IsEditMode)
+        {
+            // sauvegarde temporairement les coordonnées où il faudra placer le bâtiment
+            x_to_place_new_building = x;
+            y_to_place_new_building = y;
+            BorderBuildingsNotInMap.IsVisible = true;
+            // variable pour savoir si c'est la première vue créer
+            bool isFirst = true;
+            // affichage des constructions qui ne sont pas sur la carte
+            // TODO : normalement, les bâtiments doivent s'empiler si elles sont du même type et avec le même état
+            // voir : https://xd.adobe.com/view/4fc91b5c-3f6a-48d4-b95a-c6c58a7e0c13-1a9a/screen/1f10550a-d0bc-47ce-8707-30149c9be87b
+            foreach (IConstruction construction in _engine.GetBuildingsNotInMap())
+            {
+                ElementCase el = new ElementCase(construction);
+                el.Clicked += BuildingToAdd_Clicked;
+                HSL_BuildingsToPlace.Children.Add(el);
+                el.WidthRequest = el.HeightRequest = 50;
+                if (isFirst)
+                {
+                    isFirst = false;
+                }
+                else
+                {
+                    el.Margin = new Thickness(10, 0, 0, 0);
+                }
+            }
+            gameMap.IsEnabled = false;
+        }
+    }
+
+    private void HideBorderToPlaceBuildings()
+    {
+        BorderBuildingsNotInMap.IsVisible = false;
+        foreach (ElementCase element in HSL_BuildingsToPlace.Children)
+        {
+            element.Clicked -= BuildingToAdd_Clicked;
+        }
+        HSL_BuildingsToPlace.Children.Clear();
+        gameMap.IsEnabled = true;
+    }
 
     #region VISUAL_CASE_CLICKED
 
@@ -116,51 +214,116 @@ public partial class GamePage : ContentPage
             rect.HorizontalOptions = LayoutOptions.Fill;
             rect.BackgroundColor = ColorsTools.Primary;
             rect.Opacity = 0.4;
+            rect.ZIndex = 0;
         }
         gameMap.AddElement(rect, x, y);
     }
 
     #endregion
 
+    #endregion
+
+    #region TAPPED_EVENT
+
     private async void GameMap_TappedCoord(int x, int y)
     {
         // afficher visuellement le clic de l'utilisateur
         ShowCaseClicked(x, y);
-        gameMap.ReloadViewElement(); 
+        gameMap.ReloadViewElement();
 
-        if(IsEditMode)
+        if (IsEditMode)
         {
-            if (_engine.TryGetBuildingAtThisCoord(x, y, out IConstruction? construction))
+            await EditModeTapped(x, y);
+        }
+        else
+        {
+            //NormalModeTapped(x, y);
+        }
+
+    }
+
+    private async Task EditModeTapped(int x, int y)
+    {
+        if (_engine.TryGetBuildingAtThisCoord(x, y, out IConstruction? construction) && construction != null)
+        {
+            // TODO : fonctionnement temporaire, il faut afficher une bulle sur le bâtiment sélectionner
+            // voir : https://xd.adobe.com/view/4fc91b5c-3f6a-48d4-b95a-c6c58a7e0c13-1a9a/screen/9d466bb3-e9e2-4250-a21b-f4f523b39c8b
+            if (await DisplayAlert("Enlever bâtiment",
+                "Voulez-vous retirer ce bâtiment ?", "Oui", "Non"))
             {
-                // temporaire 
-                if(await DisplayAlert("Enlever bâtiment",
-                    "Voulez-vous retirer ce bâtiment ?", "Oui", "Non"))
+                if (await _engine.RemoveBuildingPlacement(construction))
                 {
-                    if (await _engine.RemoveBuildingPlacement(construction!))
-                    {
-                        // retirer visuellement le bâtiment
-                    }
-                    else
-                    {
-                        _ = DisplayAlert("Erreur", "L'opération n'a pas pu être effectué", "Ok");
-                    }
+                    RemoveViewIfExist(construction);
+                    HideCaseClicked();
+                    gameMap.ReloadViewElement();
+                }
+                else
+                {
+                    _ = DisplayAlert("Erreur", "L'opération n'a pas pu être effectué", "Ok");
                 }
             }
-            else
-            {
-                // ajouter les bâtiments
-            }
+        }
+        else
+        {
+            ShowBorderToPlaceBuildings(x, y);
         }
     }
 
+    private void NormalModeTapped(int x, int y)
+    {
+        // TODO : mettre en place le système de visualisation du bâtiment sélectionnée
+    }
+
+    #endregion
+
+    #region LOADING
+
     internal void StartLoading()
     {
-        AI_Loading.IsRunning = true;
+        if(_is_init)
+        {
+            AI_Loading.IsRunning = true;
+            BorderAI.IsVisible = true;
+        }
+        else
+        {
+            _request_loading = true;
+        }
     }
 
     internal void StopLoading()
     {
-        AI_Loading.IsRunning = false;
+        if (_is_init)
+        {
+            AI_Loading.IsRunning = false;
+            BorderAI.IsVisible = false;
+        }
+        else
+        {
+            _request_loading = false;
+        }
+    }
+
+    #endregion
+
+    #region EVENT
+
+    private async void BuildingToAdd_Clicked(ElementCase clicked)
+    {
+        HideBorderToPlaceBuildings();
+        StartLoading();
+        if(await _engine.SetBuildingPlacement(clicked.Construction,
+            x_to_place_new_building,
+            y_to_place_new_building))
+        {
+            AddView(clicked.Construction, x_to_place_new_building, y_to_place_new_building);
+            gameMap.ReloadViewElement();
+        }
+        else
+        {
+            _ = DisplayAlert("Erreur", "L'opération n'a pas pu être effectué", "Ok");
+        }
+        StopLoading();
     }
 
     private async void ButtonCurrentSituation_Clicked()
@@ -182,4 +345,13 @@ public partial class GamePage : ContentPage
     {
         IsEditMode = !IsEditMode;
     }
+
+    private void LabelCancelPlaceBuilding_Tapped(object sender, TappedEventArgs e)
+    {
+        HideBorderToPlaceBuildings();
+        HideCaseClicked();
+        gameMap.ReloadViewElement();
+    }
+
+    #endregion
 }

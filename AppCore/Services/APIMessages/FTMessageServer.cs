@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace AppCore.Services.APIMessages
 {
+    /// <summary>
+    /// Message générer par le serveur afin de répondre au client après un appel de l'API.
+    /// </summary>
+    /// <remarks>
+    /// 💬 Les données sont enregistrer dans <see cref="FTMessage.Message"/> mais elle sont chiffrées
+    /// </remarks>
     public class FTMessageServer : FTMessage
     {
         public FTMessageServer()

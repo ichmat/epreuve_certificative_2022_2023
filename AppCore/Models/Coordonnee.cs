@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AppCore.Models
@@ -32,6 +33,7 @@ namespace AppCore.Models
         [ForeignKey("VillageId")]
         public Village Village { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("ConsInfoId,Type,VillageId,ConstructionId")]
         public Construction Construction { get; set; }
     }

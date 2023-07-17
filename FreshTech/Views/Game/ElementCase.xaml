@@ -5,23 +5,23 @@
              SizeChanged="ContentView_SizeChanged"
              VerticalOptions="Fill"
              HorizontalOptions="Fill">
-    <Border BackgroundColor="White">
+    <Border BackgroundColor="White" x:Name="MainBorder">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="8" />
         </Border.StrokeShape>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="mainImg" Grid.Column="1" Grid.Row="1" >
+            <Image x:Name="mainImg" Aspect="AspectFit" Grid.Column="1" Grid.Row="1" VerticalOptions="Fill" HorizontalOptions="Fill">
                 <Image.Shadow>
                     <Shadow Brush="{StaticResource Gray500}"
                     Offset="0,5"
@@ -30,7 +30,13 @@
                 </Image.Shadow>
             </Image>
 
-            <Image x:Name="imgState" Scale="1.2" TranslationX="1.2" TranslationY="1.2" />
+            <Image x:Name="imgState" Scale="1.2" />
         </Grid>
+        <Border.Shadow>
+            <Shadow Brush="{StaticResource Gray500}"
+                    Offset="0,5"
+                    Opacity="0.3"
+                        Radius="15"/>
+        </Border.Shadow>
     </Border>
 </ContentView>
