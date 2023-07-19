@@ -4,6 +4,7 @@
              x:Class="FreshTech.Pages.CalibrationPage"
              xmlns:views="clr-namespace:FreshTech.Views"
              Loaded="ContentPage_Loaded"
+             NavigationPage.HasBackButton="false"
              Title="">
     <Grid>
         <!-- CONTENT -->

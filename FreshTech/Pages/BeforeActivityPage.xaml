@@ -4,6 +4,7 @@
              x:Class="FreshTech.Pages.BeforeActivityPage"
              xmlns:views="clr-namespace:FreshTech.Views"
              Loaded="ContentPage_Loaded"
+             NavigationPage.HasBackButton="false"
              xmlns:activity="clr-namespace:FreshTech.Views.Activity"
              Title="">
     <Grid>
@@ -28,7 +29,26 @@
                                    x:Name="DC_Pause" SubTitle="Temps pause maximal"/>
 
                 <!-- RECOMPENSES ACTIVITE -->
-                <views:TitleSpan Title="Récompense activité" Margin="25,25,25,0" />
+                <views:TitleSpan Title="Récompense activité" Margin="25" />
+
+                <Label TextColor="{StaticResource Gray500}" Margin="25,0,25,0">
+                    Les récompenses d'activités sont géréner selon plusieurs paramètres :
+                </Label>
+                <Label TextColor="{StaticResource Gray500}" Margin="25,0,25,0">
+                    - La difficulté 
+                </Label>
+                <Label TextColor="{StaticResource Gray500}" Margin="25,0,25,0">
+                    - La distance total parcourue par l'utilisateur (plus l'utilisateur enregistre des activités plus il gagne de récompense)
+                </Label>
+                <Label TextColor="{StaticResource Gray500}" Margin="25,0,25,0">
+                    - Et une probabilité générer tout les jours (détermine un gain min et max puis selectionne entre ces deux valeurs)
+                </Label>
+                <Label TextColor="{StaticResource Gray500}" Margin="25,10,25,0">
+                    Cette récompense est accordée à partir du moment où l'objectif 'Distance total' est rempli. 
+                </Label>
+                <Label TextColor="{StaticResource Gray500}" Margin="25,0,25,10">
+                    Sinon, la récompense sera réduit par rapport au pourcentage de complétion.
+                </Label>
 
                 <views:DataContent Color="{StaticResource Gray500}" ImageSource="forest.svg" Title="###"
                                    x:Name="DC_Award_Bois" ColorLeftIcon="#BF8600"/>
@@ -49,8 +69,25 @@
                                    x:Name="DC_Obj_Legendary" ColorLeftIcon="#FF8000" />
 
                 <!-- BONUS OBJECTIF -->
-                <views:TitleSpan Title="Bonus objectif" Margin="25,25,25,0" />
+                <views:TitleSpan Title="Bonus objectif" Margin="25" />
 
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="forest.svg" Title="###"
+                                   x:Name="DC_Bonus_Bois" ColorLeftIcon="#BF8600"/>
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box_open.svg" Title="###"
+                                   x:Name="DC_Bonus_Ferraille" ColorLeftIcon="#B1B1B1"/>
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Bonus_Obj_Common" ColorLeftIcon="#1EFF00" />
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Bonus_Obj_Rare" ColorLeftIcon="#0070DD" />
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Bonus_Obj_Epic" ColorLeftIcon="#A335EE" />
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Bonus_Obj_Legendary" ColorLeftIcon="#FF8000" />
 
                 <!-- bordure servant à faire la séparation entre le bouton valider et les éléments visuel -->
                 <Border HeightRequest="80"/>

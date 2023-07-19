@@ -106,12 +106,10 @@ public partial class CurrentActivityPage : ContentPage
 
     private async void Map_StopTracking()
     {
-        await Shell.Current.GoToAsync("//AfterActivityPage");
-        if (Shell.Current.CurrentPage is AfterActivityPage page)
-        {
-            page.SetEndActivity(_activity_engine, _difficulty, 
-                map.DistanceKm, map.TotalSecActivity, map.TotalSecPause, map.GetSpeedKmHMean());
-        }
+        AfterActivityPage page = new AfterActivityPage();
+        await Shell.Current.Navigation.PushModalAsync(page, true);
+        page.SetEndActivity(_activity_engine, _difficulty,
+                map.DistanceKm, map.TotalSecActivity, map.TotalSecPause, map.GetSpeedKmHMean(), map.StartActivity);
     }
     
 }

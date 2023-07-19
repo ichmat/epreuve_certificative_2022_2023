@@ -36,6 +36,7 @@ namespace AppCore.Services
         #endregion
         #region COURSES
         public const string GET_COURSES_ORDERED_BY_DATE_DESC = "/courses/getCoursesOrderedByDateDesc";
+        public const string PUBLISH_COURSE = "/courses/publishCourse";
         #endregion
     }
 }

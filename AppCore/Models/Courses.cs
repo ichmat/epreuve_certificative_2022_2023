@@ -20,6 +20,9 @@ namespace AppCore.Models
         public long TempsSec { get; set; }
 
         [Required]
+        public long TempsSecPause { get; set; }
+
+        [Required]
         public DifficulteCourse NiveauDifficulte { get; set; }
 
         [Required]
