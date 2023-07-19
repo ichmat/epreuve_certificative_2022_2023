@@ -24,7 +24,8 @@ namespace AppCore.Services
         public const string BUILDING_NOT_FOUND = "Building not found";
         public const string BAD_BUILDING_OWNER = "Bad building owner";
         public const string BUILDINGS_ALREADY_SET_AT_THIS_COORD = "Buildings already set at this coord";
-        public const string TOO_MUCH_DATA = "too much data";
-
+        public const string TOO_MUCH_DATA = "Too much data";
+        public const string NO_STAT_SET = "No stat set";
+        public const string NON_COMPLETE_USER_STAT = "Non complete user stat";
     }
 }

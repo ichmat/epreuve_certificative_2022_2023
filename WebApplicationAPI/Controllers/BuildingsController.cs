@@ -20,6 +20,14 @@ namespace WebApplicationAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Créer (acheter) une construction
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <param name="message">Demande <see cref="EPBuyBuilding"/></param>
+        /// <returns><see cref="ResponseBuyBuilding"/></returns>
         [HttpPost(APIRoute.CREATE_BUILDING)]
         public async Task<IActionResult> CreateBuilding(FTMessageClient message)
         {

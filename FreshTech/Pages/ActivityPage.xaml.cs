@@ -32,7 +32,8 @@ public partial class ActivityPage : ContentPage
 
     private async void ReloadObjective()
     {
-
+        // TODO : afficher l'objectif de l'utilisateur
+        // https://xd.adobe.com/view/4fc91b5c-3f6a-48d4-b95a-c6c58a7e0c13-1a9a/screen/04d07141-b2ab-47ec-bb39-f9e38ec1cc59
     }
 
     private async void ReloadActivities()
@@ -105,7 +106,7 @@ public partial class ActivityPage : ContentPage
 
     private void Activity_LabelBottomClicked()
     {
-
+         _ = Shell.Current.Navigation.PushModalAsync(new BeforeActivityPage(), true);
     }
 
     private void RefreshView_Refreshing(object sender, EventArgs e)

@@ -39,7 +39,7 @@ public partial class LoginPage : ContentPage
 
         if (isOk)
         {
-            AI_Loading.IsRunning = true;
+            StartLoading();
             if (!await App.client.IsConnected())
             {
                 if (!await App.client.ConnexionStart())
@@ -59,13 +59,13 @@ public partial class LoginPage : ContentPage
                 _ = DisplayAlert("Connexion échoué", "Le mail ou le mot de passe ne correspond pas", "Ok");
             }
 
-            AI_Loading.IsRunning = false;
+            StopLoading();
         }
     }
 
     private async void ContentPage_Loaded(object sender, EventArgs e)
     {
-        AI_Loading.IsRunning = true;
+        StartLoading();
         if (!await App.client.IsConnected())
         {
             if(!await App.client.ConnexionStart())
@@ -73,7 +73,19 @@ public partial class LoginPage : ContentPage
                 _ = DisplayAlert("Problème de connexion", "Vérifier votre connexion internet", "Ok");
             }
         }
+        StopLoading();
+    }
+
+    private void StartLoading()
+    {
+        AI_Loading.IsRunning = true;
+        stackLogin.IsVisible = false;
+    }
+
+    private void StopLoading()
+    {
         AI_Loading.IsRunning = false;
+        stackLogin.IsVisible = true;
     }
 
     private async void Register_Clicked(object sender, EventArgs e)

@@ -22,6 +22,31 @@ public partial class DataContent : ContentView
         }
     }
 
+    #region COLOR_LEFT_ICON
+
+    public Color ColorLeftIcon
+    {
+        get => imgSourceColor.TintColor;
+        set => imgSourceColor.TintColor = value;
+    }
+
+    #endregion
+
+    #region COLOR_TEXT
+
+    public Color ColorText
+    {
+        get => L_Title.TextColor;
+        set
+        {
+            L_Title.TextColor = value;
+            L_SubTitle.TextColor = value;
+            L_RightText.TextColor = value;
+        }
+    }
+
+    #endregion
+
     #region COLOR
 
     public Color Color

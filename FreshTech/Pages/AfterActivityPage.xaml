@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.AfterActivityPage"
+             SizeChanged="ContentPage_SizeChanged"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             xmlns:activity="clr-namespace:FreshTech.Views.Activity"
+             Title="">
+    <Grid>
+        <ScrollView Orientation="Vertical" x:Name="scollViews">
+            <VerticalStackLayout>
+                <views:TitleSpan Title="Activité terminé" Margin="25" />
+
+                <activity:ViewDifficulty x:Name="activityIndicator" IsEditable="False" />
+
+                <!-- LES OBJECTIFS -->
+                <views:DataContent ImageSource="ionic_ios_speedometer.svg" Title="###"
+                                   x:Name="DC_MeanSpeed"/>
+
+                <views:DataContent ImageSource="pin.svg" Title="###"
+                                   x:Name="DC_Distance" />
+
+                <views:DataContent ImageSource="ionic_ios_time.svg" Title="###"
+                                   x:Name="DC_Time" />
+
+                <views:DataContent ImageSource="pause.svg" Title="###"
+                                   x:Name="DC_Pause" />
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" Color="{StaticResource Primary}" x:Name="AI_Loading" WidthRequest="100" HeightRequest="100"/>
+    </Grid>
+</ContentPage>

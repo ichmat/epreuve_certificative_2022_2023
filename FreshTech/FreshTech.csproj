@@ -65,14 +65,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\all_checked.svg" />
 	  <None Remove="Resources\Images\arrow_back.svg" />
 	  <None Remove="Resources\Images\arrow_forward.svg" />
 	  <None Remove="Resources\Images\arrow_up_down.svg" />
+	  <None Remove="Resources\Images\awesome_box.svg" />
 	  <None Remove="Resources\Images\awesome_box_open.svg" />
 	  <None Remove="Resources\Images\Buildings\fence.svg" />
 	  <None Remove="Resources\Images\dashboard.svg" />
 	  <None Remove="Resources\Images\dots.svg" />
 	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\feather_box.svg" />
 	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\info_circle.svg" />
 	  <None Remove="Resources\Images\ionic_ios_flash.svg" />
@@ -84,6 +87,8 @@
 	  <None Remove="Resources\Images\map_food.svg" />
 	  <None Remove="Resources\Images\pin.svg" />
 	  <None Remove="Resources\Images\question.svg" />
+	  <None Remove="Resources\Images\round_checked.svg" />
+	  <None Remove="Resources\Images\round_cross.svg" />
 	  <None Remove="Resources\Images\running.svg" />
 	  <None Remove="Resources\Images\thumb_image.svg" />
 	  <None Remove="Resources\Images\user.svg" />
@@ -105,6 +110,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\CurrentActivitypage.xaml.cs">
+	    <DependentUpon>CurrentActivityPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\GamePage.xaml.cs">
 	    <DependentUpon>GamePage.xaml</DependentUpon>
 	  </Compile>
@@ -120,10 +128,19 @@
 	  <MauiXaml Update="Pages\ActivityPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\AfterActivityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\BeforeActivityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\CalibrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ConstructionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\CurrentActivityPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\EtatDesLieuxPage.xaml">
@@ -160,6 +177,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\TestPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Activity\ViewDifficulty.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ButtonBadge.xaml">

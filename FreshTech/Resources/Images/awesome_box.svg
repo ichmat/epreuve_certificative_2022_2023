@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+  <defs>
+    <filter id="Icon_awesome-box" x="0" y="0" width="45" height="45" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Icon_awesome-box)">
+    <path id="Icon_awesome-box-2" data-name="Icon awesome-box" d="M26.868,9.735,24.2,1.73A2.524,2.524,0,0,0,21.8,0H14.344V10.125H26.931A2.409,2.409,0,0,0,26.868,9.735ZM12.656,0H5.2A2.524,2.524,0,0,0,2.8,1.73L.132,9.735a2.409,2.409,0,0,0-.063.39H12.656ZM0,11.813V24.469A2.532,2.532,0,0,0,2.531,27H24.469A2.532,2.532,0,0,0,27,24.469V11.813Z" transform="translate(9 6)" fill="#686868"/>
+  </g>
+</svg>
