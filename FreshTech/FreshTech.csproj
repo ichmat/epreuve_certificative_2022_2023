@@ -221,6 +221,9 @@
 	  <MauiXaml Update="Views\Game\GameMap.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Inventaire\ContentInventory.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Map\FTGoogleMap.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -20,13 +20,23 @@ namespace AppCore.Models
         [Required]
         public TypeRarete Rarete { get; set; }
 
-        public static bool operator ==(Objet lhs, Objet rhs)
+        public static bool operator ==(Objet? lhs, Objet? rhs)
         {
+            if (ReferenceEquals(lhs, null))
+            {
+                return false;
+            }
+
             return lhs.Equals(rhs);
         }
 
-        public static bool operator !=(Objet lhs, Objet rhs)
+        public static bool operator !=(Objet? lhs, Objet? rhs)
         {
+            if (ReferenceEquals(lhs, null))
+            {
+                return false;
+            }
+
             return !lhs.Equals(rhs);
         }
 

@@ -170,6 +170,22 @@ namespace FreshTech.Views.Game
 
         internal IEnumerable<IConstruction> GetBuildingsNotInMap() => buildings.Where(x => x.Value == null).ToDictionary(x => x.Key, x => x.Value).Keys;
 
+        internal KeyValuePair<int, List<IConstruction>>[] GetBuildingsNotInMapOrderByConsInfoId()
+        {
+            Dictionary<int, List<IConstruction>> orderedBuildings = new Dictionary<int, List<IConstruction>>();
+
+            foreach(IConstruction building in GetBuildingsNotInMap())
+            {
+                if (!orderedBuildings.ContainsKey(building.GetConsInfoId()))
+                {
+                    orderedBuildings.Add(building.GetConsInfoId(), new List<IConstruction>());
+                }
+                orderedBuildings[building.GetConsInfoId()].Add(building);
+            }
+
+            return orderedBuildings.ToArray();
+        }
+
         internal IEnumerable<KeyValuePair<IConstruction, Placement?>> GetBuildingsInMap() => buildings.Where(x => x.Value != null);
 
         internal KeyValuePair<Ressource, int>[] GetRessourcesWithQuantity() => ressourceNumbers.ToArray();
@@ -289,6 +305,7 @@ namespace FreshTech.Views.Game
         int GetNivMax();
         int GetVie();
         int GetVieMax();
+        string GetConstructionName();
         TypeConstruction GetTypeConstruction();
     }
 
@@ -350,6 +367,7 @@ namespace FreshTech.Views.Game
         public TypeConstruction GetTypeConstruction() => Type;
 
         public int GetConsId() => ConsId;
+        public string GetConstructionName() => Nom;
 
         public int GetConsInfoId() => ConsInfoId;
     }
@@ -408,6 +426,8 @@ namespace FreshTech.Views.Game
         public int GetConsId() => ConsId;
 
         public int GetConsInfoId() => ConsInfoId;
+
+        public string GetConstructionName() => Nom;
     }
 
     public struct GConstructionAutre : IConstruction
@@ -446,6 +466,7 @@ namespace FreshTech.Views.Game
             Niveau = constructionAutre.Niveau;
         }
 
+        public string GetConstructionName() => Nom;
         public int GetNivMax() => NiveauMax;
 
         public int GetVie() => Vie;

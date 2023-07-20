@@ -14,11 +14,21 @@ namespace AppCore.Models
 
         public static bool operator ==(Ressource lhs, Ressource rhs)
         {
+            if (ReferenceEquals(lhs, null))
+            {
+                return false;
+            }
+
             return lhs.Equals(rhs);
         }
 
         public static bool operator !=(Ressource lhs, Ressource rhs)
         {
+            if (ReferenceEquals(lhs, null))
+            {
+                return false;
+            }
+
             return !lhs.Equals(rhs);
         }
 

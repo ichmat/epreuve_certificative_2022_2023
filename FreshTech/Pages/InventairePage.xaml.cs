@@ -1,4 +1,6 @@
+using AppCore.Models;
 using FreshTech.Views.Game;
+using FreshTech.Views.Inventaire;
 
 namespace FreshTech.Pages;
 
@@ -6,43 +8,44 @@ public partial class InventairePage : ContentPage
 {
     private readonly GameEngine _engine;
 
-    #region TITLE
-    public string Title
-    {
-        get => (string)GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
-    }
-
-    public static readonly BindableProperty TitleProperty =
-        BindableProperty.Create("Title", typeof(string), typeof(InventairePage), string.Empty, propertyChanged: OnTitleChanged);
-
-    private static void OnTitleChanged(BindableObject view, object oldValue, object newValue)
-    {
-        ((InventairePage)view).TitleChanged();
-    }
-
-    private void TitleChanged()
-    {
-        L_Title.Text = Title;
-    }
-    #endregion
+   
     public InventairePage(GameEngine gameEngine)
 	{
-        _engine = gameEngine;
-        GetData();
         InitializeComponent();
-
+        _engine = gameEngine;
     }
 
     private void GetData()
     {
-        var objetPossedete = _engine.GetObjetsWithQuantity().Where(x => x.Value != 0).ToList();
-        var test = objetPossedete.Select(x => x.Key.Nom).FirstOrDefault();
-        //Title = test;
+        var objetPossedete = _engine.GetObjetsWithQuantity();
+        var batimentsPossede = _engine.GetBuildingsNotInMapOrderByConsInfoId();
+        ContentInventory card;
+
+        foreach(var t in objetPossedete)
+        {
+            if(t.Value != 0)
+            {
+            card = new ContentInventory(t);
+            FL_Objets.Children.Add(card);
+            }
+        } 
+        foreach(var bat in batimentsPossede)
+        {
+            if (bat.Key != 0)
+            {
+                card = new ContentInventory(bat);
+                FL_Batiments.Children.Add(card);
+            }
+        }
     }
 
     private async void TitleSpan_GoBack()
     {
         await Shell.Current.Navigation.PopAsync();
+    }
+
+    private void ContentPage_Loaded(object sender, EventArgs e)
+    {
+        Dispatcher.Dispatch(GetData);
     }
 }
