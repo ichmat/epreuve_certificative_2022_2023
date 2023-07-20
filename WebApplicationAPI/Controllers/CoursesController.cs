@@ -156,7 +156,6 @@ namespace WebApplicationAPI.Controllers
 
                 dbContext.SaveChanges();
 
-                // TODO : award ne s'envoie pas 
                 return Json(Message(message.UserGuid, award));
             });
         }

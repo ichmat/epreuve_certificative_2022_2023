@@ -8,7 +8,7 @@ using Microsoft.Maui.Controls.Shapes;
 
 public partial class GamePage : ContentPage
 {
-    private GameEngine _engine;
+    private static GameEngine _engine;
 
     private bool _is_edit_mode = false;
     private bool IsEditMode
@@ -57,6 +57,15 @@ public partial class GamePage : ContentPage
         _engine = new GameEngine();
         StartLoading();
     }
+
+    #region STATIC
+
+    public static GameEngine GetGameEngine()
+    {
+        return _engine;
+    }
+
+    #endregion
 
     #region INIT
 

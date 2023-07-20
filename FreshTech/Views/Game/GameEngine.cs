@@ -124,6 +124,28 @@ namespace FreshTech.Views.Game
 
         #endregion
 
+        #region UPDATE_DATA
+
+        public void UpdateWithAward(ResultAward award)
+        {
+            ressourceNumbers[
+                NecessaryData.GetRessource(RESSOURCE.BOIS)
+                ] += award.RealAwardWood;
+
+            ressourceNumbers[
+                NecessaryData.GetRessource(RESSOURCE.FERRAILLE)
+                ] += award.RealAwardScrapMetal;
+
+            foreach(var awardObj in award.RealAwardObjets)
+            {
+                objectsNumbers[
+                    NecessaryData.GetObjetById(awardObj.Key)
+                    ] += awardObj.Value;
+            }
+        }
+
+        #endregion
+
         #region GET_DATA
 
         internal bool TryGetBuildingAtThisCoord(int x, int y, out IConstruction? construction)

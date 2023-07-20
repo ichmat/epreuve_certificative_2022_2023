@@ -3,6 +3,7 @@ using AppCore.Services;
 using AppCore.Services.GeneralMessage.Args;
 using FreshTech.Tools;
 using FreshTech.Views;
+using FreshTech.Views.Game;
 using System.Globalization;
 
 namespace FreshTech.Pages;
@@ -43,18 +44,19 @@ public partial class AfterActivityPage : ContentPage
             _is_activity_set = true;
             _activity_engine = activity_engine;
             _difficulty = difficulty;
+            _save_date_start_activity = dateStartActivity;
             /*
             _save_distance_km = distanceKm;
             _save_total_sec_activity = totalSecActivity;
             _save_total_sec_pause = totalSecPause;
-            _save_mean_speed_km_h = meanSpeedKmH; 
+            _save_mean_speed_km_h = meanSpeedKmH;
             */
-            // TODO : ⚠ à enlever ! Valeurs uniquement pour tester
+            
             _save_distance_km = _activity_engine.GetDistanceKm(_difficulty) * 0.8;
             _save_total_sec_activity = _activity_engine.GetTotalSecActivity(_difficulty) * 0.8;
             _save_total_sec_pause = _activity_engine.GetTotalSecPauseActivity(_difficulty) * 0.8;
             _save_mean_speed_km_h = _activity_engine.GetMeanSpeedKmH(_difficulty) * 0.8;
-            _save_date_start_activity = dateStartActivity;
+            
             Init();
         }
     }
@@ -97,9 +99,10 @@ public partial class AfterActivityPage : ContentPage
                     DC_Obj_Legendary.Title = nbLegendary.ToString();
                 else
                     DC_Obj_Legendary.IsVisible = false;
-            }
 
-            // TODO : ajouter les gains dans GameEngine
+                // met à jour les données en cache
+                GamePage.GetGameEngine().UpdateWithAward(award);
+            }
         }
     }
 
