@@ -24,6 +24,11 @@
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
+    <Color x:Key="Common">#1EFF00</Color>
+    <Color x:Key="Rare">#0070DD</Color>
+    <Color x:Key="Epic">#A335EE</Color>
+    <Color x:Key="Legendary">#FF8000</Color>
+
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
@@ -34,6 +39,10 @@
     <SolidColorBrush x:Key="WarningDarkBrush" Color="{StaticResource WarningDark}"/>
     <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource Success}"/>
     <SolidColorBrush x:Key="SuccessDarkBrush" Color="{StaticResource SuccessDark}"/>
+    <SolidColorBrush x:Key="CommonBrush" Color="{StaticResource Common}"/>
+    <SolidColorBrush x:Key="RareBrush" Color="{StaticResource Rare}"/>
+    <SolidColorBrush x:Key="EpicBrush" Color="{StaticResource Epic}"/>
+    <SolidColorBrush x:Key="LegendaryBrush" Color="{StaticResource Legendary}"/>
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
     <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
     <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>

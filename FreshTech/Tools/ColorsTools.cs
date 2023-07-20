@@ -18,6 +18,11 @@ namespace FreshTech.Tools
         public static SolidColorBrush SuccessBrush = Application.Current.Resources.MergedDictionaries.First()["SuccessBrush"] as SolidColorBrush;
         public static SolidColorBrush SuccessDarkBrush = Application.Current.Resources.MergedDictionaries.First()["SuccessDarkBrush"] as SolidColorBrush;
 
+        public static SolidColorBrush CommonBrush = Application.Current.Resources.MergedDictionaries.First()["CommonBrush"] as SolidColorBrush;
+        public static SolidColorBrush RareBrush = Application.Current.Resources.MergedDictionaries.First()["RareBrush"] as SolidColorBrush;
+        public static SolidColorBrush EpicBrush = Application.Current.Resources.MergedDictionaries.First()["EpicBrush"] as SolidColorBrush;
+        public static SolidColorBrush LegendaryBrush = Application.Current.Resources.MergedDictionaries.First()["LegendaryBrush"] as SolidColorBrush;
+
         public static SolidColorBrush Gray500Brush = Application.Current.Resources.MergedDictionaries.First()["Gray500Brush"] as SolidColorBrush;
         public static SolidColorBrush Gray200Brush = Application.Current.Resources.MergedDictionaries.First()["Gray200Brush"] as SolidColorBrush;
 
@@ -30,5 +35,11 @@ namespace FreshTech.Tools
         public static Color WarningDark = Application.Current.Resources.MergedDictionaries.First()["WarningDark"] as Color;
         public static Color Success = Application.Current.Resources.MergedDictionaries.First()["Success"] as Color;
         public static Color SuccessDark = Application.Current.Resources.MergedDictionaries.First()["SuccessDark"] as Color;
+
+        public static Color Common = Application.Current.Resources.MergedDictionaries.First()["Common"] as Color;
+        public static Color Rare = Application.Current.Resources.MergedDictionaries.First()["Rare"] as Color;
+        public static Color Epic = Application.Current.Resources.MergedDictionaries.First()["Epic"] as Color;
+        public static Color Legendary = Application.Current.Resources.MergedDictionaries.First()["Legendary"] as Color;
+
     }
 }

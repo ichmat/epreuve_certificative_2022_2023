@@ -22,6 +22,8 @@ namespace AppCore.Services
 
         private const string API_URL = "https://47d4-80-119-18-121.ngrok-free.app";
 
+        public string? LastError = null;
+
         public Utilisateur? CurrentUser { get; private set; }
 
         public FTMClientManager() {
@@ -200,7 +202,12 @@ namespace AppCore.Services
                 HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
                 if (response.IsSuccessStatusCode)
                 {
+                    LastError = null;
                     return true;
+                }
+                else
+                {
+                    LastError = (await response.Content.ReadAsStringAsync()).Trim('"');
                 }
             }
             catch (Exception ex)
@@ -225,11 +232,16 @@ namespace AppCore.Services
             HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
             if (response.IsSuccessStatusCode)
             {
+                LastError = null;
                 FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
                 if (res != null)
                 {
                     return res.SecureDecrypt<T>(_securityManager);
                 }
+            }
+            else
+            {
+                LastError = (await response.Content.ReadAsStringAsync()).Trim('"');
             }
 
             return null;
@@ -251,11 +263,16 @@ namespace AppCore.Services
                 HttpResponseMessage response = await _client.PostAsJsonAsync(request.Route(), msg);
                 if (response.IsSuccessStatusCode)
                 {
+                    LastError = null;
                     FTMessageServer? res = await response.Content.ReadFromJsonAsync<FTMessageServer>();
                     if (res != null)
                     {
                         return res.SecureDecryptStruct<T>(_securityManager);
                     }
+                }
+                else
+                {
+                    LastError = (await response.Content.ReadAsStringAsync()).Trim('"');
                 }
             }
             catch

@@ -1,3 +1,5 @@
+using AppCore.Services.GeneralMessage.Args;
+
 namespace FreshTech.Pages;
 
 public partial class TestPage : ContentPage
@@ -10,7 +12,7 @@ public partial class TestPage : ContentPage
 
 	private async void Test()
 	{
-        /*map.StartLoading();
+		/*map.StartLoading();
 		map.QualityMode();
 		try
 		{

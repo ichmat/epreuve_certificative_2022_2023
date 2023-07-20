@@ -6,8 +6,10 @@ using AppCore.Services.APIMessages;
 using AppCore.Services.GeneralMessage.Args;
 using AppCore.Services.GeneralMessage.Response;
 using AppCore.Services.NecessaryDataClass;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApplicationAPI.Controllers
 {
@@ -21,14 +23,16 @@ namespace WebApplicationAPI.Controllers
         }
 
         /// <summary>
-        /// Créer (acheter) une construction
+        /// Créer (achète) un bâtiment
         /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         /// <remarks>
-        /// 
+        /// type rechercher : <see cref="EPBuyBuilding"/>
         /// </remarks>
-        /// <param name="message">Demande <see cref="EPBuyBuilding"/></param>
-        /// <returns><see cref="ResponseBuyBuilding"/></returns>
         [HttpPost(APIRoute.CREATE_BUILDING)]
+        [ProducesResponseType(typeof(ResponseBuyBuilding), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateBuilding(FTMessageClient message)
         {
             return await ProcessAndCheckToken<EPBuyBuilding>(message, (args) =>
@@ -69,6 +73,11 @@ namespace WebApplicationAPI.Controllers
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         [HttpPost(APIRoute.PLACE_BUILDING)]
         public async Task<IActionResult> PlaceBuilding(FTMessageClient message)
         {

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace AppCore.Services.GeneralMessage.Response
 {
+    /// <summary>
+    /// La réponse de la requête de création de construction
+    /// </summary>
     public class ResponseBuyBuilding : EndPointResponse
     {
         [JsonInclude]
