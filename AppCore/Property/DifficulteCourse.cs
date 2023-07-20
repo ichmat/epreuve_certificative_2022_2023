@@ -6,5 +6,6 @@
         Normal = 1,
         Difficile = 2,
         Epuisement = 3,
+        Personnaliser = 4,  
     }
 }

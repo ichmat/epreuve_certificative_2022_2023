@@ -20,13 +20,16 @@ namespace AppCore.Models
         public long TempsSec { get; set; }
 
         [Required]
+        public long TempsSecPause { get; set; }
+
+        [Required]
         public DifficulteCourse NiveauDifficulte { get; set; }
 
         [Required]
         public DateTime DateDebut { get; set; }
 
         [Required]
-        public int UtilisateurId { get; set; }
+        public Guid UtilisateurId { get; set; }
 
         [ForeignKey("UtilisateurId")]
         public Utilisateur Utilisateur { get; set; }

@@ -1,4 +1,5 @@
 using AppCore.Models;
+using AppCore.Services;
 using AppCore.Services.GeneralMessage.Args;
 using FreshTech.Pages;
 
@@ -40,51 +41,13 @@ public partial class CalTracking : ContentView
 
         int fatigueValue = Convert.ToInt32(Math.Round(sliderFatigueLevel.Value));
 
-        double kmObjectif = mapInstance.DistanceKm;
-        double secActivityObjectif = mapInstance.TotalSecActivity;
-        double secPauseObjectif = mapInstance.TotalSecPause;
-        double meanSpeedKmHObjectif = mapInstance.GetSpeedKmHMean();
-
-        switch (fatigueValue)
-        {
-            case 1:
-                kmObjectif = Math.Round(kmObjectif * 1.35, 2);
-                secActivityObjectif = Math.Round(secActivityObjectif * 1.2);
-                secPauseObjectif = Math.Round(secPauseObjectif / 2);
-                meanSpeedKmHObjectif = Math.Round(meanSpeedKmHObjectif * 1.3, 2);
-                break;
-            case 2:
-                kmObjectif = Math.Round(kmObjectif * 1.2, 2);
-                secActivityObjectif = Math.Round(secActivityObjectif * 1.1);
-                secPauseObjectif = Math.Round(secPauseObjectif /1.5);
-                meanSpeedKmHObjectif = Math.Round(meanSpeedKmHObjectif * 1.15, 2);
-                break;
-            case 3:
-                kmObjectif = Math.Round(kmObjectif, 2);
-                secActivityObjectif = Math.Round(secActivityObjectif);
-                secPauseObjectif = Math.Round(secPauseObjectif);
-                meanSpeedKmHObjectif = Math.Round(meanSpeedKmHObjectif, 2);
-                break;
-            case 4:
-                kmObjectif = Math.Round(kmObjectif / 1.2, 2);
-                secActivityObjectif = Math.Round(secActivityObjectif / 1.1);
-                secPauseObjectif = Math.Round(secPauseObjectif * 1.2);
-                meanSpeedKmHObjectif = Math.Round(meanSpeedKmHObjectif / 1.15, 2);
-                break;
-            case 5:
-                kmObjectif = Math.Round(kmObjectif / 1.35, 2);
-                secActivityObjectif = Math.Round(secActivityObjectif / 1.2);
-                secPauseObjectif = Math.Round(secPauseObjectif * 2);
-                meanSpeedKmHObjectif = Math.Round(meanSpeedKmHObjectif / 1.3, 2);
-                break;
-        }
-
-        Stat stat = new Stat();
-        stat.UtilisateurId = App.client.CurrentUser.UtilisateurId;
-        stat.ObjectifDistanceKm = kmObjectif;
-        stat.ObjectifPauseSecMax = secPauseObjectif;
-        stat.ObjectifTempsSecMax = secActivityObjectif;
-        stat.ObjectifVitesseMoyenneKmH = meanSpeedKmHObjectif;
+        Stat stat = ActivityEngine.GenerateStatWithActivityCalibration(
+             App.client.CurrentUser.UtilisateurId,
+             mapInstance.DistanceKm,
+             mapInstance.TotalSecActivity,
+             mapInstance.TotalSecPause,
+             fatigueValue
+            );
 
         bool res = await App.client.SendRequest(new EPSaveStat(stat));
 
@@ -92,7 +55,7 @@ public partial class CalTracking : ContentView
 
         if (res)
         {
-
+            _parent.GoToFinishCalibration();
         }
         else
         {

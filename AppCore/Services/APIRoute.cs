@@ -20,8 +20,9 @@ namespace AppCore.Services
         public const string GET_USER_BY_TOKEN = "/user/getUserByToken";
         #endregion
         #region STAT_CONTROLLER
-        public const string SAVE_STAT = "/user/saveStat";
-        public const string GET_STAT_BY_USER_ID = "/user/getStatByUserId";
+        public const string SAVE_STAT = "/stat/saveStat";
+        public const string GET_STAT_BY_USER_ID = "/stat/getStatByUserId";
+        public const string GENERATE_ACTIVITY_ENGINE = "/stat/generateActivityEngine";
         #endregion
         #region VILLAGE
         public const string GET_ENTIRE_VILLAGE = "/village/getTheEntireUserVillage";
@@ -32,6 +33,10 @@ namespace AppCore.Services
         public const string CREATE_BUILDING = "/building/createBuilding";
         public const string PLACE_BUILDING = "/building/placeBuilding";
         public const string UNPLACE_BUILDING = "/building/unplaceBuilding";
+        #endregion
+        #region COURSES
+        public const string GET_COURSES_ORDERED_BY_DATE_DESC = "/courses/getCoursesOrderedByDateDesc";
+        public const string PUBLISH_COURSE = "/courses/publishCourse";
         #endregion
     }
 }

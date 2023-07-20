@@ -5,6 +5,7 @@ using AppCore.Services.GeneralMessage.Args;
 using AppCore.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace WebApplicationAPI.Controllers
 {
@@ -62,6 +63,39 @@ namespace WebApplicationAPI.Controllers
                     return Json(Message(message.UserGuid, stat));
                 }
                 return NotFound();
+            });
+        }
+
+        [HttpPost(APIRoute.GENERATE_ACTIVITY_ENGINE)]
+        public async Task<IActionResult> GenerateActivityEngine(FTMessageClient message)
+        {
+            return await ProcessAndCheckToken<EPGenerateActivityEngine>(message, (args) =>
+            {
+                Guid? userId = GetUtilisateurIdByUserGuid(message.UserGuid);
+
+                if (userId == null)
+                {
+                    return BadRequest(APIError.BAD_USER_TOKEN);
+                }
+
+                Stat? stat = dbContext.Stats.FirstOrDefault(x => x.UtilisateurId == userId);
+
+                if (stat == null)
+                {
+                    return BadRequest(APIError.NO_STAT_SET);
+                }
+
+                ActivityEngine engine;
+                try
+                {
+                    engine = new ActivityEngine(stat);
+                }
+                catch(NoNullAllowedException)
+                {
+                    return BadRequest(APIError.NON_COMPLETE_USER_STAT);
+                }
+                
+                return Json(Message(message, engine));
             });
         }
     }

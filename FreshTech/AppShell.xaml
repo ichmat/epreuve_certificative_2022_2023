@@ -6,46 +6,55 @@
     xmlns:local="clr-namespace:FreshTech"
     xmlns:page="clr-namespace:FreshTech.Pages"
     Shell.FlyoutBehavior="Disabled">
-    <ShellContent 
-                    Title="Login"
-                      Route="LoginPage"
-                      ContentTemplate="{DataTemplate page:LoginPage}" />
-
-    <ShellContent
-                        Title="Register"
-                      Route="RegisterPage"
-                      ContentTemplate="{DataTemplate page:RegisterPage}" />
-
-    <ShellContent
-                        Title="Calibration"
-                      Route="CalibrationPage"
-                      ContentTemplate="{DataTemplate page:CalibrationPage}" />
     
-    <ShellContent
-                        Title="Plus"
-                      Route="PlusPage"
-                      ContentTemplate="{DataTemplate page:PlusPage}" />
+    <ShellContent Title="Login"
+                  Route="LoginPage"
+                  ContentTemplate="{DataTemplate page:LoginPage}" />
+
+    <ShellContent Title="Register"
+                  Route="RegisterPage"
+                  ContentTemplate="{DataTemplate page:RegisterPage}" />
+
+    <ShellContent Title="Calibration"
+                  Route="CalibrationPage"
+                  ContentTemplate="{DataTemplate page:CalibrationPage}" />
+    
+    <ShellContent Title="Plus"
+                  Route="PlusPage"
+                  ContentTemplate="{DataTemplate page:PlusPage}" />
+
+    <ShellContent Title="BeforeAvtivity"
+                  Route="BeforeActivityPage"
+                  ContentTemplate="{DataTemplate page:BeforeActivityPage}" />
+
+    <ShellContent Title="CurrentActivity"
+                  Route="CurrentActivityPage"
+                  ContentTemplate="{DataTemplate page:CurrentActivityPage}" />
 
 
+    <ShellContent Title="AfterActivity"
+                  Route="AfterActivityPage"
+                  ContentTemplate="{DataTemplate page:AfterActivityPage}" />
+    
     <ShellContent Title="Confidentialite"
-                      Route="ConfidentialitePage"
-                      ContentTemplate="{DataTemplate page:ConfidentialitePage}" />
+                  Route="ConfidentialitePage"
+                  ContentTemplate="{DataTemplate page:ConfidentialitePage}" />
     
     <ShellContent Title="Langage"
-                      Route="LangagePage"
-                      ContentTemplate="{DataTemplate page:LangagePage}" />
+                  Route="LangagePage"
+                  ContentTemplate="{DataTemplate page:LangagePage}" />
 
     <ShellContent Title="Propos"
-                      Route="ProposPage"
-                      ContentTemplate="{DataTemplate page:ProposPage}" />
+                  Route="ProposPage"
+                  ContentTemplate="{DataTemplate page:ProposPage}" />
     
     <ShellContent Title="Objectif"
-                      Route="ObjectifPage"
-                      ContentTemplate="{DataTemplate page:ObjectifPage}" />
+                  Route="ObjectifPage"
+                  ContentTemplate="{DataTemplate page:ObjectifPage}" />
     
     <ShellContent Title="Compte"
-                      Route="ComptePage"
-                      ContentTemplate="{DataTemplate page:ComptePage}" />
+                  Route="ComptePage"
+                  ContentTemplate="{DataTemplate page:ComptePage}" />
 
     <TabBar>
         <Tab Icon="home.svg" Title="Home">
@@ -54,6 +63,11 @@
                       ContentTemplate="{DataTemplate page:GamePage}" />
         </Tab>
 
+        <Tab Icon="running.svg" Title="Activité">
+            <ShellContent Route="ActivityPage"
+                          ContentTemplate="{DataTemplate page:ActivityPage}"/>
+        </Tab>
+        
         <Tab Icon="user.svg" Title="Profil">
             <ShellContent
                       Route="ProfilePage"

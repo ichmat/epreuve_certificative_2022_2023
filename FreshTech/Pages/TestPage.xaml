@@ -6,6 +6,7 @@
              xmlns:map="clr-namespace:FreshTech.Views.Map"
              xmlns:uitools="clr-namespace:FreshTech.Views"
              xmlns:tabs="http://sharpnado.com"
+             xmlns:act="clr-namespace:FreshTech.Views.Activity"
              BackgroundColor="{StaticResource Gray100}"
              Title="">
     <VerticalStackLayout VerticalOptions="Center">
@@ -30,7 +31,5 @@
                 </tabs:BottomTabItem>
             </tabs:TabHostView.Tabs>
         </tabs:TabHostView>-->
-
-        <views:DataContent Title="test" SubTitle="Test" BackgroundColor="White" Color="{StaticResource Success}" ScaleImageSource="1.5" ImageSource="ionic_ios_man.svg"  />
     </VerticalStackLayout>
 </ContentPage>

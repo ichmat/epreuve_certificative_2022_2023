@@ -73,6 +73,8 @@ public partial class FTMap : ContentView, IDisposable
 
     public double TotalSec { get => TotalSecPause + TotalSecActivity; }
 
+    public DateTime StartActivity { get; private set; }
+
     private TrackState _state = TrackState.NotSet;
 
     public TrackState State
@@ -195,6 +197,8 @@ public partial class FTMap : ContentView, IDisposable
                 }
             }
         }
+
+        if(nbVal == 0) return 0;
 
         return totalSpeedKmHRegister / nbVal;
     }
@@ -344,6 +348,7 @@ public partial class FTMap : ContentView, IDisposable
         State = TrackState.Running;
         _timerTrack.Start();
         _timerTick.Start();
+        StartActivity = DateTime.Now;
     }
 
     internal void ResumeTrack()

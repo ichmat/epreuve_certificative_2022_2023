@@ -10,6 +10,12 @@ using System.Xml.Linq;
 namespace AppCore.Services.APIMessages
 {
 
+    /// <summary>
+    /// Message générer par le client afin de contacter l'API
+    /// </summary>
+    /// <remarks>
+    /// 💬 Les données sont enregistrer dans <see cref="FTMessage.Message"/> mais elle sont chiffrées (sauf si utilisation de <see cref="GenerateNotSecure(string, string)"/>)
+    /// </remarks>
     public class FTMessageClient : FTMessage
     {
         [JsonInclude]
