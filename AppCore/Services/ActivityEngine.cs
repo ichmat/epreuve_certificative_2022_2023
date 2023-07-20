@@ -457,20 +457,27 @@ namespace AppCore.Services
         [JsonInclude]
         public int RealAwardScrapMetal;
         [JsonInclude]
-        public Dictionary<Objet, int> RealAwardObjets;
+        public Dictionary<int, int> RealAwardObjets;
+
+        public ResultAward(int realAwardWood, int realAwardScrapMetal, Dictionary<Objet, int> realAwardObjets)
+        {
+            RealAwardWood = realAwardWood;
+            RealAwardScrapMetal = realAwardScrapMetal;
+            RealAwardObjets = realAwardObjets.ToDictionary(x => x.Key.ObjetId, x => x.Value);
+        }
 
         [JsonConstructor]
-        public ResultAward(int addWood, int addScrapMetal, Dictionary<Objet, int> addObjets)
+        public ResultAward(int realAwardWood, int realAwardScrapMetal, Dictionary<int, int> realAwardObjets)
         {
-            RealAwardWood = addWood;
-            RealAwardScrapMetal = addScrapMetal;
-            RealAwardObjets = addObjets;
+            RealAwardWood = realAwardWood;
+            RealAwardScrapMetal = realAwardScrapMetal;
+            RealAwardObjets = realAwardObjets;
         }
 
         public int CountNumberRarity(TypeRarete rarete)
         {
             int count = 0;
-            foreach(var obj in RealAwardObjets.Where(x => x.Key.Rarete == rarete))
+            foreach(var obj in RealAwardObjets.Where(x => NecessaryData.GetObjetById(x.Key).Rarete == rarete))
             {
                 count += obj.Value;
             }

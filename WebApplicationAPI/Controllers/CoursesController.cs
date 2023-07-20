@@ -41,7 +41,7 @@ namespace WebApplicationAPI.Controllers
                     .Where(x => x.UtilisateurId == userId) // récupère uniquement les Courses de l'utilisateur
                     .OrderByDescending(x => x.DateDebut) // les tries par date 
                     .Skip(args.StartIndex) // index de début
-                    .Take(args.EndIndex) // index de fin
+                    .Take(args.EndIndex - args.StartIndex) // index de fin
                     .ToArray()
                 ));
             });
@@ -130,7 +130,7 @@ namespace WebApplicationAPI.Controllers
                 int numberGain;
                 foreach(var objAward in award.RealAwardObjets)
                 {
-                    obj = objAward.Key;
+                    obj = NecessaryData.GetObjetById(objAward.Key);
                     numberGain = objAward.Value;
                     ObjetsPossede? objets = dbContext.ObjetsPossedes.FirstOrDefault(x => x.VillageId == town.VillageId && x.ObjetId == obj.ObjetId);
 

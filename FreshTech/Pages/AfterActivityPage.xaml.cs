@@ -73,7 +73,7 @@ public partial class AfterActivityPage : ContentPage
             if(award != null)
             {
                 DC_Award_Bois.Title = award.RealAwardWood.ToString();
-                DC_Award_Ferraille.Title = award.RealAwardWood.ToString();
+                DC_Award_Ferraille.Title = award.RealAwardScrapMetal.ToString();
                 int nbCommon = award.CountNumberRarity(TypeRarete.COMMUN);
                 if(nbCommon > 0)
                     DC_Obj_Common.Title = nbCommon.ToString();

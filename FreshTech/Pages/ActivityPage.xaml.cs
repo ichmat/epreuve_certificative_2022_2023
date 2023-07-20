@@ -104,9 +104,14 @@ public partial class ActivityPage : ContentPage
         VSL_Activities.Children.Add(view);
     }
 
-    private void Activity_LabelBottomClicked()
+    private async void Activity_LabelBottomClicked()
     {
-         _ = Shell.Current.Navigation.PushModalAsync(new BeforeActivityPage(), true);
+        ContentObjectiveActivity.Opacity = 0.6;
+        AI_StartActivity_Loading.IsRunning = true;
+        await Task.Delay(50);
+        await Shell.Current.Navigation.PushModalAsync(new BeforeActivityPage(), true);
+        AI_StartActivity_Loading.IsRunning = false;
+        ContentObjectiveActivity.Opacity = 1;
     }
 
     private void RefreshView_Refreshing(object sender, EventArgs e)

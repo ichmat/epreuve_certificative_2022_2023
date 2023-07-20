@@ -10,12 +10,16 @@
         <ScrollView Orientation="Vertical">
             <VerticalStackLayout Margin="25">
                 <!-- ACTIVITE -->
-                <views:ContentWithClippedIcon x:Name="ContentObjectiveActivity" ClippedIcon="running.svg" HeightRequest="130" HorizontalOptions="Fill" ImgScale="2" ImgAnchorX="0.6" ImgAnchorY="0.25"
+                <Grid HeightRequest="130" HorizontalOptions="Fill">
+                    <views:ContentWithClippedIcon x:Name="ContentObjectiveActivity" ClippedIcon="running.svg" HeightRequest="130" HorizontalOptions="Fill" ImgScale="2" ImgAnchorX="0.6" ImgAnchorY="0.25"
                                               LabelBottom="Lancer activité" LabelBottomClicked="Activity_LabelBottomClicked">
-                    <views:ContentWithClippedIcon.Shadow>
-                        <Shadow Brush="Gray" Offset="0,5" Opacity="0.5" />
-                    </views:ContentWithClippedIcon.Shadow>
-                </views:ContentWithClippedIcon>
+                        <views:ContentWithClippedIcon.Shadow>
+                            <Shadow Brush="Gray" Offset="0,5" Opacity="0.5" />
+                        </views:ContentWithClippedIcon.Shadow>
+                    </views:ContentWithClippedIcon>
+                    <ActivityIndicator Color="{StaticResource Secondary}" HorizontalOptions="Center" x:Name="AI_StartActivity_Loading" WidthRequest="50" HeightRequest="50"/>
+                </Grid>
+                
 
                 <Button x:Name="ButtonModifyTarget" Clicked="ButtonModifyTarget_Clicked" Text="MODIFIER OBJECTIF" HeightRequest="60" Margin="0,25">
                     <Button.Background>
