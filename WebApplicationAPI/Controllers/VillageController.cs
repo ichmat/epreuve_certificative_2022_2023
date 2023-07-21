@@ -5,6 +5,8 @@ using AppCore.Services;
 using Microsoft.AspNetCore.Mvc;
 using AppCore.Models;
 using AppCore.Services.GeneralMessage.Response;
+using AppCore.Property;
+using System;
 
 namespace WebApplicationAPI.Controllers
 {
@@ -39,6 +41,14 @@ namespace WebApplicationAPI.Controllers
                 Village village = new Village();
                 village.UtilisateurId = userId.Value;
                 dbContext.Villages.Add(village);
+
+                //Add the event construction and define the finish time 
+                Attaque attaque = new Attaque();
+                attaque.DateApparition = DateTime.Now + new TimeSpan(2, 0, 0);
+                attaque.Puissance = 300;
+                attaque.Village = village;
+
+                dbContext.Attaques.Add(attaque);
                 dbContext.SaveChanges();
                 return Ok();
             });

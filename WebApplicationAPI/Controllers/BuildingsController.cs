@@ -63,7 +63,7 @@ namespace WebApplicationAPI.Controllers
                 }
 
                 // enregistre les modifications 
-                if (!ApplyModification(in constructionCreated, in ressourcePossedesUpdated, in objetsPossedesUpdated))
+                if (!ApplyModification(constructionCreated, in ressourcePossedesUpdated, in objetsPossedesUpdated))
                 {
                     return Problem("Construction type not supported or error saving", null, 500);
                 }
@@ -264,7 +264,7 @@ namespace WebApplicationAPI.Controllers
             }
         }
 
-        private bool ApplyModification(in Construction constructionCreated, in List<RessourcePossede> ressourcePossedesUpdated, in List<ObjetsPossede> objetsPossedesUpdated)
+        private bool ApplyModification(Construction constructionCreated, in List<RessourcePossede> ressourcePossedesUpdated, in List<ObjetsPossede> objetsPossedesUpdated)
         {
             switch(constructionCreated)
             {
@@ -283,6 +283,19 @@ namespace WebApplicationAPI.Controllers
             dbContext.RessourcePossedes.UpdateRange(ressourcePossedesUpdated);
             dbContext.ObjetsPossedes.UpdateRange(objetsPossedesUpdated);
             dbContext.SaveChanges();
+
+            var consInfoConstruction = dbContext.ConstructionInfos.FirstOrDefault(x => x.ConsInfoId == constructionCreated.ConsInfoId);
+            //Add the event construction and define the finish time 
+            Evenement evenement = new Evenement();
+            evenement.EvenType = TypeEvent.Construction;
+            evenement.EvenLieeId = constructionCreated.ConsInfoId;
+            evenement.EvenInfo = "En Construction";
+            evenement.ExprirationTime = DateTime.Now + TimeSpan.FromSeconds(consInfoConstruction.TempsSecConstruction);
+
+
+            dbContext.Evenement.Add(evenement);
+            dbContext.SaveChanges();
+
             return true;
         }
 

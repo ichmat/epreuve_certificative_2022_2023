@@ -39,6 +39,11 @@ public partial class GamePage : ContentPage
             }
         }
     }
+    public string AttaqueLabel
+    {
+        get => L_AttaqueLabel.Text;
+        set => L_AttaqueLabel.Text = value;
+    }
 
     private bool _is_init = false;
     private bool _request_loading = false;
@@ -56,6 +61,7 @@ public partial class GamePage : ContentPage
         gameMap.FinishingLoaded += GameMap_FinishingLoaded;
         _engine = new GameEngine();
         StartLoading();
+
     }
 
     #region STATIC
@@ -65,6 +71,13 @@ public partial class GamePage : ContentPage
         return _engine;
     }
 
+    public void GetAttaque()
+    {
+      var attaques = _engine.GetAttaques().First();
+        var tempRestant = (attaques.DateApparition - DateTime.Now);
+        AttaqueLabel = "Prochaine attaque arrive dans : " + tempRestant.Hours.ToString() + " hrs " + tempRestant.Minutes.ToString() + " mins ";
+        
+    }
     #endregion
 
     #region INIT
@@ -89,6 +102,7 @@ public partial class GamePage : ContentPage
                 await _engine.ReloadUserTown();
             }
         }
+        GetAttaque();
         // on charge le placement de tout les bâtiments
         LoadPlacedBuildings();
         StopLoading();

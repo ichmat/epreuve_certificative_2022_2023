@@ -167,6 +167,7 @@ namespace FreshTech.Views.Game
         }
 
         internal IEnumerable<ConstructionSchema> GetConstructionSchemas() => infoId_schema.Values;
+        internal IEnumerable<Attaque> GetAttaques() => incomingAttacks;
 
         internal IEnumerable<IConstruction> GetBuildingsNotInMap() => buildings.Where(x => x.Value == null).ToDictionary(x => x.Key, x => x.Value).Keys;
 

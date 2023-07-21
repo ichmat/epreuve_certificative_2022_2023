@@ -51,6 +51,8 @@ namespace AppCore.Context
 
         public DbSet<Courses> Courses { get; set; }
 
+        public DbSet<Evenement> Evenement { get; set; }
+
         /// <summary>
         /// Données nécessaire pour la configuration de la BDD. <br></br> 
         /// </summary>
@@ -62,7 +64,7 @@ namespace AppCore.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var serverVersion = new MySqlServerVersion(new Version(5, 7, 36));
-            var connectionString = "server=localhost;port=3306;user=root;password=root;database=freshtech";
+            var connectionString = "server=localhost;port=3306;user=root;password=;database=freshtech";
             optionsBuilder.UseMySql(connectionString,serverVersion, options =>
             {
                 options.MigrationsAssembly("WebApplicationAPI");
