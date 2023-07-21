@@ -98,6 +98,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.855" />
 		<PackageReference Include="Mapsui.Maui" Version="4.0.0-beta.8" />
 		<PackageReference Include="MathNet.Filtering.Kalman" Version="0.7.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
@@ -118,6 +119,9 @@
 	  </Compile>
 	  <Compile Update="Pages\RegisterPage.xaml.cs">
 	    <DependentUpon>RegisterPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Dashboard\CustomGraph.xaml.cs">
+	    <DependentUpon>CustomGraph.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Map\FTGoogleMap.xaml.cs">
 	    <DependentUpon>FTGoogleMap.xaml</DependentUpon>
@@ -141,6 +145,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\CurrentActivityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\DashboardPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\EtatDesLieuxPage.xaml">
@@ -210,6 +217,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CustomEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Dashboard\CustomGraph.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\DataContent.xaml">

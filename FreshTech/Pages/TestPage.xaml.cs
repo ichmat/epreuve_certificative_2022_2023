@@ -1,3 +1,4 @@
+using AppCore.Models;
 using AppCore.Services.GeneralMessage.Args;
 
 namespace FreshTech.Pages;
@@ -12,7 +13,12 @@ public partial class TestPage : ContentPage
 
 	private async void Test()
 	{
-		/*map.StartLoading();
+		Courses[]? courses = await App.client.SendAndGetResponse<Courses[]>(new EPGetCourses(0, 40));
+        if(courses != null && courses.Length > 0)
+		{
+			barGraph.AddRange(courses);
+        }
+        /*map.StartLoading();
 		map.QualityMode();
 		try
 		{
@@ -35,8 +41,9 @@ public partial class TestPage : ContentPage
 		finally { map.StopLoading(); }*/
     }
 
-    private void ButtonBadge_Clicked()
+    private void Reload_Clicked(object sender, EventArgs e)
     {
+        barGraph.Invalidate();
 
     }
 }

@@ -7,7 +7,8 @@
              xmlns:uitools="clr-namespace:FreshTech.Views"
              xmlns:tabs="http://sharpnado.com"
              xmlns:act="clr-namespace:FreshTech.Views.Activity"
-             BackgroundColor="{StaticResource Gray100}"
+             xmlns:dashboard="clr-namespace:FreshTech.Views.Dashboard"
+             BackgroundColor="White"
              Title="">
     <VerticalStackLayout VerticalOptions="Center">
         <!--<map:FTMap x:Name="map" />-->
@@ -31,5 +32,8 @@
                 </tabs:BottomTabItem>
             </tabs:TabHostView.Tabs>
         </tabs:TabHostView>-->
+        <dashboard:CustomGraph x:Name="barGraph" VerticalOptions="Fill" BackgroundColor="Transparent" HorizontalOptions="Fill"  />
+
+        <Button x:Name="Reload" Text="Reload" VerticalOptions="End" HorizontalOptions="Center" Clicked="Reload_Clicked" />
     </VerticalStackLayout>
 </ContentPage>

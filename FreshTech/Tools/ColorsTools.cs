@@ -41,5 +41,7 @@ namespace FreshTech.Tools
         public static Color Epic = Application.Current.Resources.MergedDictionaries.First()["Epic"] as Color;
         public static Color Legendary = Application.Current.Resources.MergedDictionaries.First()["Legendary"] as Color;
 
+        public static Color Gray500 = Application.Current.Resources.MergedDictionaries.First()["Gray500"] as Color;
+        public static Color Gray200 = Application.Current.Resources.MergedDictionaries.First()["Gray200"] as Color;
     }
 }
