@@ -1,0 +1,27 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.InventairePage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             xmlns:inventory="clr-namespace:FreshTech.Views.Inventaire"
+             Title="InventairePage"
+             Loaded="ContentPage_Loaded">
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <VerticalStackLayout Margin="25" >
+                <views:TitleSpan Title="Inventaire" GoBack="TitleSpan_GoBack" />
+
+                <!-- Section "Bâtiment" -->
+                <Label Text="Bâtiment" FontAttributes="Bold" HorizontalOptions="Center" FontSize="25" Margin="0,20,0,20" />
+                <FlexLayout BackgroundColor="LightGrey" x:Name="FL_Batiments" Wrap="Wrap" JustifyContent="Center" VerticalOptions="CenterAndExpand" AlignItems="Center">
+
+                </FlexLayout>
+                <!-- Section "Objet" -->
+                <Label Text="Objet" FontAttributes="Bold" HorizontalOptions="Center" FontSize="25" Margin="0,20,0,20" />
+
+                <FlexLayout BackgroundColor="LightGrey" x:Name="FL_Objets" Wrap="Wrap" JustifyContent="Center" VerticalOptions="CenterAndExpand" AlignItems="Center">
+
+                </FlexLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

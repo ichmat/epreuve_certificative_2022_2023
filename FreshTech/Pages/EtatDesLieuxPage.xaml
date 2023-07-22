@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.EtatDesLieuxPage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             Title="EtatDesLieuxPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" >
+
+            <views:TitleSpan Title="Etat des lieux" GoBack="TitleSpan_GoBack" Margin="25"/>
+
+            <!-- Titre "Ressources" -->
+            <Label Text="Ressources" FontSize="24"  TextColor="Gray" Margin="25" />
+
+            <views:DataContent x:Name="L_Eau" ImageSource="ionic_ios_water" Color="#33B5E5"/>
+            <views:DataContent x:Name="L_Nourriture" ImageSource="map_food" Color="#00E15A"/>
+            <views:DataContent x:Name="L_Bonheur" ImageSource="ionic_ios_happy" Color="#DD00E5"/>
+            <views:DataContent x:Name="L_Energie" ImageSource="ionic_ios_flash" Color="#F7FF00"/>
+            <views:DataContent x:Name="L_Bois" ImageSource="forest" Color="#BF8600"/>
+            <views:DataContent x:Name="L_Feraille" ImageSource="awesome_box_open" Color="#B1B1B1"/>
+            <views:DataContent x:Name="L_Habitant" ImageSource="ionic_ios_man" Color="#B1B1B1"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

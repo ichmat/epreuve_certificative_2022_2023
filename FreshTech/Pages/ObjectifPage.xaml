@@ -1,0 +1,24 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             x:Class="FreshTech.Pages.ObjectifPage"
+             Loaded="ContentPage_Loaded"
+             Title="">
+    <ContentPage.Content>
+        <Grid>
+            <VerticalStackLayout VerticalOptions="FillAndExpand" Margin="25">
+                <views:TitleSpan Title="Objectif" GoBack="TitleSpan_GoBack" Margin="0,0,0,25"/>
+
+                <Label Margin="0,0,0,25">
+                    Votre objectif va être constamment mit à jour selon vos activités et votre performance. Le formulaire ci dessous représente les valeurs de vos objectifs moyen. Les changer recalculera vos objectifs.
+                </Label>
+
+                <views:CustomEntry Title="Distance (Km)" NumberOnly="True" Text="0.00" ImgSource="pin.svg" x:Name="EntryDistance" Margin="0,0,0,25" />
+                <views:CustomEntry TimerOnly="True" Title="Temps" Text="00:00:00" ImgSource="ionic_ios_time.svg" x:Name="EntryTime" Margin="0,0,0,25" />
+
+            </VerticalStackLayout>
+
+            <Button WidthRequest="170" HeightRequest="58" VerticalOptions="End" Text="Sauvegarder" Clicked="Save_Clicked" BackgroundColor="{StaticResource Success}" TextColor="White" Margin="0,0,0,25"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

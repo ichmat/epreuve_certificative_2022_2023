@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.ComptePage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             Title="ComptePage">
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="FillAndExpand" Margin="25">
+
+            <views:TitleSpan Title="Compte" GoBack="TitleSpan_GoBack" />
+
+            <!-- Lien hypertexte vers Facebook -->
+
+
+            <StackLayout Margin="10,30,10,10" Orientation="Horizontal" >
+                <Image x:Name="img2" Source="logo_facebook.svg" Aspect="AspectFit" Margin="2,4,0,2"
+       WidthRequest="50" HeightRequest="50" />
+
+                <Label Margin="10"  Text="Connectez-vous avec Facebook" FontSize="20" TextColor="Blue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped= "OnFacebookTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </StackLayout>
+            
+
+            <!-- Lien hypertexte vers Google -->
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Image x:Name="img" Source="awesome_google.svg" Aspect="AspectFit" Margin="2,4,0,2"
+       WidthRequest="50" HeightRequest="50" />
+                <Label Margin="10" Text="Connectez-vous avec Google" FontSize="20" TextColor="Blue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped= "OnGoogleTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        
+            <!-- Texte cliquable pour se déconnecter -->
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Image x:Name="img3" Source="awesome_google.svg" Aspect="AspectFit" Margin="2,4,0,2"
+       WidthRequest="50" HeightRequest="50" />
+                <Label Margin="10" FontSize="20" Text="Se déconnecter"  TextColor="Red">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped= "OnDeconnecterTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+
+            <!-- Changer son mot de passe -->
+            <views:TitleSpan Title="Changer mot de passe" Margin="0,25" />
+
+            <views:CustomEntry Margin="0,0,0,25" x:Name="CE_Old_Pwd" Text="" Placeholder="Ancien mot de passe" />
+
+            <views:CustomEntry Margin="0,0,0,25" x:Name="CE_New_Pwd" Text="" Placeholder="Nouveau mot de passe" />
+
+            <views:CustomEntry Margin="0,0,0,25" x:Name="CE_Confirm_New_Pwd" Text="" Placeholder="Confirmer nouveau mot de passe" />
+
+            <Button Margin="10" Text="Changer" BackgroundColor="#7ED957" TextColor="White" CornerRadius="10" WidthRequest="150" Clicked="OnChangerClicked" />
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

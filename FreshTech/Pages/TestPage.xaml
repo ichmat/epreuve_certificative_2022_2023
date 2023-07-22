@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.TestPage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             xmlns:map="clr-namespace:FreshTech.Views.Map"
+             xmlns:uitools="clr-namespace:FreshTech.Views"
+             xmlns:tabs="http://sharpnado.com"
+             xmlns:act="clr-namespace:FreshTech.Views.Activity"
+             BackgroundColor="{StaticResource Gray100}"
+             Title="">
+    <VerticalStackLayout VerticalOptions="Center">
+        <!--<map:FTMap x:Name="map" />-->
+        <!--<tabs:TabHostView x:Name="TabHost"
+                    Grid.Row="2"
+                    BackgroundColor="#272727"
+                    SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}"
+                    TabType="Fixed">
+            <tabs:TabHostView.Tabs>
+                <tabs:BottomTabItem IconImageSource="home.svg" >
+                    
+                </tabs:BottomTabItem>
+                <tabs:BottomTabItem IconImageSource="running.svg" >
+                    
+                </tabs:BottomTabItem>
+                <tabs:BottomTabItem IconImageSource="dashboard.svg" >
+
+                </tabs:BottomTabItem>
+                <tabs:BottomTabItem IconImageSource="user.svg" >
+                   
+                </tabs:BottomTabItem>
+            </tabs:TabHostView.Tabs>
+        </tabs:TabHostView>-->
+    </VerticalStackLayout>
+</ContentPage>

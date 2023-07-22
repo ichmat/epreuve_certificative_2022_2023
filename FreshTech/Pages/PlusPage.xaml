@@ -1,0 +1,30 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.PlusPage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             Title="">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <Shadow Opacity="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <StackLayout VerticalOptions="FillAndExpand" >
+        <!-- Grand titre "Confidentialité" -->
+        <views:TitleSpan Title="Plus" GoBack="TitleSpan_GoBack" Margin="25"/>
+
+        <!-- Menu -->
+        <views:CustomButton Clicked="Inventaire_Clicked" ImageSource="awesome_boxes.svg" Title="Inventaire" />
+        <views:CustomButton Clicked="Reparation_Clicked"  ImageSource="ionic_md_build.svg" Title="Réparation" />
+        <views:CustomButton Clicked="Construction_Clicked" ImageSource="awesome_building.svg" Title="Construction" />
+        <views:CustomButton Clicked="Amelioration_Clicked" ImageSource="awesome_angle_double_up.svg" Title="Amélioration" />
+
+
+        <!-- Reste de la page vide -->
+        <StackLayout VerticalOptions="FillAndExpand" />
+    </StackLayout>
+
+</ContentPage>

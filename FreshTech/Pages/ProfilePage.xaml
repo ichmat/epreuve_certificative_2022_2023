@@ -1,0 +1,58 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             x:Class="FreshTech.Pages.ProfilePage"
+             BackgroundColor="White"
+             Title="">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <Shadow Opacity="0" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout VerticalOptions="FillAndExpand">
+        <!-- Ajouter l'image de profil et le nom de l'utilisateur ici -->
+        <VerticalStackLayout Margin="20">
+            <toolkit:AvatarView ImageSource="user.svg"   
+                                BorderColor="{StaticResource Gray500}"
+                                BorderWidth="3"
+                                HeightRequest="120"
+                                WidthRequest="120"
+                                Margin="0,0,0,20"
+                                CornerRadius="75" >
+                <toolkit:AvatarView.Shadow>
+                    <Shadow Brush="{StaticResource Gray500Brush}"
+                    Offset="0,5"
+                    Opacity="0.4"
+                        Radius="15"/>
+                </toolkit:AvatarView.Shadow>
+            </toolkit:AvatarView>
+
+            <Label x:Name="L_UserName" Text="Nom d'utilisateur" TextColor="Black" FontSize="Title" HorizontalOptions="Center" Margin="0,0,0,5" />
+            <Label x:Name="L_Mail" Text="john.doe@example.com" TextColor="Black" FontSize="Subtitle" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+        
+        <!-- Menu -->
+        <StackLayout >
+            <views:CustomButton Clicked="Objectif_Clicked" Color="White" ImageSource="metro_target.svg" Title="Objectifs" >
+                <views:CustomButton.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="#61D4FF" Offset="0" />
+                        <GradientStop Color="#0099CC" Offset="1" />
+                    </LinearGradientBrush>
+                </views:CustomButton.Background>
+            </views:CustomButton>
+            <views:CustomButton Clicked="Confidentialite_Clicked" ImageSource="ionic_ios_lock.svg" Title="Confidentialité" />
+            <views:CustomButton Clicked="Language_Clicked" ImageSource="material_language.svg" Title="Language" />
+            <views:CustomButton Clicked="Compte_Clicked"  ImageSource="material_face.svg" Title="Compte" />
+            <views:CustomButton Clicked="APropos_Clicked"  ImageSource="ionic_ios_information_circle_outline.svg" Title="À propos" />
+        </StackLayout>
+        
+    </StackLayout>
+
+</ContentPage>

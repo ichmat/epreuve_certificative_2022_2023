@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.CalibrationPage"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             Loaded="ContentPage_Loaded"
+             NavigationPage.HasBackButton="false"
+             Title="">
+    <Grid>
+        <!-- CONTENT -->
+        <Border x:Name="BorderContent" VerticalOptions="Fill" HorizontalOptions="Fill">
+            
+        </Border>
+
+        <ActivityIndicator Color="{StaticResource Primary}" x:Name="AI_Loading" WidthRequest="100" HeightRequest="100" Grid.ColumnSpan="10" Grid.RowSpan="10" />
+    </Grid>
+</ContentPage>

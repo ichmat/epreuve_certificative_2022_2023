@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Loaded="ContentView_Loaded"
+             
+             x:Class="FreshTech.Views.Game.GameMap">
+    <!-- IL EST NECESSAIRE D'UTILISER LES EVENT GestureRecognizers DANS CE CONTEXT CAR
+    LE MODE Orientation="Both" NE FONCTIONNE PAS CORRECTEMENT
+    LE PROBLEME SERA RESOLU EN CAS DE MISE À NIVEAU POUR LA VERSION .NET 8
+    -->
+    <ScrollView x:Name="SV_Map"
+                Scrolled="SV_Map_Scrolled"
+                Orientation="Both"
+                IsEnabled="False"
+                VerticalScrollBarVisibility="Never"
+                HorizontalScrollBarVisibility="Never"
+                >
+        <Grid SizeChanged="MainGrid_SizeChanged" x:Name="MainGrid" BackgroundColor="{StaticResource Gray100}">
+
+        </Grid>
+    </ScrollView>
+    <ContentView.GestureRecognizers>
+        <SwipeGestureRecognizer Direction="Left" Swiped="SwipeGestureRecognizer_SwipedLeft" />
+        <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureRecognizer_SwipedRight" />
+        <SwipeGestureRecognizer Direction="Up" Swiped="SwipeGestureRecognizer_SwipedUp" />
+        <SwipeGestureRecognizer Direction="Down" Swiped="SwipeGestureRecognizer_SwipedDown" />
+        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
+    </ContentView.GestureRecognizers>
+</ContentView>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Pages.AfterActivityPage"
+             SizeChanged="ContentPage_SizeChanged"
+             xmlns:views="clr-namespace:FreshTech.Views"
+             NavigationPage.HasBackButton="false"
+             xmlns:activity="clr-namespace:FreshTech.Views.Activity"
+             Title="">
+    <Grid>
+        <ScrollView Orientation="Vertical" x:Name="scollViews">
+            <VerticalStackLayout>
+                <views:TitleSpan Title="Activité terminé" Margin="25" />
+
+                <activity:ViewDifficulty x:Name="activityIndicator" IsEditable="False" />
+
+                <!-- LES OBJECTIFS -->
+                <views:DataContent ImageSource="ionic_ios_speedometer.svg" Title="###"
+                                   x:Name="DC_MeanSpeed"/>
+
+                <views:DataContent ImageSource="pin.svg" Title="###"
+                                   x:Name="DC_Distance" />
+
+                <views:DataContent ImageSource="ionic_ios_time.svg" Title="###"
+                                   x:Name="DC_Time" />
+
+                <views:DataContent ImageSource="pause.svg" Title="###"
+                                   x:Name="DC_Pause" />
+
+                <views:TitleSpan Title="Récompenses" Margin="25" />
+                
+                <!-- RECOMPENSE OBTENU -->
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="forest.svg" Title="###"
+                                   x:Name="DC_Award_Bois" ColorLeftIcon="#BF8600"/>
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box_open.svg" Title="###"
+                                   x:Name="DC_Award_Ferraille" ColorLeftIcon="#B1B1B1"/>
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Obj_Common" ColorLeftIcon="#1EFF00" />
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Obj_Rare" ColorLeftIcon="#0070DD" />
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Obj_Epic" ColorLeftIcon="#A335EE" />
+
+                <views:DataContent Color="{StaticResource Gray500}" ImageSource="awesome_box.svg" Title="###"
+                                   x:Name="DC_Obj_Legendary" ColorLeftIcon="#FF8000" />
+
+                <!-- bordure servant à faire la séparation entre le bouton valider et les éléments visuel -->
+                <Border HeightRequest="80"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button WidthRequest="170" VerticalOptions="End" HeightRequest="58" Clicked="Finish_Clicked" Text="TERMINER" BackgroundColor="{StaticResource Success}" TextColor="White" Margin="0,0,0,25"/>
+
+        <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" Color="{StaticResource Primary}" x:Name="AI_Loading" WidthRequest="100" HeightRequest="100"/>
+    </Grid>
+</ContentPage>

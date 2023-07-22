@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="113.767" height="144.367" viewBox="0 0 113.767 144.367">
+  <g id="Groupe_341" data-name="Groupe 341" transform="translate(-977.877 -392.436)">
+    <path id="Tracé_1" data-name="Tracé 1" d="M8.8,30.143l17.628-1.651L44,127H0Z" transform="matrix(0.809, 0.588, -0.588, 0.809, 1052.526, 408.196)" fill="#61d4ff"/>
+    <path id="Tracé_2" data-name="Tracé 2" d="M8.8,30.143l17.628-1.651,6.651,37.549-13.476,8.71Z" transform="translate(1003.788 436.092) rotate(-47)" fill="#61d4ff"/>
+    <path id="Tracé_3" data-name="Tracé 3" d="M8.8,30.143l17.388.283.579,37.34-6.313,1.066Z" transform="translate(1063.74 503.017) rotate(-149)" fill="#61d4ff"/>
+    <path id="Icon_awesome-map-pin" data-name="Icon awesome-map-pin" d="M7.875,22.285V33.3l1.548,2.322a.844.844,0,0,0,1.4,0L12.375,33.3V22.285a11.872,11.872,0,0,1-4.5,0ZM10.125,0A10.125,10.125,0,1,0,20.25,10.125,10.125,10.125,0,0,0,10.125,0Zm0,5.344a4.786,4.786,0,0,0-4.781,4.781.844.844,0,0,1-1.687,0,6.476,6.476,0,0,1,6.469-6.469.844.844,0,0,1,0,1.688Z" transform="translate(1069.202 392.436)" fill="#61d4ff"/>
+  </g>
+</svg>

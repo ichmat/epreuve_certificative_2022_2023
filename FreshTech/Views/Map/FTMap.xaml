@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Views.Map.FTMap"
+             SizeChanged="ContentView_SizeChanged"
+             Unloaded="ContentView_Unloaded">
+    <ContentView.Resources>
+        <Style TargetType="Button">
+            <Setter Property="TextTransform" Value="Uppercase"/>
+            <Setter Property="Margin" Value="10,0,10,10" />
+            <Setter Property="VerticalOptions" Value="Fill" />
+            <Setter Property="HorizontalOptions" Value="Fill" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource Gray500}" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        
+    </ContentView.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition />
+            <RowDefinition Height="65" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <!-- DISPLAY MAP -->
+        <Border Grid.RowSpan="5" Grid.ColumnSpan="5" x:Name="BorderMap" StrokeThickness="0">
+            
+        </Border>
+
+        <!-- SPEED -->
+        <Border Padding="15" x:Name="BorderSpeed" Grid.Column="0" Grid.Row="0" BackgroundColor="White" Margin="10,10,5,0">
+            <FlexLayout HorizontalOptions="Fill" JustifyContent="SpaceBetween">
+                <Image Source="ionic_ios_speedometer.svg" />
+                <Label x:Name="L_Speed" FontSize="Title"  HorizontalOptions="End" Margin="0,0,5,0" Grid.Row="0" Grid.Column="1" VerticalOptions="Center">0 KM/H</Label>
+            </FlexLayout>
+            
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                    Offset="0,5"
+                    Opacity="0.4"
+                        Radius="15"/>
+            </Border.Shadow>
+        </Border>
+
+        <!-- TIME ACTIVITY -->
+        <Border Padding="15" x:Name="BorderTimeActivity" Grid.Column="1" Grid.Row="0" BackgroundColor="White" Margin="10,10,10,0">
+            <FlexLayout HorizontalOptions="Fill" JustifyContent="SpaceBetween">
+                <Image Source="ionic_ios_time.svg" />
+                <Label x:Name="L_Time_Activity" FontSize="Title"  HorizontalOptions="End" Margin="0,0,5,0" Grid.Row="0" Grid.Column="1" VerticalOptions="Center">00:00:00</Label>
+            </FlexLayout>
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                    Offset="0,5"
+                    Opacity="0.4"
+                        Radius="15"/>
+            </Border.Shadow>
+        </Border>
+
+        <!-- OBJECTIVE -->
+        <Border Padding="5" Grid.Row="2" Margin="10,0,10,10" StrokeThickness="0" Grid.ColumnSpan="5" x:Name="BorderObjective" Background="{StaticResource White}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="5,0,0,0" Grid.Row="0" Grid.Column="0">Objectif</Label>
+                <Label x:Name="L_ObjectiveKm" Margin="0,0,5,0" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="End">0/0 Km</Label>
+
+                <!-- SHADOW INSET TOP -->
+                <Border Grid.ColumnSpan="2" Grid.Row="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Offset="0.05" Color="{StaticResource Gray100}"  />
+                            <GradientStop Offset="0.5" Color="Transparent"  />
+                            <GradientStop Offset="1" Color="Transparent"  />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Border x:Name="BorderBarParent" Grid.ColumnSpan="2" Grid.Row="1" HorizontalOptions="Fill" >
+                    <!-- BAR OBJECTIVE -->
+                    <Border x:Name="BorderBar" WidthRequest="0" HorizontalOptions="Start" BackgroundColor="{StaticResource Gray500}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20" />
+                        </Border.StrokeShape>
+                    </Border>
+                    
+                    <!-- SHADOW INSET LEFT AND RIGHT -->
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0.3" EndPoint="1,0.3">
+                            <GradientStop Offset="0" Color="{StaticResource Gray100}"  />
+                            <GradientStop Offset="0.02" Color="Transparent"  />
+                            <GradientStop Offset="0.98" Color="Transparent"  />
+                            <GradientStop Offset="1" Color="{StaticResource Gray100}"  />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                </Border>
+            </Grid>
+            
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                    Offset="0,5"
+                    Opacity="0.4"
+                        Radius="15"/>
+            </Border.Shadow>
+        </Border>
+        
+        <!-- BUTTONS BOTTOM -->
+        <Button x:Name="ButtonStart" Clicked="ButtonStart_Clicked" 
+                BackgroundColor="{StaticResource Success}" 
+                TextColor="{StaticResource White}"
+                Text="START"
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" />
+        
+        <Button x:Name="ButtonState" Clicked="ButtonState_Clicked"
+                BackgroundColor="{StaticResource Warning}"
+                TextColor="{StaticResource White}"
+                Text="PAUSE"
+                Grid.Row="3" Grid.Column="0" />
+
+        <Button x:Name="ButtonStop" Clicked="ButtonStop_Clicked"
+                BackgroundColor="{StaticResource Danger}"
+                TextColor="{StaticResource White}"
+                Text="STOP"
+                Grid.Row="3" Grid.Column="1" />
+
+        <!-- TIME PAUSE -->
+        <Border Padding="15" x:Name="BorderTimePause" Grid.Column="1" Grid.Row="3" BackgroundColor="White" Margin="10,0,10,10">
+            <FlexLayout HorizontalOptions="Fill" JustifyContent="SpaceBetween">
+                <Image Margin="5,0,0,0" Source="pause.svg" />
+                <VerticalStackLayout>
+                    <Label x:Name="L_Time_Pause_Actual" FontSize="Title" Margin="0,0,5,0" Grid.Row="0" Grid.Column="1" >00:00:00</Label>
+                    <Label x:Name="L_Time_Pause_Total" FontSize="Default" Margin="0,0,5,0" Grid.Row="0" Grid.Column="1" HorizontalOptions="End">00:00:00</Label>
+                </VerticalStackLayout>
+            </FlexLayout>
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                    Offset="0,5"
+                    Opacity="0.4"
+                        Radius="15"/>
+            </Border.Shadow>
+        </Border>
+
+        <ActivityIndicator Color="{StaticResource Primary}" x:Name="AI_Loading" WidthRequest="100" HeightRequest="100" Grid.ColumnSpan="10" Grid.RowSpan="10" />
+    </Grid>
+</ContentView>

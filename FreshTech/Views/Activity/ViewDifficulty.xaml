@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FreshTech.Views.Activity.ViewDifficulty"
+             SizeChanged="ContentView_SizeChanged"
+             HeightRequest="80" HorizontalOptions="Fill">
+    <ContentView.Resources>
+        <Style TargetType="Border">
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="8" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="WidthRequest" Value="146" />
+            <Setter Property="HeightRequest" Value="58" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="Margin" Value="10,0" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Stroke" Value="{StaticResource Gray500}" />
+            <Setter Property="VerticalOptions" Value="Fill" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="TextColor" Value="{StaticResource Gray500}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+    </ContentView.Resources>
+    <ScrollView Orientation="Horizontal" BackgroundColor="Transparent" HorizontalOptions="Center">
+        <HorizontalStackLayout HeightRequest="80">
+            <!-- EASY -->
+            <Border x:Name="BEasy">
+                <Label>Easy</Label>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Easy_Tapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- MEDIUM -->
+            <Border x:Name="BMedium">
+                <Label>Medium</Label>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Medium_Tapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- HARD -->
+            <Border x:Name="BHard">
+                <Label>Hard</Label>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Hard_Tapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- CUSTOM -->
+            <Border x:Name="BCustom">
+                <Label>Hard</Label>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Custom_Tapped" />
+                </Border.GestureRecognizers>
+            </Border>
+
+            <!-- EXHAUSTION -->
+            <Border x:Name="BExhaustion">
+                <Label>Exhaustion</Label>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Exhaustion_Tapped" />
+                </Border.GestureRecognizers>
+            </Border>
+        </HorizontalStackLayout>
+    </ScrollView>
+</ContentView>

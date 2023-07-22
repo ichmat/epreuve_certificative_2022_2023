@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="47.25" height="53.999" viewBox="0 0 47.25 53.999">
+  <defs>
+    <filter id="Icon_awesome-running" x="0" y="0" width="47.25" height="53.999" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Icon_awesome-running)">
+    <path id="Icon_awesome-running-2" data-name="Icon awesome-running" d="M19.125,6.75A3.375,3.375,0,1,0,15.75,3.375,3.375,3.375,0,0,0,19.125,6.75ZM7.994,22.322,6.953,24.749H2.25a2.25,2.25,0,0,0,0,4.5H7.7A3.368,3.368,0,0,0,10.8,27.2l.618-1.443-.75-.443a6.7,6.7,0,0,1-2.671-3ZM27,15.749H23.9l-1.832-3.744a6.747,6.747,0,0,0-4.344-3.582l-5-1.486A6.721,6.721,0,0,0,7.046,8.142L4.257,10.28a2.25,2.25,0,0,0,2.738,3.57l2.791-2.138a2.19,2.19,0,0,1,1.777-.432l1.034.307L9.962,17.733a4.512,4.512,0,0,0,1.849,5.647l5.975,3.528-1.931,6.169a2.25,2.25,0,1,0,4.294,1.344l2.225-7.106a3.389,3.389,0,0,0-1.522-3.824l-4.306-2.541,2.2-5.5,1.425,2.913A3.4,3.4,0,0,0,23.2,20.249H27a2.25,2.25,0,1,0,0-4.5Z" transform="translate(9 6)" fill="#686868"/>
+  </g>
+</svg>
