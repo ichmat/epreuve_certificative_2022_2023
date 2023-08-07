@@ -118,3 +118,7 @@ Puis effectuer le clonnage. Attendre que le projet ce configure.
 
 	![](Images/vs_project_manager.png)
 
+6. Lancer **WAMP** et le fichier `startngrok.bat` (ou lancer ngrok puis écrire la
+commande suivante `http https://localhost:7252`)
+
+Le projet est prêt, il ne reste plus qu'à le lancer.
