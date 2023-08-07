@@ -13,14 +13,14 @@ l’insister à se surpasser, offrir des mécanismes de progression pour encoura
 # Sommaire
 
 <!--TOC-->
-- [Prérequis](#prerequis)
-- [I Préparation](#i-preparation)
-  - [I.1 Ngrok](#i.1-ngrok)
-  - [I.2 WAMP](#i.2-wamp)
-- [II Lancement](#ii-lancement)
+- [I Prerequis](#i-prerequis)
+- [II Preparation](#ii-preparation)
+  - [II 1 Ngrok](#ii-1-ngrok)
+  - [II 2 WAMP](#ii-2-wamp)
+- [III Lancement](#iii-lancement)
 <!--/TOC-->
 
-# Prérequis 
+# I Prerequis 
 
 Outils nécessaires :
 - [Visual Studio 2022](https://visualstudio.microsoft.com/fr/vs/)
@@ -31,11 +31,11 @@ Outils nécessaires :
 Framework :
 - .NET 7
 
-# I Préparation 
+# II Préparation 
 
 Une fois les outils installés, il faudra passer par quelques étapes de configurations.
 
-## I.1 Ngrok
+## II 1 Ngrok
 
 1. Il faudra [s'incrire](https://dashboard.ngrok.com/signup)
 à Ngrok pour effectuer les redirection de requête pour l'API. (Si vous avez déjà un compte
@@ -65,7 +65,7 @@ commande suivante `http https://localhost:7252`, celui-ci devrait se lancer.
 
 ![screen ngrok](Images/ngrok.png)
 
-## I.2 WAMP
+## II 2 WAMP
 
 1. Lancer WAMP et attendre que tout les services soient lancés : ![](Images/wamp_logo_green.png)
 
@@ -88,7 +88,7 @@ commande suivante `http https://localhost:7252`, celui-ci devrait se lancer.
 
 > ⚠ il est important de respecter le nom de la BDD
 
-# II Lancement 
+# III Lancement 
 
 1. Lancer visual studio, puis **Cloner un dépôt**
 
