@@ -31,7 +31,7 @@ Outils nécessaires :
 Framework :
 - .NET 7
 
-# II Préparation 
+# II Preparation 
 
 Une fois les outils installés, il faudra passer par quelques étapes de configurations.
 
