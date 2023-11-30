@@ -12,6 +12,8 @@ on:
 jobs:
   test-build-WebApplicationAPI:
     runs-on: self-hosted
+    env:
+      DOTNET_INSTALL_DIR: "/home/ichma/job"
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
