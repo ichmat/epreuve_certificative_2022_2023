@@ -56,7 +56,7 @@ ngrok config add-authtoken <apiKey>
 4. (optionnel) Afin de faciliter les futures préparatif, nous allons créer un fichier `.bat` afin de lancer rapidement Ngrok. 
 Commencer par créer ce fichier `startngrok.bat`. Puis éditez ce fichier.
 
-> Le fichier `startngrok.bat` doit se trouver dans le même fichier que Ngrok pour fonctionner
+> Le fichier `startngrok.bat` doit se trouver dans le même fichier que Ngrok pour fonctionner.
 
 5. (optionnel) Ajouter `ngrok http https://localhost:7252`.
 
