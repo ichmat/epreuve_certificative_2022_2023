@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('error') {
       steps {
         script {
           stage ('Clean workspace') {
@@ -11,7 +11,7 @@ pipeline {
           }
           stage ('Git Checkout') {
             steps {
-              git branch: 'epreuve_certificative_2022_2023',
+              git branch: 'master',
               credentialsId: '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',
               url: 'https://github.com/ichmat/epreuve_certificative_2022_2023'
             }
